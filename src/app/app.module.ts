@@ -29,7 +29,7 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

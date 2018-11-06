@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   Validators
@@ -16,10 +15,10 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
-    }
+    Object.keys(this.validateForm.controls).forEach(key => {
+      this.validateForm.get(key).markAsDirty();
+      this.validateForm.get(key).updateValueAndValidity();
+    });
   }
 
   constructor(private fb: FormBuilder) {
