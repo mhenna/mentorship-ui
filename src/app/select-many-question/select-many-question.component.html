@@ -1,0 +1,12 @@
+<ng-multiselect-dropdown
+  [placeholder]="'custom placeholder'"
+  [data]="possibleAnswers"
+  [(ngModel)]="selectedItems"
+  [settings]="dropdownSettings"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  (onDeSelect)="onItemUnSelect($event)"
+  (onDeSelectAll)="onUnSelectAll($event)"
+  
+>
+</ng-multiselect-dropdown>

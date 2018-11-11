@@ -12,6 +12,11 @@ import en from '@angular/common/locales/en';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { McquestionComponent } from './mcquestion/mcquestion.component';
+import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
+import { TextQuestionComponent } from './text-question/text-question.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 registerLocaleData(en);
 
@@ -20,13 +25,18 @@ registerLocaleData(en);
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent,
+    McquestionComponent,
+    SelectManyQuestionComponent,
+    TextQuestionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgMultiSelectDropDownModule.forRoot(),    
     HttpClientModule,
     NgZorroAntdModule,
     ReactiveFormsModule
