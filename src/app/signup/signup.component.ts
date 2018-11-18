@@ -69,6 +69,7 @@ export class SignupComponent implements OnInit {
   }
   changeAnswer(response) {
     let question_id = response.questionId;
+    
     this.answers[question_id] = response.answer;
   }
 }
