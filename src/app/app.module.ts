@@ -17,7 +17,7 @@ import { McquestionComponent } from './mcquestion/mcquestion.component';
 import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
 import { TextQuestionComponent } from './text-question/text-question.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import {QuestionsService} from '../app/Services/questions.service'
 registerLocaleData(en);
 
 @NgModule({
@@ -41,7 +41,7 @@ registerLocaleData(en);
     NgZorroAntdModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, QuestionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

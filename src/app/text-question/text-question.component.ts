@@ -15,14 +15,10 @@ export class TextQuestionComponent implements OnInit {
     
    }
 
-  ngOnInit() {
-    console.log(this.question);
-    console.log(this.questionId);
-    
-    
+  ngOnInit() {   
   }
   onEnter(answer:any){
-    let response = {answer,"questionId":this.questionId}
+    let response = {"answer":[answer],"questionId":this.questionId}
     this.selectedAnswer.emit(response);
 
   }

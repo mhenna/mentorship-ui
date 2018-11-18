@@ -9,7 +9,10 @@ export class SelectManyQuestionComponent implements OnInit {
   @Input() question:string;
   @Input() possibleAnswers:any[];
   @Input() questionId:any;
+  @Input() numberOfChoises:any;  
   @Output() selectedAnswer= new EventEmitter<any>();
+  private  possibleAnswerstemp:any[];
+  
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
@@ -19,45 +22,48 @@ export class SelectManyQuestionComponent implements OnInit {
    }
 
   ngOnInit() {
-
-    this.selectedItems = [
+      this.selectedItems = [
      
     ];
+    
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'answer_id',
+      textField: 'text',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
+      limitSelection:this.numberOfChoises === 0?this.possibleAnswers.length: this.numberOfChoises,
       allowSearchFilter: true
     };
   }
   onItemSelect(item: any) {
-    console.log(item);
-    let response = {"answer":this.selectedItems,"questionId":this.questionId}    
+
+    let response = {}    
+      response = {"answer":this.selectedItems,"questionId":this.questionId}
+
     this.selectedAnswer.emit(response);
     
   }
+
+  private itemHelper(){
+
+  }
   onSelectAll(items: any) {
-    console.log(items);
     let response = {"answer":items,"questionId":this.questionId}    
     this.selectedAnswer.emit(response);
   }
   onItemUnSelect(item: any) {
-    console.log(item);
-    let response = {"answer":this.selectedItems,"questionId":this.questionId}    
+    let response = {}
+      response = {"answer":this.selectedItems,"questionId":this.questionId}
     this.selectedAnswer.emit(response);
     
   }
   onUnSelectAll(items: any) {
-    console.log(items);
     let response = {"answer":items,"questionId":this.questionId}    
     this.selectedAnswer.emit(response);
   }
   onOptionsSelected(answer:any){
-    console.log("kghj",answer.constructor.name)
-    let response = {answer,"questionId":this.questionId}
+     let response = {answer,"questionId":this.questionId}
     this.selectedAnswer.emit(response);
 
   }
