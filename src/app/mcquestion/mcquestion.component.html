@@ -1,0 +1,9 @@
+
+<div>
+<p>
+  {{question}}
+</p>
+<select class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'>
+  <option class='option' *ngFor='let option of possibleAnswers' [value]="option">{{option.text}}</option>
+</select>
+</div>

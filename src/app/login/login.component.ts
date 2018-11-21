@@ -4,6 +4,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { LoginService } from '../Services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,11 @@ export class LoginComponent implements OnInit {
 
   validateForm: FormGroup;
 
-  submitForm(): void {
-    Object.keys(this.validateForm.controls).forEach(key => {
-      this.validateForm.get(key).markAsDirty();
-      this.validateForm.get(key).updateValueAndValidity();
-    });
+  async submitForm() {
+    await this.loginService.login(this.validateForm.get('userName').value,this.validateForm.get('password').value);
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private loginService:LoginService) {
   }
 
   ngOnInit(): void {
