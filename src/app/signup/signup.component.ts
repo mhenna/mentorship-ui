@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +20,8 @@ export class SignupComponent implements OnInit {
   private selectedAnswer: any;
   private questions: any;
   private answers: any[] = [];
+  private loading = false;
+  private reset = false;
   validateForm: FormGroup;
   type: any;
   submitForm(): void {
@@ -28,7 +31,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  constructor(private fb: FormBuilder, private questionsService: QuestionsService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private questionsService: QuestionsService, private route: ActivatedRoute, private message: NzMessageService) {
 
   }
 
@@ -37,7 +40,9 @@ export class SignupComponent implements OnInit {
       this.route.queryParams
         .subscribe(async params => {
           this.type = params.type === 'mentee' ? 1 : 0;
+          this.loading = true;
           this.questions = await this.questionsService.getQuestions(this.type);
+          this.loading = false;
           this.questions.forEach(element => {
             let id = element.question_id
             let answer = { id: [] };
@@ -55,21 +60,31 @@ export class SignupComponent implements OnInit {
     }, 5000);
     this.submit();
   }
-  submit(): void {
+  async submit(): void {
     let answersProps = Object.keys(this.answers);
     let answerMessage = [];
     for (let i = 0; i < answersProps.length; i++) {
       answerMessage.push({ questionId: answersProps[i], answer: this.answers[answersProps[i]] })
     }
     let is_mentor = this.type === 1 ? false : true;
-    this.questionsService.submit({ is_mentor: is_mentor, answers: answerMessage });
+    try {
+    let res = await this.questionsService.submit({ is_mentor: is_mentor, answers: answerMessage });
+    this.message.success('Submitted successfully ', { nzDuration: 10000 });
+    this.reset = true;
+    setTimeout(()=>{
+      this.reset = false;
+    }, 2000);
+    } catch (error) {
+      this.message.error('Error while submitting ', { nzDuration: 10000 });
+
+    }
   }
   selectAnswer(answer): void {
 
   }
   changeAnswer(response) {
-    let question_id = response.questionId;
-    
+    const question_id = response.questionId;
+
     this.answers[question_id] = response.answer;
   }
 }

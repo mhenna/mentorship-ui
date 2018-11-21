@@ -2,9 +2,9 @@
   <app-header></app-header>
   <nz-content style="padding-top: 100px; padding-left: 200px; padding-right: 200px;">
       <nz-layout style="padding:24px 0; background: #fff">
-        <nz-sider [nzWidth]="200" style="background:#fff">
+        <nz-sider *ngIf="showSide" [nzWidth]="200" style="background:#fff">
           <ul nz-menu [nzMode]="'inline'" style="height:100%">
-            <li nz-submenu>
+            <li nz-submenu [nzOpen]="true">
               <span title><i nz-icon type="user"></i>Sign up as</span>
               <ul>
                 <a [routerLink]="['/signup']" [queryParams]="{ type: 'mentor'}"><li nz-menu-item>Mentor</li></a>

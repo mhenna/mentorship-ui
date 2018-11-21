@@ -1,15 +1,16 @@
-import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter, OnChanges} from '@angular/core';
 
 @Component({
   selector: 'app-select-many-question',
   templateUrl: './select-many-question.component.html',
   styleUrls: ['./select-many-question.component.css']
 })
-export class SelectManyQuestionComponent implements OnInit {
+export class SelectManyQuestionComponent implements OnInit, OnChanges {
   @Input() question:string;
   @Input() possibleAnswers:any[];
   @Input() questionId:any;
-  @Input() numberOfChoises:any;  
+  @Input() numberOfChoises:any; 
+  @Input() reset:boolean; 
   @Output() selectedAnswer= new EventEmitter<any>();
   private  possibleAnswerstemp:any[];
   
@@ -67,5 +68,24 @@ export class SelectManyQuestionComponent implements OnInit {
     this.selectedAnswer.emit(response);
 
   }
+  ngOnChanges(changes) {
+    // tslint:disable-next-line:forin
+    for (let propName in changes) {
+      console.log("CHANGES", changes);
+      if (propName === "reset"){
+        console.log("RESET");
+        
+        if (this.reset === true){
+          console.log("RESET TRUE", this.reset);
 
+         let response = {"answer":[],"questionId":this.questionId};
+         this.selectedAnswer.emit(response);
+         this.selectedItems = [];
+         setTimeout(()=>{
+          this.reset = false;
+         }, 2000)
+        }
+      }
+   }
+ }
 }

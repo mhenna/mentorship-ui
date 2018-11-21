@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mentorship-ui';
+  showSide = true;
+  constructor(router: Router) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url === '/' || val.url.includes('admin')) {
+          this.showSide = false;
+        } else {
+          this.showSide = true;
+        }
+      }
+    });
+  }
 }
