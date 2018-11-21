@@ -18,7 +18,10 @@ import { SelectManyQuestionComponent } from './select-many-question/select-many-
 import { TextQuestionComponent } from './text-question/text-question.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {QuestionsService} from '../app/Services/questions.service'
-import {LoginService}from './Services/login.service'
+import {LoginService}from './Services/login.service';
+import {UserService}from './Services/user.service';
+
+import { UserProfileComponent } from './user-profile/user-profile.component'
 registerLocaleData(en);
 
 @NgModule({
@@ -30,7 +33,8 @@ registerLocaleData(en);
     SignupComponent,
     McquestionComponent,
     SelectManyQuestionComponent,
-    TextQuestionComponent
+    TextQuestionComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ registerLocaleData(en);
     NgZorroAntdModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, QuestionsService,LoginService],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, UserService,QuestionsService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
