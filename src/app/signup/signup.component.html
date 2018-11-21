@@ -1,21 +1,28 @@
 <div nz-row>
-  <div nz-col nzSpan="3" nzOffset="3">
+
+  <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
     <div *ngFor="let question of questions">
       <div *ngIf="question.question_type=='Text'">
-        <app-text-question  (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
+        <app-text-question [reset]="reset" (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
       </div>
       <div *ngIf="question.question_type=='MCQ'">
         <app-select-many-question (selectedAnswer)='changeAnswer($event)'[numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
-          [questionId]="question.question_id"></app-select-many-question>
+        [reset]="reset" [questionId]="question.question_id"></app-select-many-question>
       </div>
       <div *ngIf="question.question_type=='Multi-Select'">
         <app-select-many-question (selectedAnswer)='changeAnswer($event)'  [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
-          [questionId]="question.question_id"></app-select-many-question>
+        [reset]="reset" [questionId]="question.question_id"></app-select-many-question>
       </div>
       <br>  
       <br>
     </div>
     <button nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
     
+  </div>
+  <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+      <ng-template #indicatorTemplate><i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+      </ng-template>
+      <nz-spin [nzIndicator]="indicatorTemplate">
+      </nz-spin>`
   </div>
 </div>

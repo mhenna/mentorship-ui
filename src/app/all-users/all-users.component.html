@@ -1,0 +1,13 @@
+<h2>All users</h2>
+<ul *ngIf="!loading">
+  <li *ngFor="let user of users; let i = index;">
+    <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a>
+  </li>
+</ul>
+
+<div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+    <ng-template #indicatorTemplate><i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+    </ng-template>
+    <nz-spin [nzIndicator]="indicatorTemplate">
+    </nz-spin>`
+</div>

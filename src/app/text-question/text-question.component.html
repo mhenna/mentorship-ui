@@ -1,5 +1,5 @@
 <div>
     <nz-form-label  >{{question}}</nz-form-label>
 
-    <input nz-input  #box (change)="onEnter(box.value)">
-    </div>
+    <input nz-input [(ngModel)]="text" #box (change)="onEnter(box.value)">
+</div>
