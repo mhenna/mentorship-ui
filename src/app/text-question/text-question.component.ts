@@ -18,7 +18,7 @@ export class TextQuestionComponent implements OnInit {
   ngOnInit() {   
   }
   onEnter(answer:any){
-    let response = {"answer":[answer],"questionId":this.questionId}
+    let response = {"answer":[{"text":answer}],"questionId":this.questionId}
     this.selectedAnswer.emit(response);
 
   }
