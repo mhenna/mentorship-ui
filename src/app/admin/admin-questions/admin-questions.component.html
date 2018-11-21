@@ -1,0 +1,61 @@
+<h4>Add new question</h4>
+<button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addQuestionField()">
+  <i nz-icon type="plus" theme="outline"></i>
+</button>
+
+<form nz-form>
+  <nz-form-item *ngFor="let question of questions" [ngSwitch]="question.type">
+    <nz-select (ngModelChange)="clearQuestion(question)" style="width: 120px;" [(ngModel)]="question.type" [ngModelOptions]="{standalone: true}" nzAllowClear
+      nzPlaceHolder="Choose">
+      <nz-option nzValue="MCQ" nzLabel="mcq"></nz-option>
+      <nz-option nzValue="MULTI_SELECT" nzLabel="multi select"></nz-option>
+      <nz-option nzValue="TEXT" nzLabel="text"></nz-option>
+    </nz-select>
+    <div [ngSwitch]="question.type">
+
+      <nz-form-control *ngSwitchCase="'TEXT'">
+        <nz-input-group>
+          <input [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}" nz-input placeholder="">
+        </nz-input-group>
+      </nz-form-control>
+
+      <nz-form-control *ngSwitchCase="'MCQ'">
+        <nz-input-group>
+          <input nz-input placeholder="" [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}">
+        </nz-input-group>
+
+        <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
+          <i nz-icon type="plus" theme="outline"></i>
+        </button>
+        <form nz-form>
+          <nz-form-item *ngFor="let answer of question.answers">
+            <nz-form-control [nzSpan]="14">
+              <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+
+      </nz-form-control>
+
+      <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
+        <nz-input-group>
+          <input nz-input placeholder="" [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}">
+        </nz-input-group>
+
+        <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
+          <i nz-icon type="plus" theme="outline"></i>
+        </button>
+        <form nz-form>
+          <nz-form-item *ngFor="let answer of question.answers">
+            <nz-form-control [nzSpan]="14">
+              <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+
+      </nz-form-control>
+
+    </div>
+
+  </nz-form-item>
+</form>
