@@ -1,10 +1,12 @@
-<div *ngFor="let question of questions">
+<div *ngFor="let question of tempQuestions | keyvalue">
   <div>
-    <p>{{question.question_id}}</p>
-    <p>{{question.question_text}}</p>
-    <p>{{question.answers}}</p>
-    
-      </div>
-  <br>  
+    <p>{{question.key}}</p>
+    <ul>
+      <li *ngFor="let answer of question.value">
+        <p>{{answer}}</p>
+      </li>
+    </ul>
+  </div>
+  <br>
   <br>
 </div>

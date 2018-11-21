@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(router: Router) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url === '/' || val.url.includes('admin')) {
+        if (val.url === '/' || val.url.includes('admin') || val.url.includes('user')) {
           this.showSide = false;
         } else {
           this.showSide = true;

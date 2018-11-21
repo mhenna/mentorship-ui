@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private questionsService: QuestionsService, private route: ActivatedRoute, private message: NzMessageService) {
 
   }
@@ -60,7 +61,7 @@ export class SignupComponent implements OnInit {
     }, 5000);
     this.submit();
   }
-  async submit(): void {
+  async submit() {
     let answersProps = Object.keys(this.answers);
     let answerMessage = [];
     for (let i = 0; i < answersProps.length; i++) {
