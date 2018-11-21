@@ -65,6 +65,7 @@ export class SignupComponent implements OnInit {
     let answersProps = Object.keys(this.answers);
     let answerMessage = [];
     for (let i = 0; i < answersProps.length; i++) {
+      
       answerMessage.push({ questionId: answersProps[i], answer: this.answers[answersProps[i]] })
     }
     let is_mentor = this.type === 1 ? false : true;
