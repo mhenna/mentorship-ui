@@ -1,35 +1,40 @@
-<h4>Add new question</h4>
+<nz-form-label [nzSpan]="12">Add new question</nz-form-label>
 <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addQuestionField()">
   <i nz-icon type="plus" theme="outline"></i>
 </button>
-
+<nz-divider></nz-divider>
 <form nz-form>
-  <nz-form-item *ngFor="let question of questions" [ngSwitch]="question.type">
+  <nz-form-item *ngFor="let question of questions; let i = index" [ngSwitch]="question.type">
+      <nz-form-label >Question type</nz-form-label>
     <nz-select (ngModelChange)="clearQuestion(question)" style="width: 120px;" [(ngModel)]="question.type" [ngModelOptions]="{standalone: true}" nzAllowClear
-      nzPlaceHolder="Choose">
-      <nz-option nzValue="MCQ" nzLabel="mcq"></nz-option>
-      <nz-option nzValue="MULTI_SELECT" nzLabel="multi select"></nz-option>
-      <nz-option nzValue="TEXT" nzLabel="text"></nz-option>
-    </nz-select>
+    nzPlaceHolder="Choose">
+    <nz-option nzValue="MCQ" nzLabel="mcq"></nz-option>
+    <nz-option nzValue="MULTI_SELECT" nzLabel="multi select"></nz-option>
+    <nz-option nzValue="TEXT" nzLabel="text"></nz-option>
+  </nz-select>
     <div [ngSwitch]="question.type">
 
       <nz-form-control *ngSwitchCase="'TEXT'">
         <nz-input-group>
+            <nz-form-label  >Question Text</nz-form-label>
           <input [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}" nz-input placeholder="">
         </nz-input-group>
       </nz-form-control>
 
       <nz-form-control *ngSwitchCase="'MCQ'">
         <nz-input-group>
+            <nz-form-label  >Question Text</nz-form-label>
           <input nz-input placeholder="" [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}">
         </nz-input-group>
 
-        <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
+        <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
           <i nz-icon type="plus" theme="outline"></i>
         </button>
         <form nz-form>
-          <nz-form-item *ngFor="let answer of question.answers">
+          <nz-form-item *ngFor="let answer of question.answers; let j = index">
+              
             <nz-form-control [nzSpan]="14">
+                <nz-form-label  >Option {{ j +1 }}</nz-form-label>
               <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
             </nz-form-control>
           </nz-form-item>
@@ -38,16 +43,19 @@
       </nz-form-control>
 
       <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
+          <nz-form-label  >Question Text</nz-form-label>
         <nz-input-group>
           <input nz-input placeholder="" [(ngModel)]="question.question" [ngModelOptions]="{standalone: true}">
         </nz-input-group>
 
-        <button nz-button nzType="primary" [nzSize]="'large'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
+        <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
           <i nz-icon type="plus" theme="outline"></i>
         </button>
         <form nz-form>
-          <nz-form-item *ngFor="let answer of question.answers">
+          <nz-form-item *ngFor="let answer of question.answers; let j = index ">
+              
             <nz-form-control [nzSpan]="14">
+                <nz-form-label  >Option {{ j +1 }}</nz-form-label>
               <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
             </nz-form-control>
           </nz-form-item>
@@ -56,6 +64,8 @@
       </nz-form-control>
 
     </div>
-
+    <nz-divider></nz-divider>
   </nz-form-item>
+  <button nz-button nzType="primary"><i nz-icon type="check" theme="outline"></i>Submit</button>
+  
 </form>

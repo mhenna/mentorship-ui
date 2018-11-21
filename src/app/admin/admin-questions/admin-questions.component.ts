@@ -9,17 +9,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class AdminQuestionsComponent implements OnInit {
 
   questions: any[];
-  index = 0;
-  form: FormGroup;
   constructor() { }
 
   ngOnInit() {
-    this.form = new FormGroup({});
     this.questions = [];
   }
 
   addQuestionField() {
-    this.index++;
     const question = {
       type: 'MCQ',
       question: '',
