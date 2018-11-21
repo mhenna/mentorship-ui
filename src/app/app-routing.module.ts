@@ -5,6 +5,8 @@ import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions
 import { SignupComponent } from './signup/signup.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
+
+import {UserProfileComponent} from './user-profile/user-profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent
+  },
+  {
+    path: 'user',
+    component: UserProfileComponent
   }
 ];
 

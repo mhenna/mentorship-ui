@@ -19,12 +19,15 @@ import { McquestionComponent } from './mcquestion/mcquestion.component';
 import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
 import { TextQuestionComponent } from './text-question/text-question.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import {QuestionsService} from '../app/Services/questions.service';
-import {LoginService} from './Services/login.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {AuthGuardService} from './Services/auth-guard.service';
 import { AuthService } from './Services/auth.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import {QuestionsService} from '../app/Services/questions.service'
+import {LoginService} from './Services/login.service';
+import {UserService} from './Services/user.service';
+
+import { UserProfileComponent } from './user-profile/user-profile.component'
 registerLocaleData(en);
 
 @NgModule({
@@ -38,7 +41,8 @@ registerLocaleData(en);
     McquestionComponent,
     SelectManyQuestionComponent,
     TextQuestionComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,7 @@ registerLocaleData(en);
   }),
   LocalStorageModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, QuestionsService, LoginService, AuthGuardService, AuthService],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, UserService, QuestionsService, LoginService, AuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
