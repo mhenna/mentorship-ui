@@ -1,12 +1,22 @@
-<div *ngFor="let question of tempQuestions | keyvalue">
-  <div>
-    <p>{{question.key}}</p>
-    <ul>
-      <li *ngFor="let answer of question.value">
-        <p>{{answer}}</p>
-      </li>
-    </ul>
-  </div>
-  <br>
-  <br>
+<div *ngIf="!loading">
+  <h3>{{user.email}} response </h3>
+    <div *ngFor="let question of tempQuestions | keyvalue" >
+        <div>
+          <p>{{question.key}}</p>
+          <ul>
+            <li *ngFor="let answer of question.value">
+              <p>{{answer}}</p>
+            </li>
+          </ul>
+        </div>
+        <br>
+        <br>
+      </div>
+</div>
+
+<div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+    <ng-template #indicatorTemplate><i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+    </ng-template>
+    <nz-spin [nzIndicator]="indicatorTemplate">
+    </nz-spin>`
 </div>

@@ -27,7 +27,8 @@ import {QuestionsService} from '../app/Services/questions.service'
 import {LoginService} from './Services/login.service';
 import {UserService} from './Services/user.service';
 
-import { UserProfileComponent } from './user-profile/user-profile.component'
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AllUsersComponent } from './all-users/all-users.component'
 registerLocaleData(en);
 
 @NgModule({
@@ -42,7 +43,8 @@ registerLocaleData(en);
     SelectManyQuestionComponent,
     TextQuestionComponent,
     UnauthorizedComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AllUsersComponent
   ],
   imports: [
     BrowserModule,

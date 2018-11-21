@@ -13,6 +13,19 @@
             </li>
           </ul>
         </nz-sider>
+
+        <nz-sider *ngIf="showSideAdmin" [nzWidth]="200" style="background:#fff">
+            <ul nz-menu [nzMode]="'inline'" style="height:100%">
+              <li nz-submenu [nzOpen]="true">
+                <span title><i nz-icon type="user"></i>Admin</span>
+                <ul>
+                  <a [routerLink]="['/admin/users']"><li nz-menu-item>All users</li></a>
+                  <a [routerLink]="['/admin/questions']"><li nz-menu-item>Add questions</li></a>
+                </ul>
+              </li>
+            </ul>
+          </nz-sider>
+
         <nz-content style="padding: 0 24px; min-height: 750px;">
           <router-outlet></router-outlet>
         </nz-content>

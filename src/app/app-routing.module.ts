@@ -7,6 +7,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
 
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import { AllUsersComponent } from './all-users/all-users.component';
 const routes: Routes = [
   {
     path: '',
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserProfileComponent
+  },
+  {
+    path: 'admin/users',
+    component: AllUsersComponent,
+    canActivate: [AuthGuardService]
   }
 ];
 

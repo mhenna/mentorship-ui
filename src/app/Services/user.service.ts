@@ -19,8 +19,18 @@ export class UserService {
     return new Promise((resolve, reject) => {
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');
-      reqHeaders.append('Access-Control-Allow-Origin', '*')
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
       this.http.get(environment.apiUrl + `/users/user/${user_id}`, {headers: reqHeaders})
+      .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
+
+  getUsers(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
+      this.http.get(environment.apiUrl + `/users/users`, {headers: reqHeaders})
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
