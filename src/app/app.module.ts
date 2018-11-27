@@ -26,9 +26,11 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import {QuestionsService} from '../app/Services/questions.service'
 import {LoginService} from './Services/login.service';
 import {UserService} from './Services/user.service';
-
+import { HttpModule } from '@angular/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { AllUsersComponent } from './all-users/all-users.component'
+import { AllUsersComponent } from './all-users/all-users.component';
+import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
+import { AdminService } from './Services/admin.service';
 registerLocaleData(en);
 
 @NgModule({
@@ -44,7 +46,8 @@ registerLocaleData(en);
     TextQuestionComponent,
     UnauthorizedComponent,
     UserProfileComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    InviteMentorComponent
   ],
   imports: [
     BrowserModule,
@@ -56,13 +59,15 @@ registerLocaleData(en);
     NgZorroAntdModule,
     ReactiveFormsModule,
     CommonModule,
+    HttpModule,
+   
     LocalStorageModule.withConfig({
       prefix: 'my-app',
       storageType: 'localStorage'
   }),
   LocalStorageModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, UserService, QuestionsService, LoginService, AuthGuardService, AuthService],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, UserService, QuestionsService, LoginService, AuthGuardService, AuthService, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

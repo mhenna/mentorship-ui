@@ -2,6 +2,11 @@
 <ul *ngIf="!loading">
   <li *ngFor="let user of users; let i = index;">
     <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a>
+  
+      <button class="btn btn-danger btn-sm" (click)="deleteUser(user.user_id)">Delete
+       
+      </button>
+     
   </li>
 </ul>
 

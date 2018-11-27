@@ -1,0 +1,24 @@
+<div class='col-md-6 col-sm-12'>
+  <div class='dashboard-container__section dashboard-container__section--border-coral'>
+    <!-- <alert *ngIf='invitationSuccess' type="success">
+      <strong>Invitation Sent!</strong>
+    </alert>
+    <alert *ngIf='invitationErr' type="danger">
+      <strong> {{errMessage}} </strong>
+    </alert> -->
+    <h3 class='dashboard-container__section__title'>Invite Admin</h3>
+    <form [formGroup]="inviteMentorForm" class="clr-form text-center" (ngSubmit)="invite()">
+      <div class="clr-form-control">
+        <div class="clr-control-container" [class.clr-error]="(inviteMentorForm.get('email').invalid && inviteMentorForm.get('email').touched) || (formSubmitted && inviteMentorForm.get('email').invalid)">
+          <input size="40" formControlName="email" type="email" class="clr-input text-center" id="exampleInputEmail1" placeholder="Enter email">
+          <span *ngIf="(inviteMentorForm.get('email').invalid && inviteMentorForm.get('email').touched) || (formSubmitted && inviteMentorForm.get('email').invalid)"
+            class="clr-subtext text-center">Please enter an email</span>
+        </div>
+      </div>
+      <div class="invite__btn-container">
+        <button class="btn btn-success btn-lg">
+          Invite</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../Services/user.service';
+import { AdminService} from '../Services/admin.service'
 
 @Component({
   selector: 'app-all-users',
@@ -10,7 +11,8 @@ export class AllUsersComponent implements OnInit {
 
   users: any = [];
   loading = false;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private adminService: AdminService) { }
 
   async ngOnInit() {
     try {
@@ -20,5 +22,18 @@ export class AllUsersComponent implements OnInit {
     } catch (error) {
     }
   }
+  deleteUser(id){
+
+    this.adminService.deleteUser(id).subscribe(async (res) => {
+
+      this.users = await this.userService.getUsers()
+
+    }, (err) => {
+      
+    });
+  }
+
+
+  
 
 }
