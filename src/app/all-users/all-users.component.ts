@@ -7,18 +7,60 @@ import { UserService } from '../Services/user.service';
   styleUrls: ['./all-users.component.css']
 })
 export class AllUsersComponent implements OnInit {
-
+  nameList = [{text:'mentor',value:true},
+  {text:'mentee',value:false}];
   users: any = [];
   loading = false;
-  constructor(private userService: UserService) { }
+  displayData :any=[];
+  sortName = null;
+  sortValue = null;
+  listOfSearchName = [];
+  searchAddress: string;  
 
+  constructor(private userService: UserService) { }
   async ngOnInit() {
     try {
       this.loading = true;
       this.users = await this.userService.getUsers();
       this.loading = false;
+ this.displayData = [ ...this.users ];
+
+      
     } catch (error) {
     }
+    
+  }
+  sort(sort: { key: string, value: string }): void {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;    
+    this.search();
   }
 
+  filter(listOfSearchName: string[], searchAddress: string): void {
+    this.listOfSearchName = listOfSearchName;
+    this.searchAddress = searchAddress;    
+    this.search();
+  }
+
+  
+ search(): void {
+    /** filter data **/
+    let data =[];
+    if(this.listOfSearchName.length==0)
+    {
+      const filterFunc = item => (true);
+      data = this.users.filter(item => filterFunc(item));
+         }
+    else{
+    const filterFunc = item => (this.listOfSearchName.includes(item.is_mentor));
+     data = this.users.filter(item => filterFunc(item));
+    
+    }
+    /** sort data **/
+    if (this.sortName && this.sortValue) {
+      this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+    } else {
+      this.displayData = data;
+    }
+  }
 }
