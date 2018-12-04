@@ -31,6 +31,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
 import { AdminService } from './Services/admin.service';
+import { CycleComponent } from './admin/cycle/cycle.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -47,7 +48,8 @@ registerLocaleData(en);
     UnauthorizedComponent,
     UserProfileComponent,
     AllUsersComponent,
-    InviteMentorComponent
+    InviteMentorComponent,
+    CycleComponent
   ],
   imports: [
     BrowserModule,

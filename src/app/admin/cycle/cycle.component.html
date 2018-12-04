@@ -1,0 +1,38 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired> Cycle Name</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <input nz-input id="cycleName" formControlName="cycleName">
+      <nz-form-explain *ngIf="validateForm.get('cycleName').dirty && validateForm.get('cycleName').errors">Please input your cycleName!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Start Date</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-date-picker nzShowTime formControlName="startDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>End Date</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-date-picker nzShowTime formControlName="endDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Registration Deadline</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-date-picker nzShowTime formControlName="deadline"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+
+
+
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 4 }">
+      <button nz-button nzType="primary">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
