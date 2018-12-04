@@ -5,7 +5,7 @@ import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions
 import { SignupComponent } from './signup/signup.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
-
+import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 const routes: Routes = [
@@ -34,6 +34,11 @@ const routes: Routes = [
     path: 'admin/users',
     component: AllUsersComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin/invite',
+    component: InviteMentorComponent
+
   }
 ];
 

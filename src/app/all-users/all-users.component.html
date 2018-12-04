@@ -9,7 +9,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of basicTable.data">
-      <td> <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a></td>
+      <td> <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a>  <button class="btn btn-danger btn-sm" (click)="deleteUser(user.user_id)">Delete
+       
+      </button></td>
       <td *ngIf="user.is_mentor==true">Mentor</td>
       <td *ngIf="user.is_mentor==true && user.matched.length==0">No matched</td>
       <td *ngIf="user.is_mentor==true && user.matched.length!=0">{{user.matched.length}} mentors</td>
@@ -23,6 +25,10 @@
 
 <!-- <ul >
   <li *ngFor="let user of users; let i = index;">
+    <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a>
+  
+    
+     
    
     
       
