@@ -8,6 +8,8 @@ import { AuthGuardService } from './Services/auth-guard.service';
 import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
+import { MatchUsersComponent } from './match-users/match-users.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +18,11 @@ const routes: Routes = [
   {
     path: 'admin/questions',
     component: AdminQuestionsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin/match',
+    component: MatchUsersComponent,
     canActivate: [AuthGuardService]
   },
   {

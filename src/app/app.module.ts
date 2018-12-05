@@ -29,6 +29,7 @@ import {UserService} from './Services/user.service';
 import { HttpModule } from '@angular/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
+import { MatchUsersComponent } from './match-users/match-users.component'
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
 import { AdminService } from './Services/admin.service';
 registerLocaleData(en);
@@ -47,6 +48,7 @@ registerLocaleData(en);
     UnauthorizedComponent,
     UserProfileComponent,
     AllUsersComponent,
+    MatchUsersComponent,
     InviteMentorComponent
   ],
   imports: [
