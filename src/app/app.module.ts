@@ -28,7 +28,8 @@ import {LoginService} from './Services/login.service';
 import {UserService} from './Services/user.service';
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { AllUsersComponent } from './all-users/all-users.component'
+import { AllUsersComponent } from './all-users/all-users.component';
+import { MatchUsersComponent } from './match-users/match-users.component'
 registerLocaleData(en);
 
 @NgModule({
@@ -44,7 +45,8 @@ registerLocaleData(en);
     TextQuestionComponent,
     UnauthorizedComponent,
     UserProfileComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    MatchUsersComponent
   ],
   imports: [
     BrowserModule,

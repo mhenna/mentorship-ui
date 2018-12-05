@@ -3,7 +3,7 @@
     <thead (nzSortChange)="sort($event)">
       <tr>
         <th nzShowSort nzSortKey="email" >email</th>
-        <th  nzShowFilter [nzFilters]="nameList" nzFilterKey="is_mentor" (nzFilterChange)="filter($event,searchAddress)">Role</th>
+        <th  nzShowFilter [nzFilters]="nameList" (nzFilterChange)="filter($event,searchAddress)">Role</th>
         <th >Matched</th>
       </tr>
     </thead>
@@ -12,10 +12,10 @@
       <td> <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a></td>
       <td *ngIf="user.is_mentor==true">Mentor</td>
       <td *ngIf="user.is_mentor==true && user.matched.length==0">No matched</td>
-      <td *ngIf="user.is_mentor==true && user.matched.length!=0">{{user.matched.length}} mentors</td>
+      <td *ngIf="user.is_mentor==true && user.matched.length!=0">{{user.matched.length}} mentees</td>
         <td *ngIf="user.is_mentor==false">Mentee</td>
       <td *ngIf="user.is_mentor==false && user.matched.length==0">No matched</td>
-      <td *ngIf="user.is_mentor==false&& user.matched.length!=0">{{user.matched.length}}  mentee</td>
+      <td *ngIf="user.is_mentor==false&& user.matched.length!=0">{{user.matched.length}}  mentors</td>
     
       </tr>
     </tbody>
