@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../Services/user.service';
+import { AdminService} from '../Services/admin.service'
 
 @Component({
   selector: 'app-all-users',
@@ -17,7 +18,8 @@ export class AllUsersComponent implements OnInit {
   listOfSearchName = [];
   searchAddress: string;  
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private adminService: AdminService) { }
   async ngOnInit() {
     try {
       this.loading = true;
@@ -35,6 +37,19 @@ export class AllUsersComponent implements OnInit {
     this.sortValue = sort.value;    
     this.search();
   }
+  deleteUser(id){
+
+    this.adminService.deleteUser(id).subscribe(async (res) => {
+
+      this.users = await this.userService.getUsers()
+
+    }, (err) => {
+      
+    });
+  }
+
+
+  
 
   filter(listOfSearchName: string[], searchAddress: string): void {
     this.listOfSearchName = listOfSearchName;
