@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions.component';
-
+import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
 import { SignupComponent } from './signup/signup.component';
 import { McquestionComponent } from './mcquestion/mcquestion.component';
 import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
@@ -60,6 +60,7 @@ registerLocaleData(en);
     HttpClientModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
+    ClarityModule,
     CommonModule,
     HttpModule,
    
