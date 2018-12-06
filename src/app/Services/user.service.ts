@@ -34,4 +34,22 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
+  matchUsers(menteeId,mentorId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
+      this.http.post(environment.apiUrl + `/users/match`, {'mentorId':mentorId,'menteeId':menteeId},{headers: reqHeaders})
+      .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
+  unMatchUsers(menteeId,mentorId): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
+      this.http.post(environment.apiUrl + `/users/unmatch`, {'mentorId':mentorId,'menteeId':menteeId},{headers: reqHeaders})
+      .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
 }

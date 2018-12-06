@@ -9,6 +9,8 @@ import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.componen
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import {CycleComponent} from './admin/cycle/cycle.component';
+import { MatchUsersComponent } from './match-users/match-users.component';
+
 const routes: Routes = [
   {
     path: 'admin/login',
@@ -21,6 +23,11 @@ const routes: Routes = [
   {
     path: 'admin/questions',
     component: AdminQuestionsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin/match',
+    component: MatchUsersComponent,
     canActivate: [AuthGuardService]
   },
   {

@@ -1,0 +1,48 @@
+<div nz-row>
+    <div nz-col nzSpan="8">
+      <h3 *ngIf="selectedMentor" >Selected Mentor: {{selectedMentor.email}}</h3>
+<nz-dropdown >
+  <a nz-dropdown>
+   mentors <i nz-icon type="down"></i>
+  </a>
+  <ul nz-menu>
+    <li *ngFor="let mentor of mentors" nz-menu-item (click)=changeMentor(mentor)>{{mentor.email}}</li>
+  </ul>
+</nz-dropdown>
+</div>
+<div nz-col nzSpan="8">
+    <h3 *ngIf="selectedMentee">Selected Mentee: {{selectedMentee.email}}</h3>
+<nz-dropdown> 
+  <a nz-dropdown>
+    mentees <i nz-icon type="down"></i>
+  </a>
+  <ul nz-menu>
+    <li *ngFor="let mentee of mentees" nz-menu-item (click)=changeMentee(mentee)>{{mentee.email}}</li>
+  </ul>
+</nz-dropdown>
+</div>
+<div nz-col nzSpan="8">
+<button nz-button nzType="primary" (click)="match()" [nzLoading]="isLoadingOne">Match</button>
+  
+</div>  
+</div>
+<nz-table *ngIf="!loading"  #basicTable [nzData]="displayData">
+    <thead >
+      <tr>
+        <th>mentor</th>
+        <th>mentee</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let matching of matchings">
+        <td>{{matching.mentorEmail}}</td>
+        <td>{{matching.menteeEmail}}</td>
+        <td><button nz-button nzType="danger" (click)="unmatch(matching.mentorId,matching.menteeId)" [nzLoading]="isLoadingOne">Unmatch</button>
+        </td>
+
+
+
+      </tr>
+    </tbody>
+  </nz-table>
