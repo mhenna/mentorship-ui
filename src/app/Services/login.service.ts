@@ -18,7 +18,7 @@ export class LoginService {
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');
       reqHeaders.append('Access-Control-Allow-Origin', '*')
-      this.http.post(environment.apiUrl + `/authorization/login`,{email,password}, {headers: reqHeaders})
+      this.http.post(environment.apiUrl + `/admin/login`,{email,password}, {headers: reqHeaders})
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }

@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions.component';
-
+import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
 import { SignupComponent } from './signup/signup.component';
 import { McquestionComponent } from './mcquestion/mcquestion.component';
 import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
@@ -32,6 +32,7 @@ import { AllUsersComponent } from './all-users/all-users.component';
 import { MatchUsersComponent } from './match-users/match-users.component'
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
 import { AdminService } from './Services/admin.service';
+import { CycleComponent } from './admin/cycle/cycle.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -48,6 +49,7 @@ registerLocaleData(en);
     UnauthorizedComponent,
     UserProfileComponent,
     AllUsersComponent,
+    CycleComponent,
     MatchUsersComponent,
     InviteMentorComponent
   ],
@@ -60,6 +62,7 @@ registerLocaleData(en);
     HttpClientModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
+    ClarityModule,
     CommonModule,
     HttpModule,
    
