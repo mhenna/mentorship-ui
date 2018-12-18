@@ -6,6 +6,7 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Registration Deadline</th>
+        <th>Skills</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -15,6 +16,9 @@
         <td>{{cycle.start_date}}</td>
         <td>{{cycle.end_date}}</td>
         <td>{{cycle.deadline}}</td>
+        <td *ngFor="let skill of cycle.skills">
+          <li>{{skill.name}}</li>
+        </td>
         <td>
           <a (click)="deleteCycle(cycle.id)" >Delete</a>
           <nz-divider nzType="vertical"></nz-divider>

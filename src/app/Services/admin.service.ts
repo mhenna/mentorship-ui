@@ -17,7 +17,7 @@ export class AdminService {
   }
   getCycles(): Observable<any> {
     this.headers.set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
-    return this.http.get(this.domain + '/cycles/', {headers: this.headers}).pipe(
+    return this.http.get(this.domain + '/cycles/skills', {headers: this.headers}).pipe(
       map((res) => res.json()));
 ;
   }
@@ -44,7 +44,7 @@ export class AdminService {
         data.append('deadline', deadline);
         data.append('name', name);
       const http = new XMLHttpRequest();
-      http.open('POST',this.domain + '/cycles/');
+      http.open('POST',this.domain + '/cycles/skills');
       http.setRequestHeader('Authorization', localStorage.getItem('token'))
       http.send(data);
       http.onload = () => {

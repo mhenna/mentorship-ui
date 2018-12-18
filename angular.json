@@ -29,7 +29,6 @@
             ],
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "./node_modules/@clr/ui/clr-ui.min.css",
               "src/styles.css"
             ],
             "scripts": []
