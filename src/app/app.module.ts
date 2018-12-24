@@ -55,7 +55,8 @@ registerLocaleData(en);
     MatchUsersComponent,
     InviteMentorComponent,
     EmailComponent,
-    DashboardComponent
+    DashboardComponent,
+    
   ],
   imports: [
     BrowserModule,

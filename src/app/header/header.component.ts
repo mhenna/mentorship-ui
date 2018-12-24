@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
     private headerButtonsService: HeaderButtonsService) { }
 
   ngOnInit() {
-
     this.headerButtonsService.isSignedIn.subscribe(updateSignIn => {
       
       this.signedIn = updateSignIn;
@@ -27,6 +26,7 @@ export class HeaderComponent implements OnInit {
       this.headerButtonsService.signOut();
     }
   }
+  
 
 
   logout() {

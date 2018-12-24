@@ -31,7 +31,7 @@ export class InviteMentorComponent implements OnInit {
       this.adminService.iniviteMentor(this.inviteMentorForm.value.email).subscribe((res) => {
         this.invitationSuccess = true;
       }, (err) => {
-        this.setErrorMessage(err.json()['body']);
+        // this.setErrorMessage(err.json()['body']);
       });
     }
   }

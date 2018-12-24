@@ -23,6 +23,7 @@ export class QuestionsService {
     });
   }
   submit(body): Promise<any> {
+    console.log("body", body)
     return new Promise((resolve, reject) => {
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');

@@ -43,6 +43,7 @@ export class SignupComponent implements OnInit {
           this.type = params.type === 'mentee' ? 1 : 0;
           this.loading = true;
           this.questions = await this.questionsService.getQuestions(this.type);
+          console.log(this.questions,"QUESTIONS")
           this.loading = false;
           this.questions.forEach(element => {
             let id = element.question_id

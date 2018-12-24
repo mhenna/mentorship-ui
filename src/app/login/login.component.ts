@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
   async submitForm() {
     try {
       const response = await this.loginService.login(this.validateForm.get('userName').value,this.validateForm.get('password').value);
+   
       this.localStorageService.set('token', response.token);
+      
       this.headerButtonsService.setIsSignedIn();
       this.router.navigate(['./admin/dashboard']);
     } catch (error) {
