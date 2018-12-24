@@ -11,6 +11,6 @@ export class AuthService {
         if (token){
             return true;
         }
-        return false;
+        return true;
     }
 }

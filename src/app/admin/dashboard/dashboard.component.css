@@ -1,0 +1,8 @@
+
+.dashboard-container__section {
+    background-color: white;
+    padding: 5px 10px;
+    border: solid 0.5px lightgrey;
+    /* border-top: solid 4px #6EA204; */
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}

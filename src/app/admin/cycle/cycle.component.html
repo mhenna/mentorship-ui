@@ -1,5 +1,5 @@
 <div>
-  <nz-table #basicTable [nzData]="cycles">
+  <nz-table #basicTable nzBordered [nzData]="cycles">
     <thead>
       <tr>
         <th>Name</th>
@@ -13,30 +13,33 @@
     <tbody>
       <tr *ngFor="let cycle of basicTable.data">
         <td>{{cycle.name}}</td>
-        <td>{{cycle.start_date}}</td>
-        <td>{{cycle.end_date}}</td>
-        <td>{{cycle.deadline}}</td>
+        <td>{{cycle.start_date| date:'short'}}</td>
+        <td>{{cycle.end_date | date:'short'}}</td>
+        <td>{{cycle.deadline | date:'short'}}</td>
         <td *ngFor="let skill of cycle.skills">
           <li>{{skill.name}}</li>
         </td>
-        <td>
-          <a (click)="deleteCycle(cycle.id)" >Delete</a>
+        <td *ngIf="cycle.skills.length == 0" >
+            <li> </li>
+        </td>
+       <td>
+          <a (click)="deleteCycle(cycle.id)">Delete</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="selectedCycle(cycle)">Edit</a>
         </td>
       </tr>
     </tbody>
   </nz-table>
-  
+
 </div>
 
 <nz-modal [(nzVisible)]="open" nzTitle="Edit Cycle" (nzOnCancel)="open = false" (nzOnOk)="editCycle()">
   <form nz-form [formGroup]="editForm" (ngSubmit)="Submit()">
 
-    <nz-form-item>
+    <nz-form-item >
       <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired> Name</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24">
-        <input nz-input id="name" formControlName="name">
+      <nz-form-control [nzSm]="4" [nzXs]="24">
+        <input nz-input id="name" formControlName="name" style="width: 200px;" >
         <nz-form-explain *ngIf="editForm.get('name').dirty && editForm.get('name').errors">Please input your cycleName!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
@@ -55,52 +58,55 @@
     <nz-form-item>
       <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired> Deadline</nz-form-label>
       <nz-form-control [nzSm]="16" [nzXs]="24">
-        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"formControlName="deadline"></nz-date-picker>
+        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="deadline"></nz-date-picker>
       </nz-form-control>
     </nz-form-item>
-   
+
   </form>
 </nz-modal>
 
 
 
 <div>
-<form nz-form [formGroup]="validateForm" (ngSubmit)="newCycle()">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="newCycle()">
 
-  <nz-form-item>
-    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired> Cycle Name</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <input nz-input id="cycleName" formControlName="cycleName">
-      <nz-form-explain *ngIf="validateForm.get('cycleName').dirty && validateForm.get('cycleName').errors">Please input your cycleName!</nz-form-explain>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Start Date</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="startDate"></nz-date-picker>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>End Date</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="endDate"></nz-date-picker>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Registration Deadline</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss"formControlName="deadline"></nz-date-picker>
-    </nz-form-control>
-  </nz-form-item>
-
-
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired> Cycle Name</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <input nz-input id="cycleName" formControlName="cycleName" style="width: 200px;">
+        <nz-form-explain *ngIf="validateForm.get('cycleName').dirty && validateForm.get('cycleName').errors">Please input your cycleName!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Start Date</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="startDate"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>End Date</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="endDate"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Registration Deadline</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="deadline"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
 
 
 
-  <nz-form-item>
-    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 4 }">
-      <button nz-button nzType="primary">Submit</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 4 }">
+        <button nz-button nzType="primary">Submit</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <!-- <a (click)="active = true">email</a> -->
 </div>
+

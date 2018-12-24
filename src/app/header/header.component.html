@@ -1,6 +1,9 @@
 <nz-header style="position:fixed; width:100%; z-index: 3;">
-    <div class="logo"></div>
+    
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
-            <li nz-menu-item><a href="#" [routerLink]="['']">Home</a></li>
+            <li >
+              <a href="#" [routerLink]="['']">Home</a>
+              <a (click)="logout()" style= "float:right;" *ngIf="signedIn">Logout</a>
+            </li>
     </ul>
   </nz-header>

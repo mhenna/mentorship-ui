@@ -8,15 +8,18 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'mentorship-ui';
-  showSide = true;
+  showSide = false;
   showSideAdmin = false;
   constructor(router: Router) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url === '/' || val.url.includes('admin') || val.url.includes('user')) {
+        if ( val.url.includes('admin') && !val.url.includes('login')) {
           this.showSide = false;
           this.showSideAdmin = true;
-        } else {
+        } else if (val.url.includes('admin') && val.url.includes('login')){
+          this.showSide = false;
+          this.showSideAdmin = false;
+        }else {
           this.showSide = true;
           this.showSideAdmin = false;
         }

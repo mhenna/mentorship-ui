@@ -1,0 +1,33 @@
+ <!-- <button nz-button nzType="primary" (click)="modalOpen()" >Submit</button> -->
+ <a (click)="modalOpen()">Send Email</a>
+<nz-modal [(nzVisible)]="active" nzTitle="Send Email" (nzOnCancel)="active = false" (nzOnOk)="sendEmail()">
+  <form nz-form [formGroup]="emailForm" >
+
+
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" >E-mail</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="email" type="email" id="email">
+      </nz-form-control>
+    </nz-form-item>
+   
+
+
+
+
+  </form>
+  <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <nz-dropdown>
+    <a nz-dropdown>
+      Send To
+      <i nz-icon type="down"></i>
+    </a>
+    <ul nz-menu>
+      <li nz-menu-item (click)="log('mentors')">Mentors</li>
+      <li nz-menu-item (click)="log('mentees')">Mentees</li>
+      <li nz-menu-item (click)="log('seperate')">specific person</li>
+    </ul>
+  </nz-dropdown>
+</nz-modal>

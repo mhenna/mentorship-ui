@@ -88,4 +88,24 @@ export class AdminService {
 
       })
     }
+
+
+
+    sendEmail(type, email, body): Observable<string> {
+      return Observable.create(observer=>{
+        const data = new FormData();
+        data.append('type', type);
+        data.append('email', email);
+        data.append('emailBody', body);
+      const http = new XMLHttpRequest();
+      http.open('POST',this.domain + '/admin/email');
+      http.setRequestHeader('Authorization', localStorage.getItem('token'))
+      http.send(data);
+      http.onload = () => {
+        observer.next(http.status);
+        observer.complete();
+      };   
+
+      })
+    }
 }

@@ -20,7 +20,9 @@ export class CycleComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
   cycles = [];
   open= false;
+  
   selectedId: any;
+ 
 
   editForm = new FormGroup({
     
@@ -107,6 +109,9 @@ selectedCycle(cycle){
   this.selectedId=cycle.id
   
   }
+
+
+ 
 
 
     

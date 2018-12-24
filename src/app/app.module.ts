@@ -33,6 +33,8 @@ import { MatchUsersComponent } from './match-users/match-users.component'
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
 import { AdminService } from './Services/admin.service';
 import { CycleComponent } from './admin/cycle/cycle.component';
+import { EmailComponent } from './admin/email/email.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -51,7 +53,9 @@ registerLocaleData(en);
     AllUsersComponent,
     CycleComponent,
     MatchUsersComponent,
-    InviteMentorComponent
+    InviteMentorComponent,
+    EmailComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

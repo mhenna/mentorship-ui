@@ -9,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
+import {HeaderButtonsService } from '../Services/header-buttons.service'
 
 @Component({
   selector: 'app-login',
@@ -22,18 +23,20 @@ export class LoginComponent implements OnInit {
   async submitForm() {
     try {
       const response = await this.loginService.login(this.validateForm.get('userName').value,this.validateForm.get('password').value);
-      this.localStorageService.add('token', response.token);
-      this.router.navigate(['./admin/questions']);
+      this.localStorageService.set('token', response.token);
+      this.headerButtonsService.setIsSignedIn();
+      this.router.navigate(['./admin/dashboard']);
     } catch (error) {
       this.message.error('invalid credentials', { nzDuration: 5000 });
     }
   }
 
   // tslint:disable-next-line:max-line-length
-  constructor(private fb: FormBuilder,private loginService:LoginService, private message: NzMessageService, private localStorageService: LocalStorageService, public router: Router,public auth: AuthService) {
+  constructor(private fb: FormBuilder,private loginService:LoginService, private headerButtonsService : HeaderButtonsService, private message: NzMessageService, private localStorageService: LocalStorageService, public router: Router,public auth: AuthService) {
   }
 
   ngOnInit(): void {
+   this.localStorageService.remove('token');
     if (!this.auth.isAuthenticated()){
       this.router.navigate(['./signup']);
     }

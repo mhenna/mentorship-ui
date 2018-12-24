@@ -10,6 +10,8 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import {CycleComponent} from './admin/cycle/cycle.component';
 import { MatchUsersComponent } from './match-users/match-users.component';
+import { EmailComponent } from './admin/email/email.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -17,8 +19,16 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'admin/dashboard',
+    component: DashboardComponent
+  },
+  {
     path: 'admin/cycle',
     component: CycleComponent
+  },
+  {
+    path: 'admin/email',
+    component: EmailComponent
   },
   {
     path: 'admin/questions',

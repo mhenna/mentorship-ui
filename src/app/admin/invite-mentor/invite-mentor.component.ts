@@ -12,6 +12,7 @@ export class InviteMentorComponent implements OnInit {
   invitationErr: boolean;
   invitationSuccess: boolean;
   errMessage: string;
+  active = false;
   inviteMentorForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
    
@@ -42,6 +43,10 @@ export class InviteMentorComponent implements OnInit {
   setErrorMessage(message: string) {
     this.invitationErr = true;
     this.errMessage = message;
+  }
+  modalOpen(){
+    this.active = true;
+   
   }
 
 }
