@@ -20,11 +20,13 @@ const routes: Routes = [
   },
   {
     path: 'admin/dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'admin/cycle',
-    component: CycleComponent
+    component: CycleComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'admin/email',
@@ -41,7 +43,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'signup',
+    path: '',
     component: SignupComponent
   },
   {
@@ -59,7 +61,8 @@ const routes: Routes = [
   },
   {
     path: 'admin/invite',
-    component: InviteMentorComponent
+    component: InviteMentorComponent,
+    canActivate: [AuthGuardService]
 
   }
 ];

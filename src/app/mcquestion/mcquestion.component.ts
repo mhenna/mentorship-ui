@@ -17,7 +17,7 @@ export class McquestionComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.question);
-    console.log(this.possibleAnswers);
+    console.log(this.possibleAnswers, "KKKKKKKKKKKKK");
     console.log(this.questionId);
     
     

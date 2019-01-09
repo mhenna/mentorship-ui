@@ -96,12 +96,12 @@ export class AdminService {
     })
   }
 
-  addCycle(startDate, endDate, deadline, name): Observable<string> {
+  addCycle(startDate, endDate, name): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('start_date', startDate);
       data.append('end_date', endDate);
-      data.append('deadline', deadline);
+      
       data.append('name', name);
       const http = new XMLHttpRequest();
       http.open('POST', this.domain + '/cycles/');

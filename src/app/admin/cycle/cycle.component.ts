@@ -23,6 +23,7 @@ export class CycleComponent implements OnInit {
  deadlines: any
   selectedId: any;
   skills: any
+  cyclesFetched = false;
   
  
  
@@ -51,6 +52,7 @@ export class CycleComponent implements OnInit {
       cycleName    : [null ],
      
     });
+    
     this.getCycles();
     this.adminService.getSkills().subscribe(res=>{
 
@@ -77,6 +79,7 @@ editDeadline(){
   })
 }
   addSkill(skillId, cycleId){
+    this.cyclesFetched= false;
     this.adminService.addSkilltoCycle(skillId,cycleId).subscribe(async (res) => {
       
       console.log("Skill added")
@@ -90,7 +93,9 @@ editDeadline(){
     });
   }
   newCycle(){
-    this.adminService.addCycle(this.validateForm.value.startDate.toISOString(),this.validateForm.value.endDate.toISOString(),this.validateForm.value.deadline.toISOString(),this.validateForm.value.cycleName).subscribe(async (res) => {
+    this.cyclesFetched= false;
+    console.log(this.validateForm.value.startDate.toISOString(), "DATE")
+    this.adminService.addCycle(this.validateForm.value.startDate.toISOString(),this.validateForm.value.endDate.toISOString(),this.validateForm.value.cycleName).subscribe(async (res) => {
 
       console.log("cycle added")
        await this.getCycles();
@@ -103,6 +108,7 @@ editDeadline(){
  
   }
   editCycle(){
+    this.cyclesFetched= false;
     this.adminService.editCycle(this.selectedId,this.editForm.value.startDate,this.editForm.value.endDate,this.editForm.value.name).subscribe(async (res) => {
       this.open =false;
       console.log("cycle added")
@@ -121,6 +127,7 @@ editDeadline(){
     this.adminService.getCycles().subscribe(async (res) => {
 
        this.cycles =  await res
+       this.cyclesFetched= true;
       
       
 
@@ -129,6 +136,7 @@ editDeadline(){
     });
   }
   deleteCycle(id){
+    this.cyclesFetched= false;
     console.log("DELETE")
     this.adminService.deleteCycle(id).subscribe(async (res) => {
       console.log("DELETE")

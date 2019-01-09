@@ -6,7 +6,7 @@
 
 
 
-    <nz-form-item>
+    <nz-form-item *ngIf="flag">
       <nz-form-label [nzSpan]="6" >E-mail</nz-form-label>
       <nz-form-control [nzSpan]="14">
         <input nz-input formControlName="email" type="email" id="email">
@@ -18,7 +18,7 @@
 
 
   </form>
-  <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  <textarea rows="4" nz-input [(ngModel)]="inputValue"> </textarea>
   <nz-dropdown>
     <a nz-dropdown>
       Send To

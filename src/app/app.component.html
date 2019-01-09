@@ -5,8 +5,8 @@
       <li nz-submenu [nzOpen]="true">
         <span title><i nz-icon type="user"></i>Sign up as</span>
         <ul>
-          <a [routerLink]="['/signup']" [queryParams]="{ type: 'mentor'}"><li nz-menu-item>Mentor</li></a>
-          <a [routerLink]="['/signup']" [queryParams]="{ type: 'mentee'}"><li nz-menu-item>Mentee</li></a>
+          <a [routerLink]="['/']" [queryParams]="{ type: 'mentor'}"><li nz-menu-item>Mentor</li></a>
+          <a [routerLink]="['/']" [queryParams]="{ type: 'mentee'}"><li nz-menu-item>Mentee</li></a>
         </ul>
       </li>
     </ul>
@@ -29,7 +29,7 @@
       <nz-layout style="padding:24px 0; background: #fff">
    
 
-        <nz-content style="padding: 0 24px; min-height: 750px;">
+        <nz-content style="padding: 0 24px; min-height: 750px; display: flex; flex-direction: column;">
           <router-outlet></router-outlet>
         </nz-content>
       </nz-layout>

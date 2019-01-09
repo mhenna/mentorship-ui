@@ -1,0 +1,21 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* justify-content: strech; */
+}
+
+.style{
+
+    display   : 'block';
+    height    : '30px';
+    /* lineHeight: '30px'; */
+}
+.example {
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+  }

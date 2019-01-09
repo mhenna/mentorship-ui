@@ -1,28 +1,126 @@
-<div nz-row>
 
-  <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
-    <div *ngFor="let question of questions">
-      <div *ngIf="question.question_type=='Text'">
-        <app-text-question [reset]="reset" (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
-      </div>
-      <div *ngIf="question.question_type=='MCQ'">
-        <app-select-many-question (selectedAnswer)='changeAnswer($event)'[numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
-        [reset]="reset" [questionId]="question.question_id"></app-select-many-question>
-      </div>
-      <div *ngIf="question.question_type=='Multi-Select'">
-        <app-select-many-question (selectedAnswer)='changeAnswer($event)'  [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
-        [reset]="reset" [questionId]="question.question_id"></app-select-many-question>
-      </div>
-      <br>  
-      <br>
-    </div>
-    <button nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
+<div class="example"  *ngIf="loading">
+    <nz-spin  [nzSize]="'large'"  ></nz-spin></div>
+
+
+<nz-tabset [nzType]="'card'"  *ngIf="!loading"  [nzSize]="'large'" [nzAnimated]="true" style="flex:1;">
+  <nz-tab nzTitle='Personal info' >
+
+    <form nz-form [formGroup]="editForm">
     
-  </div>
-  <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
-      <ng-template #indicatorTemplate><i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
-      </ng-template>
-      <nz-spin [nzIndicator]="indicatorTemplate">
-      </nz-spin>`
-  </div>
-</div>
+      <nz-alert nzType="error" nzCloseable nzMessage="Error " nzDescription="Please fill in all the required information so you can complete your sign up process"
+        (nzOnClose)="afterClose()" *ngIf="error">
+
+      </nz-alert>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>First Name</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="firstName" formControlName="firstName" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('firstName').dirty && editForm.get('firstName').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Last Name</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="lastName" formControlName="lastName" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('lastName').dirty && editForm.get('lastName').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>email</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="email" formControlName="email" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('email').dirty && editForm.get('email').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+     
+              
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsExperience</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="yearsExperience" formControlName="yearsExperience" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('yearsExperience').dirty && editForm.get('yearsExperience').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsOrganization</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="yearsOrganization" formControlName="yearsOrganization" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('yearsOrganization').dirty && editForm.get('yearsOrganization').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsInRole</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('yearsInRole').dirty && editForm.get('yearsInRole').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>department</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="department" formControlName="department" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>position</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="position" formControlName="position" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('position').dirty && editForm.get('position').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>location</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="location" formControlName="location" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('location').dirty && editForm.get('location').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>directManager</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="directManager" formControlName="directManager" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('directManager').dirty && editForm.get('directManager').errors">Please input your first name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button nzType="primary" (click)="logg()">Submit</button>
+
+
+    </form>
+  </nz-tab>
+
+  <nz-tab nzTitle='Mentorship Details'  [nzDisabled]="flag">
+    <div nz-row>
+
+      <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
+        <div *ngFor="let question of questions">
+          {{question.question_type}}
+          <div *ngIf="question.question_type=='Text'">
+            <app-text-question [reset]="reset" (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
+          </div>
+          <div *ngIf="question.question_type=='MCQ'">
+            <app-select-many-question (selectedAnswer)='changeAnswer($event)' [numberOfChoises]="1" [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]="reset" [questionId]="question.id"></app-select-many-question>
+          </div>
+          <div *ngIf="question.question_type=='MULTI_SELECT'">
+
+            <app-select-many-question (selectedAnswer)='changeAnswer($event)' [numberOfChoises]='0' [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]="reset" [questionId]="question.id"></app-select-many-question>
+          </div>
+          <br>
+          <br>
+        </div>
+        <button nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
+
+      </div>
+      <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+        <ng-template #indicatorTemplate>
+          <i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+        </ng-template>
+        <nz-spin [nzIndicator]="indicatorTemplate">
+        </nz-spin>`
+      </div>
+    </div>
+  </nz-tab>
+</nz-tabset>

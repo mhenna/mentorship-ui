@@ -20,6 +20,7 @@ export class EmailComponent implements OnInit {
   email: any;
   inputValue : string
   active= false;
+  flag=false;
 
   emailForm = new FormGroup({
     
@@ -58,6 +59,11 @@ modalOpen(){
   log(x){
 
     this.type = x;
+    if(this.type=="seperate"){
+      this.flag= true;
+    }else{
+      this.flag= false;
+    }
 
   }
 }

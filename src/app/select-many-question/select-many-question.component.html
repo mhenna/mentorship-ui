@@ -1,7 +1,7 @@
 <nz-form-label  >{{question}}</nz-form-label>
 <ng-multiselect-dropdown
   [placeholder]="'Select answers here'"
-  [data]="possibleAnswers"
+  [data]="answers"
   [(ngModel)]="selectedItems"
   [settings]="dropdownSettings"
   (onSelect)="onItemSelect($event)"

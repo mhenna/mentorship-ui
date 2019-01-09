@@ -16,7 +16,7 @@ export class AppComponent {
         if ( val.url.includes('admin') && !val.url.includes('login')) {
           this.showSide = false;
           this.showSideAdmin = true;
-        } else if (val.url.includes('admin') && val.url.includes('login')){
+        } else if ((val.url.includes('admin') && val.url.includes('login'))||val.url.includes('unauthorized')){
           this.showSide = false;
           this.showSideAdmin = false;
         }else {

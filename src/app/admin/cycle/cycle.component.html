@@ -1,6 +1,6 @@
-<div>
+<div *ngIf="cyclesFetched">
   <h1>Cycles</h1>
-  <nz-table #basicTable nzBordered>
+  <nz-table #basicTable nzBordered [nzData]="cycles">
     <thead>
       <tr>
         <th>Name</th>
@@ -42,7 +42,8 @@
   </nz-table>
 
 </div>
-
+<div class="example">
+<nz-spin  [nzSize]="'large'" *ngIf="!cyclesFetched" ></nz-spin></div>
 <nz-modal [(nzVisible)]="open" nzTitle="Edit Cycle" (nzOnCancel)="open = false" (nzOnOk)="editCycle()">
   <form nz-form [formGroup]="editForm" (ngSubmit)="Submit()">
 
