@@ -12,6 +12,7 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
   @Input() numberOfChoises:any; 
   @Input() reset:boolean; 
   @Output() selectedAnswer= new EventEmitter<any>();
+  @Output() deletedAnswer= new EventEmitter<any>();
   private  possibleAnswerstemp:any[];
   
   dropdownList = [];
@@ -65,9 +66,14 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
     this.selectedAnswer.emit(response);
   }
   onItemUnSelect(item: any) {
+    let answer=[]
+    for (let i=0;i<this.selectedItems.length;i++){
+      answer[i]=this.selectedItems[i].item
+    }
     let response = {}
-      response = {"answer":this.selectedItems,"questionId":this.questionId}
-    this.selectedAnswer.emit(response);
+    console.log(answer,"deleted")
+      response = {"answer":answer,"questionId":this.questionId}
+    this.deletedAnswer.emit(response);
     
   }
   onUnSelectAll(items: any) {
@@ -81,17 +87,18 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges(changes) {
+
     // tslint:disable-next-line:forin
     for (let propName in changes) {
-      console.log("CHANGES", changes);
+      
       if (propName === "reset"){
-        console.log("RESET");
+        
         
         if (this.reset === true){
           console.log("RESET TRUE", this.reset);
 
          let response = {"answer":[],"questionId":this.questionId};
-         this.selectedAnswer.emit(response);
+         this.deletedAnswer.emit(response);
          this.selectedItems = [];
          setTimeout(()=>{
           this.reset = false;

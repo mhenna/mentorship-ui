@@ -2,8 +2,9 @@
     
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
             <li >
-              <a href="#" [routerLink]="['']">Home</a>
-              <a (click)="logout()" style= "float:right;" *ngIf="signedIn">Logout</a>
+              <!-- <a href="#" [routerLink]="['']">Home</a> -->
+              <a *ngIf="signedIn" (click)="logout()" style= "float:right;" >Logout</a>
+              <a *ngIf="unauthorized" (click)="login()" style= "float:right;" >Login</a>
             </li>
     </ul>
   </nz-header>

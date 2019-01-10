@@ -3,8 +3,8 @@
     <nz-spin  [nzSize]="'large'"  ></nz-spin></div>
 
 
-<nz-tabset [nzType]="'card'"  *ngIf="!loading"  [nzSize]="'large'" [nzAnimated]="true" style="flex:1;">
-  <nz-tab nzTitle='Personal info' >
+<nz-tabset [nzType]="'card'"  *ngIf="!loading"  [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true" style="flex:1;">
+  <nz-tab nzTitle='Personal info'   [nzDisabled]="!flag">
 
     <form nz-form [formGroup]="editForm">
     
@@ -101,22 +101,22 @@
   </nz-tab>
 
   <nz-tab nzTitle='Mentorship Details'  [nzDisabled]="flag">
-    <div nz-row>
+    <div nz-row *ngIf="!registered">
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
         <div *ngFor="let question of questions">
           {{question.question_type}}
           <div *ngIf="question.question_type=='Text'">
-            <app-text-question [reset]="reset" (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
+            <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
           </div>
           <div *ngIf="question.question_type=='MCQ'">
-            <app-select-many-question (selectedAnswer)='changeAnswer($event)' [numberOfChoises]="1" [possibleAnswers]='question.answers'
-              [question]='question.question_text' [reset]="reset" [questionId]="question.id"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [numberOfChoises]="1" [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
           <div *ngIf="question.question_type=='MULTI_SELECT'">
 
-            <app-select-many-question (selectedAnswer)='changeAnswer($event)' [numberOfChoises]='0' [possibleAnswers]='question.answers'
-              [question]='question.question_text' [reset]="reset" [questionId]="question.id"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [numberOfChoises]='0' [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
           <br>
           <br>
@@ -131,6 +131,11 @@
         <nz-spin [nzIndicator]="indicatorTemplate">
         </nz-spin>`
       </div>
+    </div>
+    <div nz-row *ngIf="registered">
+      <h1>
+      we've recieved your info you'll get an email when we find you a match
+    </h1>
     </div>
   </nz-tab>
 </nz-tabset>

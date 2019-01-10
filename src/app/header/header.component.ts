@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { HeaderButtonsService } from '../Services/header-buttons.service'
 
 @Component({
@@ -9,15 +9,16 @@ import { HeaderButtonsService } from '../Services/header-buttons.service'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  signedIn:boolean;
+  signedIn: boolean;
+  unauthorized: boolean;
 
-  constructor( private router: Router,
+  constructor(private router: Router,
     private localStorageService: LocalStorageService,
     private headerButtonsService: HeaderButtonsService) { }
 
   ngOnInit() {
     this.headerButtonsService.isSignedIn.subscribe(updateSignIn => {
-      
+
       this.signedIn = updateSignIn;
     });
     if (this.localStorageService.get('token')) {
@@ -25,8 +26,19 @@ export class HeaderComponent implements OnInit {
     } else {
       this.headerButtonsService.signOut();
     }
+
+
+
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url.includes('unauthorized')) {
+          this.unauthorized = true
+
+        }
+      }
+    })
   }
-  
+
 
 
   logout() {
@@ -34,6 +46,10 @@ export class HeaderComponent implements OnInit {
     this.headerButtonsService.signOut();
     this.router.navigate(['./admin/login']);
   }
-  
+  login() {
+    this.router.navigate(['./admin/login']);
+
+  }
+
 
 }

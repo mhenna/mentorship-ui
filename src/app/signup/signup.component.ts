@@ -22,15 +22,18 @@ export class SignupComponent implements OnInit {
   private question: string;
   private possibleAnswers: any[];
   private selectedAnswer: any;
+  private deletedAnswer: any;
   private questions: any;
   private answers: any[] = [];
   private loading = false;
   private reset = false;
   error = false;
+  registered = false;
   validateForm: FormGroup;
   flag = true;
   index = 0;
   tab:any;
+  ex:any;
   type: any;
   radioValue="a";
   userid:any;
@@ -103,13 +106,15 @@ export class SignupComponent implements OnInit {
 
   async ngOnInit() {
     try {
+    
       this.headerButtonsService.signOut();
       this.localStorageService.remove('token')
       console.log(this.flag, "FLAG")
       this.route.queryParams
         .subscribe(async params => {
-          this.type = params.type === 'mentee' ? 1 : 0;
+          this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
+          
           this.questions = await this.questionsService.getQuestions(this.type);
           console.log(this.questions,"kkkkk")
           this.loading = false;
@@ -159,13 +164,14 @@ export class SignupComponent implements OnInit {
     try {
       for (let i = 0; i < this.Response.length; i++) {
 
-        this.questionsService.submit(this.userid.id,this.Response[i].id, this.Response[i].answer)
+         this.questionsService.submit(this.userid.id,this.Response[i].id, this.Response[i].answer)
         
         
       }
 
       this.message.success('Submitted successfully ', { nzDuration: 10000 });
-      // this.reset = true;
+      this.reset = true;
+      this.registered= true;
       // for (let i = 0; i < this.Response.length; i++) {
 
       //   this.Response[i].answer.length = 0;
@@ -200,6 +206,22 @@ export class SignupComponent implements OnInit {
     }
     console.log(this.Response, "RRRRRRR")
   }
+
+  editAnswer(answer){
+
+    for (let i = 0; i < this.Response.length; i++) {
+
+      if (answer.questionId == this.Response[i].id) {
+
+
+        console.log(this.index, "1")
+        this.Response[i].answer= answer.answer
+        console.log(this.Response[i].answer, 'EDITED')
+        // this.Response[i].answer=answer.answer
+
+      }
+    }
+  }
   logg() {
 
     let mentor = false
@@ -212,7 +234,7 @@ export class SignupComponent implements OnInit {
       !this.editForm.get('position').errors && !this.editForm.get('location').errors && !this.editForm.get('directManager').errors) {
       console.log("***********NO ERROR*************")
       this.flag = false;
-      if (this.type == 0) {
+      if (this.type == 1) {
         mentor = true;
         console.log(mentor,"MENTOR")
       }
@@ -221,12 +243,15 @@ export class SignupComponent implements OnInit {
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value).subscribe(async (res) => {
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
+          this.editForm.reset()
+          
+          this.ex= 2
 
         })
     }
     else {
       console.log("****************ERROR******************")
-      if (this.type == 0){
+      if (this.type == 1){
         console.log("MENTOR")
       }
       else{
