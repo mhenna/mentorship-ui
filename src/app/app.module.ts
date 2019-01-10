@@ -35,6 +35,7 @@ import { AdminService } from './Services/admin.service';
 import { CycleComponent } from './admin/cycle/cycle.component';
 import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -56,6 +57,7 @@ registerLocaleData(en);
     InviteMentorComponent,
     EmailComponent,
     DashboardComponent,
+    HomeComponent,
     
   ],
   imports: [

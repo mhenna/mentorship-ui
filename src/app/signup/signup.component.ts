@@ -38,17 +38,50 @@ export class SignupComponent implements OnInit {
   ResponseFinal: any[] = [];
   editForm = new FormGroup({
 
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    yearsExperience: new FormControl('', [Validators.required]),
-    yearsOrganization: new FormControl('', [Validators.required]),
-    yearsInRole: new FormControl('', [Validators.required]),
-    department: new FormControl('', [Validators.required]),
-    position: new FormControl('', [Validators.required]),
-    location: new FormControl('', [Validators.required]),
-    directManager: new FormControl('', [Validators.required]),
-    mentor: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@(dell|emc)\.com$")
+    ]),
+    yearsExperience: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+    ]),
+    yearsOrganization: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+    ]),
+    yearsInRole: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+    ]),
+    department: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    position: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    location: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    directManager: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
+    mentor: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]+')
+    ]),
 
 
   });
@@ -78,6 +111,7 @@ export class SignupComponent implements OnInit {
           this.type = params.type === 'mentee' ? 1 : 0;
           this.loading = true;
           this.questions = await this.questionsService.getQuestions(this.type);
+          console.log(this.questions,"kkkkk")
           this.loading = false;
           this.questions.forEach(element => {
             // let id = element.question_id
@@ -171,8 +205,12 @@ export class SignupComponent implements OnInit {
     let mentor = false
     if (!(this.editForm.get('firstName').value == "" && this.editForm.get('lastName').value == "" &&
       this.editForm.get('email').value == "" && this.editForm.get('yearsExperience').value == "" && this.editForm.get('yearsOrganization').value == "" &&
-      this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
-      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "")) {
+      this.editForm.get('yearsInRole').value == "", this.editForm.get('department').value == "", this.editForm.get('position').value == "",
+      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "") && !this.editForm.get('firstName').errors && 
+      !this.editForm.get('lastName').errors && !this.editForm.get('email').errors && !this.editForm.get('yearsExperience').errors && 
+      !this.editForm.get('yearsOrganization').errors && !this.editForm.get('yearsInRole').errors && !this.editForm.get('department').errors && 
+      !this.editForm.get('position').errors && !this.editForm.get('location').errors && !this.editForm.get('directManager').errors) {
+      console.log("***********NO ERROR*************")
       this.flag = false;
       if (this.type == 0) {
         mentor = true;
@@ -185,10 +223,15 @@ export class SignupComponent implements OnInit {
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
 
         })
-
     }
     else {
-      console.log(this.radioValue,"MENTOR")
+      console.log("****************ERROR******************")
+      if (this.type == 0){
+        console.log("MENTOR")
+      }
+      else{
+        console.log("MENTEE")
+      }
       this.error = true;
     }
 

@@ -1,0 +1,22 @@
+h1 {
+    font-size: 80px;
+    text-align: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+[nz-button] {
+    font-size: 24px;
+    height: 75px;
+    width: 200px;
+}
+
+.mentor {
+    text-align:centre;
+    margin-right: 30px;
+}
+.mentee > * {
+    display:inline-block;
+}

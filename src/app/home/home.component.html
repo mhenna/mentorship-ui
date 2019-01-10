@@ -1,0 +1,8 @@
+<h1>
+  Sign Up As
+</h1>
+
+<div class = "wrapper">
+  <a [routerLink]="['signup/']" [queryParams]="{ type: 'mentor'}"><button class = "mentor" nz-button nzSize='large' nzType="primary">Mentor</button></a>
+  <a [routerLink]="['signup/']" [queryParams]="{ type: 'mentee'}"><button class = "mentee" nz-button nzSize='large' nzType="primary">Mentee</button></a>
+</div>

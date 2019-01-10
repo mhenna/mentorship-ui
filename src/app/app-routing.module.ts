@@ -12,6 +12,7 @@ import {CycleComponent} from './admin/cycle/cycle.component';
 import { MatchUsersComponent } from './match-users/match-users.component';
 import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   },
   {
     path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'signup',
     component: SignupComponent
   },
   {
