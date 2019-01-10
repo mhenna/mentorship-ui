@@ -17,9 +17,15 @@ export class HeaderComponent implements OnInit {
     private headerButtonsService: HeaderButtonsService) { }
 
   ngOnInit() {
+    console.log('1')
     this.headerButtonsService.isSignedIn.subscribe(updateSignIn => {
 
       this.signedIn = updateSignIn;
+      console.log('####  is signed in')
+    });
+    this.headerButtonsService.unauthorized.subscribe(temp => {
+      console.log('****************', temp)
+      this.unauthorized = temp;
     });
     if (this.localStorageService.get('token')) {
       this.headerButtonsService.setIsSignedIn();
@@ -38,8 +44,6 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
-
-
 
   logout() {
     this.localStorageService.remove('token');

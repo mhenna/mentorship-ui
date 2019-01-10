@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { HeaderButtonsService } from './Services/header-buttons.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ export class AppComponent {
   title = 'mentorship-ui';
   showSide = false;
   showSideAdmin = false;
-  constructor(router: Router) {
+  constructor(router: Router, headerService: HeaderButtonsService) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if ( val.url.includes('admin') && !val.url.includes('login')) {
@@ -23,6 +24,12 @@ export class AppComponent {
           this.showSide = true;
           this.showSideAdmin = false;
         }
+
+        if (val.url.includes('unauthorized'))
+          headerService.setUnauthorized()
+      
+          if ( val.url.includes('admin') && val.url.includes('login'))
+            headerService.setAuthorized()
       }
     });
   }

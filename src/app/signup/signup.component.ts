@@ -169,7 +169,7 @@ export class SignupComponent implements OnInit {
         
       }
 
-      this.message.success('Submitted successfully ', { nzDuration: 10000 });
+      // this.message.success('Submitted successfully ', { nzDuration: 10000 });
       this.reset = true;
       this.registered= true;
       // for (let i = 0; i < this.Response.length; i++) {
@@ -181,7 +181,7 @@ export class SignupComponent implements OnInit {
         this.reset = false;
       }, 2000);
     } catch (error) {
-      this.message.error('Error while submitting ', { nzDuration: 10000 });
+      // this.message.error('Error while submitting ', { nzDuration: 10000 });
 
     }
   }
