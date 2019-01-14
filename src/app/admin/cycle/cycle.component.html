@@ -112,20 +112,20 @@
     <h1>New Cycle</h1>
     <form nz-form [formGroup]="validateForm" (ngSubmit)="newCycle()">
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired> Cycle Name</nz-form-label>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="nickname" nzRequired> Cycle Name</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="cycleName" formControlName="cycleName" style="width: 200px;">
           <nz-form-explain *ngIf="validateForm.get('cycleName').dirty && validateForm.get('cycleName').errors">Please input your cycleName!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Start Date</nz-form-label>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>Start Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="startDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>End Date</nz-form-label>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>End Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="endDate"></nz-date-picker>
         </nz-form-control>
@@ -142,13 +142,13 @@
 
     <form nz-form [formGroup]="deadlineForm" (ngSubmit)="editDeadline()">
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Mentor's Deadline</nz-form-label>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentor's Deadline</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="mentorDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Mentee's Deadline</nz-form-label>
+        <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentee's Deadline</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="menteeDate"></nz-date-picker>
         </nz-form-control>
