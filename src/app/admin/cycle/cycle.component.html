@@ -8,6 +8,8 @@
         <th>End Date</th>
         <th>Skills</th>
         <th>Action</th>
+        <th>Mentors</th>
+        <th>Mentees</th>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +35,40 @@
             </a>
             <ul nz-menu *ngFor="let skill of skills">
               <li nz-menu-item (click)=addSkill(skill.id,cycle.id)>{{skill.name}}</li>
-
+            </ul>
+          </nz-dropdown>
+        </td>
+        <td>
+          <nz-dropdown>
+            <a nz-dropdown>
+              Mentors
+              <i nz-icon type = "down"></i>
+            </a>
+            <ul nz-menu>
+              <div *ngFor = "let mentor of mentors">
+                <ng-template [ngIf]="mentor.cycles.includes(cycle.id)">
+                  <li nz-menu-item>
+                    {{mentor.email}}
+                  </li>
+                </ng-template>
+              </div>
+            </ul>
+          </nz-dropdown>
+        </td>
+        <td>
+          <nz-dropdown>
+            <a nz-dropdown>
+              Mentees
+              <i nz-icon type = "down"></i>
+            </a>
+            <ul nz-menu>
+              <div *ngFor = "let mentee of mentees">
+                <ng-template [ngIf]="mentee.cycles.includes(cycle.id)">
+                  <li nz-menu-item>
+                    {{mentee.email}}
+                  </li>
+                </ng-template>
+              </div>
             </ul>
           </nz-dropdown>
         </td>
@@ -105,7 +140,7 @@
   <div nz-col nzSpan="12">
     <h1>Deadlines</h1>
 
-    <form nz-form [formGroup]="deadlineForm" (ngSubmit)="editDeadlines()">
+    <form nz-form [formGroup]="deadlineForm" (ngSubmit)="editDeadline()">
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Mentor's Deadline</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
