@@ -11,6 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { UserService } from '../Services/user.service';
 import { HeaderButtonsService } from '../Services/header-buttons.service';
 import { LocalStorageService } from 'angular-2-local-storage';
+import { AdminService } from '../Services/admin.service';
 
 @Component({
   selector: 'app-signup',
@@ -39,6 +40,11 @@ export class SignupComponent implements OnInit {
   userid:any;
   Response: any[] = [];
   ResponseFinal: any[] = [];
+  cycles = [];
+  cyclesFetched = false;
+  current = false;
+  currentCycleId :any;
+
   editForm = new FormGroup({
 
     firstName: new FormControl('', [
@@ -100,6 +106,7 @@ export class SignupComponent implements OnInit {
     private headerButtonsService: HeaderButtonsService,
     private questionsService: QuestionsService,
     private localStorageService: LocalStorageService,
+    private adminService : AdminService,
     private route: ActivatedRoute, private message: NzMessageService, private userservice: UserService) {
 
   }
@@ -107,6 +114,7 @@ export class SignupComponent implements OnInit {
   async ngOnInit() {
     try {
     
+      this.getCycles()
       this.headerButtonsService.signOut();
       this.localStorageService.remove('token')
       console.log(this.flag, "FLAG")
@@ -238,10 +246,14 @@ export class SignupComponent implements OnInit {
         mentor = true;
         console.log(mentor,"MENTOR")
       }
+
+      
+
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
         this.editForm.get('email').value, mentor, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
-        this.editForm.get('location').value, this.editForm.get('directManager').value).subscribe(async (res) => {
+        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId).subscribe(async (res) => {
+          console.log("______________________________-------------------", this.currentCycleId)
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
           this.editForm.reset()
           
@@ -264,5 +276,34 @@ export class SignupComponent implements OnInit {
   }
   afterClose() {
     this.error = false;
+  }
+
+  getCycles(){
+    this.adminService.getCycles().subscribe(async (res) => {
+
+      this.cycles =  await res
+      this.cyclesFetched= true;
+      
+      // console.log("*****CYCLES", this.cycles)
+      //console.log("***************HELLLLLLOOOOOOOOOOO", this.cycles[0].start_date.toISOString())
+
+      var now = new Date()
+
+      var i;
+
+      for (i = 0; i < this.cycles.length; i++) {
+        if (now >= new Date(this.cycles[i].start_date) && now <= new Date(this.cycles[i].end_date)) {
+          this.current = true;
+          this.currentCycleId = this.cycles[i].id
+          // console.log("INSIDE IF")
+        }
+        // console.log("iteration number ", i, " cycle id ", this.cycles[i].id)
+      }
+
+      // console.log(this.currentCycleId, "**************")
+
+    }, (err) => {
+      
+    });
   }
 }

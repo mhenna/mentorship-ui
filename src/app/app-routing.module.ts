@@ -13,6 +13,7 @@ import { MatchUsersComponent } from './match-users/match-users.component';
 import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { CycleMembersComponent } from './cycle-members/cycle-members.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'admin/cycle/members/:cycleId',
+    component: CycleMembersComponent,
+  },
+  {
     path: 'signup',
     component: SignupComponent
   },
@@ -68,7 +73,6 @@ const routes: Routes = [
     path: 'admin/invite',
     component: InviteMentorComponent,
     canActivate: [AuthGuardService]
-
   }
 ];
 

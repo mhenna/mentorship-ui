@@ -36,6 +36,7 @@ import { CycleComponent } from './admin/cycle/cycle.component';
 import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { CycleMembersComponent } from './cycle-members/cycle-members.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -58,7 +59,7 @@ registerLocaleData(en);
     EmailComponent,
     DashboardComponent,
     HomeComponent,
-    
+    CycleMembersComponent,    
   ],
   imports: [
     BrowserModule,

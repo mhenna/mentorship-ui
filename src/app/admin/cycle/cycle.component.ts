@@ -1,5 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
-import {Date} from 'date-format'
+import {Dates} from 'date-format'
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { NullInjector } from '@angular/core/src/di/injector';
 import { AdminService } from '../../Services/admin.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-cycle',
@@ -24,7 +25,9 @@ export class CycleComponent implements OnInit {
   selectedId: any;
   skills: any
   cyclesFetched = false;
-  
+  current = false;
+  currentCycleId :any;
+
  
  
 
@@ -43,12 +46,12 @@ export class CycleComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
-  private adminService: AdminService ) { }
+  private adminService: AdminService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
-      startDate     : Date,
-      endDate : Date,
+      startDate     : Dates,
+      endDate : Dates,
       cycleName    : [null ],
      
     });
@@ -126,15 +129,32 @@ editDeadline(){
   getCycles(){
     this.adminService.getCycles().subscribe(async (res) => {
 
-       this.cycles =  await res
-       this.cyclesFetched= true;
+      this.cycles =  await res
+      this.cyclesFetched= true;
       
-      
+      // console.log("*****CYCLES", this.cycles)
+      //console.log("***************HELLLLLLOOOOOOOOOOO", this.cycles[0].start_date.toISOString())
+
+      var now = new Date()
+
+      var i;
+
+      for (i = 0; i < this.cycles.length; i++) {
+        if (now >= new Date(this.cycles[i].start_date) && now <= new Date(this.cycles[i].end_date)) {
+          this.current = true;
+          this.currentCycleId = this.cycles[i].id
+          // console.log("INSIDE IF")
+        }
+        // console.log("iteration number ", i, " cycle id ", this.cycles[i].id)
+      }
+
+      // console.log(this.currentCycleId, "**************")
 
     }, (err) => {
       
     });
   }
+
   deleteCycle(id){
     this.cyclesFetched= false;
     console.log("DELETE")
@@ -142,7 +162,10 @@ editDeadline(){
       console.log("DELETE")
      await this.getCycles();
      
-    
+    if (id === this.currentCycleId) {
+      this.currentCycleId = -1
+      this.current = false
+    }
 
    }, (err) => {
      
