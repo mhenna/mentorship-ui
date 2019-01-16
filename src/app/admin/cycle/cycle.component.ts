@@ -27,7 +27,6 @@ export class CycleComponent implements OnInit {
   cyclesFetched = false;
   current = false;
   currentCycleId :any;
-
  
  
 
