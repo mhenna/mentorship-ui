@@ -1,0 +1,25 @@
+<div *ngIf="membersFetched">
+  <h1>Members</h1>
+  <nz-table #basicTable nzBordered [nzData]="members">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Years of Experience</th>
+        <th>IsMentor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{member.email}}</td>
+        <td>{{member.departement}}</td>
+        <td>{{member.years_of_experience}}</td>
+        <td>{{member.is_mentor}}</td>
+      </tr>    
+    </tbody>
+  </nz-table>
+</div>
+<div class="example">
+    <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
+</div>
+<button nz-button nzType="primary" [routerLink] = "['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>

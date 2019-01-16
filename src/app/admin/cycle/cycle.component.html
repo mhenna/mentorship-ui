@@ -8,8 +8,7 @@
         <th>End Date</th>
         <th>Skills</th>
         <th>Action</th>
-        <th>Mentors</th>
-        <th>Mentees</th>
+        <th>Members</th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +38,8 @@
           </nz-dropdown>
         </td>
         <td>
-          <nz-dropdown>
+          <a [routerLink]="['/admin/cycle/members', cycle.id]">Members</a>
+          <!-- <nz-dropdown>
             <a nz-dropdown>
               Mentors
               <i nz-icon type = "down"></i>
@@ -53,9 +53,9 @@
                 </ng-template>
               </div>
             </ul>
-          </nz-dropdown>
+          </nz-dropdown> -->
         </td>
-        <td>
+        <!-- <td>
           <nz-dropdown>
             <a nz-dropdown>
               Mentees
@@ -71,7 +71,7 @@
               </div>
             </ul>
           </nz-dropdown>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </nz-table>

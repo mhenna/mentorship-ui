@@ -27,8 +27,6 @@ export class CycleComponent implements OnInit {
   cyclesFetched = false;
   current = false;
   currentCycleId :any;
-  mentors = [];
-  mentees = [];
  
  
 
@@ -47,8 +45,7 @@ export class CycleComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
-  private adminService: AdminService, 
-  private userService: UserService) { }
+  private adminService: AdminService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -59,7 +56,6 @@ export class CycleComponent implements OnInit {
     });
     
     this.getCycles();
-    this.getUsers();
     this.adminService.getSkills().subscribe(res=>{
 
       this.skills=res;
@@ -156,23 +152,6 @@ editDeadline(){
     }, (err) => {
       
     });
-  }
-
-  async getUsers() {
-    var users = await this.userService.getUsers();
-
-    var i
-
-    for (i = 0; i < users.length; i++) {
-      if (users[i].is_mentor)
-        this.mentors.push(users[i])
-      else
-        this.mentees.push(users[i])
-    }
-
-    console.log("The mentors in this cycle are ", users)
-    console.log("The mentors in this cycle are ", this.mentors)
-    console.log("The mentees in this cycle are ", this.mentees)
   }
 
   deleteCycle(id){
