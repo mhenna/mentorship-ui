@@ -15,7 +15,7 @@
   <nz-sider *ngIf="showSideAdmin" [nzWidth]="200" style="background:#fff; padding-top: 64px;">
       <ul nz-menu [nzMode]="'inline'" style="height:100%">
         <li nz-submenu [nzOpen]="true">
-          <span title><i nz-icon type="user"></i>Admin</span>
+          <span title><i nz-icon type="user"></i><a [routerLink]="['/admin/dashboard']">Admin</a></span>
           <ul>
             <a [routerLink]="['/admin/users']"><li nz-menu-item>All users</li></a>
             <a [routerLink]="['/admin/questions']"><li nz-menu-item>Add questions</li></a>

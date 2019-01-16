@@ -66,7 +66,7 @@ export class CycleComponent implements OnInit {
 
     this.adminService.getDeadlines().subscribe(res=>{
       this.deadlines=res
-      console.log(this.deadlines)
+      console.log(this.deadlines, "473985ytfh203re")
       this.setDeadlines(this.deadlines)
     }
     
@@ -76,7 +76,8 @@ export class CycleComponent implements OnInit {
   }
 editDeadline(){
 
-  this.adminService.editDeadlines(this.deadlineForm.value.mentorDate,this.deadlineForm.value.menteeDate,this.deadlines.id).subscribe(res=>{
+  console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
+  this.adminService.editDeadlines(this.deadlineForm.value.mentorDate.toISOString(),this.deadlineForm.value.menteeDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
     console.log("deadline changed")
   })
 }
@@ -111,7 +112,7 @@ editDeadline(){
   }
   editCycle(){
     this.cyclesFetched= false;
-    this.adminService.editCycle(this.selectedId,this.editForm.value.startDate,this.editForm.value.endDate,this.editForm.value.name).subscribe(async (res) => {
+    this.adminService.editCycle(this.selectedId,this.editForm.value.startDate.toISOString(),this.editForm.value.endDate.toISOString(),this.editForm.value.name).subscribe(async (res) => {
       this.open =false;
       console.log("cycle added")
        await this.getCycles();
