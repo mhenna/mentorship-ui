@@ -25,16 +25,16 @@ export class AdminQuestionsComponent implements OnInit {
       matching: '',
       mentor: false,
       userInfo: '',
-      answers: ''
+      answers :[]
     };
     this.questions.push(question);
   }
 
   addMCQOptionsToQuestion(question) {
+    console.log(question, "HLLLLLLLLLLLLLLLL")
     question.answers.push({
       answer: ''
     });
-    console.log(question)
   }
 
   clearQuestion(question) {
