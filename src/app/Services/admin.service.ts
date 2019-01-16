@@ -31,14 +31,14 @@ export class AdminService {
 
   getCycles(): Observable<any> {
     this.headers.set('Authorization', this.localStorage.get('token'));
-    return this.http.get(this.domain + '/cycles/skills', { headers: this.headers }).pipe(
+    return this.http.get(this.domain + '/cycles/', { headers: this.headers }).pipe(
       map((res) => res.json()));
     ;
   }
 
   getSkills(): Observable<any> {
     this.headers.set('Authorization', this.localStorage.get('token'));
-    return this.http.get(this.domain + '/users/skills', { headers: this.headers }).pipe(
+    return this.http.get(this.domain + '/cycles/skills', { headers: this.headers }).pipe(
       map((res) => res.json()));
     ;
   }
@@ -55,7 +55,7 @@ export class AdminService {
       data.append('mentee', mentee);
       data.append('id', id);
       const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/users/skills');
+      http.open('PUT', this.domain + '/cycles/edit/deadline');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
@@ -71,7 +71,7 @@ export class AdminService {
       data.append('type', type);
       data.append('name', name);
       const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/users/skills');
+      http.open('POST', this.domain + '/cycles/add/skills');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
