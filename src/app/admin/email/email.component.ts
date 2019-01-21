@@ -6,6 +6,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-email',
@@ -21,6 +22,9 @@ export class EmailComponent implements OnInit {
   inputValue : string
   active= false;
   flag=false;
+  users : any;
+  listOfSelectedValue = [];
+  count : any;
 
   emailForm = new FormGroup({
     
@@ -29,9 +33,12 @@ export class EmailComponent implements OnInit {
    
   });
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService,
+    private userService : UserService) { }
 
   ngOnInit() {
+    this.count = 0;
+    this.getUsers();
   }
 
 
@@ -42,18 +49,23 @@ modalOpen(){
 
   sendEmail(){
     
+    this.count = this.count + 1;
 
+    if (this.count == 1)
+      this.emailForm.value.email.shift()
+
+    console.log(this.emailForm.value.email, " AFTER kjwfkjweifhwei")
     // console.log(this.inputValue,"||||||", this.emailForm.value.email)
     this.adminService.sendEmail(this.type,this.emailForm.value.email,this.inputValue).subscribe(async (res) => {
 
       this.active = false ;
       
       console.log("email sent")
- 
     }, (err) => {
       
     });
 
+    this.emailForm.reset()
   }
 
   log(x){
@@ -65,5 +77,9 @@ modalOpen(){
       this.flag= false;
     }
 
+  }
+
+  async getUsers() {
+    this.users = await this.userService.getUsers();
   }
 }

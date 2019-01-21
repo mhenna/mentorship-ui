@@ -171,6 +171,10 @@ export class AdminService {
 
   sendEmail(type, email, body): Observable<string> {
     return Observable.create(observer => {
+      console.log("EMAIL", typeof(email))
+      var t = [];
+      t = email
+      console.log("TTTTTTTTTT", t, " ", typeof(t))
       const data = new FormData();
       data.append('type', type);
       data.append('email', email);
