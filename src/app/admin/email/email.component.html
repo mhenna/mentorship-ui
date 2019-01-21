@@ -9,7 +9,10 @@
     <nz-form-item *ngIf="flag">
       <nz-form-label [nzSpan]="6" >E-mail</nz-form-label>
       <nz-form-control [nzSpan]="14">
-        <input nz-input formControlName="email" type="email" id="email">
+        <!-- <input nz-input formControlName="email" type="email" id="email"> -->
+        <nz-select style="width: 100%" nzMode="multiple" nzPlaceHolder="Please select" [(ngModel)]="emailForm.value.email" [ngModelOptions]="{standalone: true}">
+          <nz-option *ngFor="let user of users" [nzLabel]="user.email" [nzValue]="user.email"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
    
