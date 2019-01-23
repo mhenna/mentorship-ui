@@ -163,5 +163,35 @@
   </div>
 </div>
 
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <h1>
+      Skills
+      <nz-tag [nzColor]="'red'" *ngIf = "error">Please fill in required fields</nz-tag>
+    </h1>
+    <form nz-form [formGroup]="skillsForm" (ngSubmit)="newSkill()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired> Skill Name</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="skillName" formControlName="skillName" style="width: 200px;">
+          <nz-form-explain *ngIf="skillsForm.get('skillName').dirty && skillsForm.get('skillName').errors">Please input your skill name!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>Skill Type</nz-form-label>
+        <nz-radio-group [(ngModel)]="skillsForm.value.skillType" [ngModelOptions]="{standalone: true}">
+          <label nz-radio nzValue="technical">Technical</label>
+          <label nz-radio nzValue="non-technical">Non Technical</label>
+        </nz-radio-group>
+      </nz-form-item>
+      <nz-form-item>
+          <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 4 }">
+            <button nz-button nzType="primary">Add</button>
+          </nz-form-control>
+        </nz-form-item>
+    </form>
+  </div>
+</div>
+
 
 

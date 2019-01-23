@@ -27,7 +27,7 @@ export class CycleComponent implements OnInit {
   cyclesFetched = false;
   current = false;
   currentCycleId :any;
- 
+  error : any;
  
 
   editForm = new FormGroup({
@@ -44,8 +44,15 @@ export class CycleComponent implements OnInit {
 
   });
 
+  skillsForm = new FormGroup({
+    skillName : new FormControl('', [Validators.required]),
+    skillType : new FormControl('', [Validators.required])
+  })
+
   constructor(private fb: FormBuilder,
-  private adminService: AdminService) { }
+  private adminService: AdminService) { 
+    this.error = false;
+  }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -190,9 +197,32 @@ selectedCycle(cycle){
     this.deadlineForm.setValue({mentorDate: deadline[0].mentor_registration, menteeDate: deadline[0].mentee_registration })
     
     console.log(this.deadlineForm.value)
+  }
+
+  newSkill() {
+    if(this.skillsForm.value.skillName && this.skillsForm.value.skillType) {
+      this.error = false;
+      this.adminService.addSkill(this.skillsForm.value.skillName, this.skillsForm.value.skillType).subscribe(async (res) => {
+        console.log("Skill Added")
+        this.adminService.getSkills().subscribe(res=>{
+
+          this.skills=res;
+          console.log(this.skills,res)
+      
+      
+        })
+        
+        this.skillsForm.reset()
+      }, (err) => {
+
+      });
     }
 
-
+    else {
+      this.error = true;
+      console.log("EMPTY FIELD ERROR")
+    }
+  }
  
 
 
