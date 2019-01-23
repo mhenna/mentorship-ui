@@ -16,8 +16,16 @@
         <td>{{cycle.name}}</td>
         <td>{{cycle.start_date| date:'short'}}</td>
         <td>{{cycle.end_date | date:'short'}}</td>
-        <td *ngFor="let skill of cycle.skills">
-          <li>{{skill.name}}</li>
+        <td>
+          <nz-dropdown>
+            <a nz-dropdown>
+              Skills
+              <i nz-icon type = "down"></i>
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item *ngFor="let skill of cycle.skills">{{skill.name}}</li>
+            </ul>
+          </nz-dropdown>
         </td>
         <td *ngIf="cycle.skills.length == 0">
           <li> </li>
