@@ -71,7 +71,7 @@ export class AdminService {
       data.append('type', type);
       data.append('name', name);
       const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/cycles/add/skills');
+      http.open('POST', this.domain + '/cycles/skills');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
