@@ -36,7 +36,7 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-  addUser(fname,lname,email,mentor,yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId): Observable<string> {
+  addUser(fname,lname,email,mentor,yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('first_name',fname);
@@ -51,6 +51,7 @@ export class UserService {
       data.append('position', pos);
       data.append('location',loc);
       data.append('cycles', cycleId);
+      data.append('hours', hour);
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))

@@ -36,10 +36,18 @@
           <nz-form-explain *ngIf="editForm.get('email').errors && editForm.get('email').errors.pattern">Please enter a valid email that must be @dell.com or @emc.com!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
+      <nz-form-item *ngIf="type==1">
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Available hours</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="email" formControlName="hours" style="width: 200px;">
+          <nz-form-explain *ngIf="editForm.get('hours').dirty && editForm.get('hours').errors && !editForm.get('hours').errors.pattern">Please input how many hours you'll be available during this cycle!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('hours').errors && editForm.get('hours').errors.pattern">Must be a digit!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
      
               
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsExperience</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years of experience</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="yearsExperience" formControlName="yearsExperience" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('yearsExperience').dirty && editForm.get('yearsExperience').errors && !editForm.get('yearsExperience').errors.pattern">Please input your years of experience!</nz-form-explain>
@@ -47,7 +55,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsOrganization</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in organization</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="yearsOrganization" formControlName="yearsOrganization" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('yearsOrganization').dirty && editForm.get('yearsOrganization').errors && !editForm.get('yearsOrganization').errors.pattern">Please input how many years you have been in the organization for!</nz-form-explain>
@@ -55,7 +63,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>yearsInRole</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in role</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('yearsInRole').dirty && editForm.get('yearsInRole').errors && !editForm.get('yearsInRole').errors.pattern">Please input how many years you have been working in this role!</nz-form-explain>
@@ -63,7 +71,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>department</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Department</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="department" formControlName="department" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors && !editForm.get('department').errors.pattern">Please input your department name!</nz-form-explain>
@@ -71,7 +79,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>position</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Position</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="position" formControlName="position" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('position').dirty && editForm.get('position').errors && !editForm.get('position').errors.pattern">Please input your position!</nz-form-explain>
@@ -79,7 +87,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>location</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Location</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="location" formControlName="location" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('location').dirty && editForm.get('location').errors && !editForm.get('location').errors.pattern">Please input your location!</nz-form-explain>
@@ -87,7 +95,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>directManager</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Direct manager</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="directManager" formControlName="directManager" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('directManager').dirty && editForm.get('directManager').errors && !editForm.get('directManager').errors.pattern">Please input your direct manager's name!</nz-form-explain>
