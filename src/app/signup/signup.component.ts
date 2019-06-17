@@ -33,17 +33,22 @@ export class SignupComponent implements OnInit {
   validateForm: FormGroup;
   flag = true;
   index = 0;
-  tab:any;
-  ex:any;
+  tab: any;
+  ex: any;
   type: any;
-  radioValue="a";
-  userid:any;
+  radioValue = "a";
+  userid: any;
   Response: any[] = [];
   ResponseFinal: any[] = [];
   cycles = [];
   cyclesFetched = false;
   current = false;
-  currentCycleId :any;
+  currentCycleId: any;
+  businessUnits = []
+  mentorRanges = []
+  menteeRanges = []
+  selectedBU: string
+  aykalam:string
 
   editForm = new FormGroup({
 
@@ -61,15 +66,15 @@ export class SignupComponent implements OnInit {
     ]),
     yearsExperience: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+      // Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
     yearsOrganization: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+      // Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
     yearsInRole: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+      // Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
     hours: new FormControl('', [
       Validators.required,
@@ -110,14 +115,27 @@ export class SignupComponent implements OnInit {
     private headerButtonsService: HeaderButtonsService,
     private questionsService: QuestionsService,
     private localStorageService: LocalStorageService,
-    private adminService : AdminService,
+    private adminService: AdminService,
     private route: ActivatedRoute, private message: NzMessageService, private userservice: UserService) {
 
   }
 
   async ngOnInit() {
     try {
-    
+      this.businessUnits.push('hi')
+      this.businessUnits.push('hello')
+
+      this.mentorRanges.push('[3 - 5]')
+      this.mentorRanges.push('[5 - 7]')
+      this.mentorRanges.push('[7 - 9]')
+      this.mentorRanges.push('9 +')
+
+      this.menteeRanges.push('[0 - 1]')
+      this.menteeRanges.push('[1 - 3]')
+      this.menteeRanges.push('[3 - 5]')
+      this.menteeRanges.push('5 +')
+
+      this.selectedBU = 'MOSTAFA'
       this.getCycles()
       this.headerButtonsService.signOut();
       this.localStorageService.remove('token')
@@ -126,9 +144,9 @@ export class SignupComponent implements OnInit {
         .subscribe(async params => {
           this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
-          
+
           this.questions = await this.questionsService.getQuestions(this.type);
-          console.log(this.questions,"kkkkk")
+          console.log(this.questions, "kkkkk")
           this.loading = false;
           this.questions.forEach(element => {
             // let id = element.question_id
@@ -176,14 +194,14 @@ export class SignupComponent implements OnInit {
     try {
       for (let i = 0; i < this.Response.length; i++) {
 
-         this.questionsService.submit(this.userid.id,this.Response[i].id, this.Response[i].answer)
-        
-        
+        this.questionsService.submit(this.userid.id, this.Response[i].id, this.Response[i].answer)
+
+
       }
 
       // this.message.success('Submitted successfully ', { nzDuration: 10000 });
       this.reset = true;
-      this.registered= true;
+      this.registered = true;
       // for (let i = 0; i < this.Response.length; i++) {
 
       //   this.Response[i].answer.length = 0;
@@ -219,7 +237,7 @@ export class SignupComponent implements OnInit {
     console.log(this.Response, "RRRRRRR")
   }
 
-  editAnswer(answer){
+  editAnswer(answer) {
 
     for (let i = 0; i < this.Response.length; i++) {
 
@@ -227,7 +245,7 @@ export class SignupComponent implements OnInit {
 
 
         console.log(this.index, "1")
-        this.Response[i].answer= answer.answer
+        this.Response[i].answer = answer.answer
         console.log(this.Response[i].answer, 'EDITED')
         // this.Response[i].answer=answer.answer
 
@@ -237,40 +255,45 @@ export class SignupComponent implements OnInit {
   logg() {
 
     let mentor = false
+    // console.log('#######################################')
+    // console.log('#######################################')
+    // console.log(this.editForm.get('yearsExperience').value)
+    // console.log(this.aykalam)
     if (!(this.editForm.get('firstName').value == "" && this.editForm.get('lastName').value == "" &&
       this.editForm.get('email').value == "" && this.editForm.get('yearsExperience').value == "" && this.editForm.get('yearsOrganization').value == "" &&
       this.editForm.get('yearsInRole').value == "", this.editForm.get('department').value == "", this.editForm.get('position').value == "",
-      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "") && !this.editForm.get('firstName').errors && 
-      !this.editForm.get('lastName').errors && !this.editForm.get('email').errors && !this.editForm.get('yearsExperience').errors && 
-      !this.editForm.get('yearsOrganization').errors && !this.editForm.get('yearsInRole').errors && !this.editForm.get('department').errors && 
-      !this.editForm.get('position').errors && !this.editForm.get('location').errors && !this.editForm.get('directManager').errors) {
+      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "") && !this.editForm.get('firstName').errors &&
+      !this.editForm.get('lastName').errors && !this.editForm.get('email').errors && !this.editForm.get('yearsExperience').errors &&
+      !this.editForm.get('yearsOrganization').errors && !this.editForm.get('yearsInRole').errors && !this.editForm.get('department').errors &&
+      !this.editForm.get('position').errors && !this.editForm.get('directManager').errors) {
       console.log("***********NO ERROR*************")
       this.flag = false;
       if (this.type == 1) {
         mentor = true;
-        console.log(mentor,"MENTOR")
+        console.log(mentor, "MENTOR")
       }
 
-      
+
 
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
         this.editForm.get('email').value, mentor, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
-        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId,this.editForm.get('hours').value).subscribe(async (res) => {
+        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('hours').value).subscribe(async (res) => {
           console.log("______________________________-------------------", this.currentCycleId)
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
           this.editForm.reset()
-          
-          this.ex= 2
+
+          this.ex = 2
 
         })
     }
     else {
       console.log("****************ERROR******************")
-      if (this.type == 1){
+      console.log(this.editForm.get('department').value)
+      if (this.type == 1) {
         console.log("MENTOR")
       }
-      else{
+      else {
         console.log("MENTEE")
       }
       this.error = true;
@@ -282,12 +305,12 @@ export class SignupComponent implements OnInit {
     this.error = false;
   }
 
-  getCycles(){
+  getCycles() {
     this.adminService.getCycles().subscribe(async (res) => {
 
-      this.cycles =  await res
-      this.cyclesFetched= true;
-      
+      this.cycles = await res
+      this.cyclesFetched = true;
+
       // console.log("*****CYCLES", this.cycles)
       //console.log("***************HELLLLLLOOOOOOOOOOO", this.cycles[0].start_date.toISOString())
 
@@ -304,10 +327,10 @@ export class SignupComponent implements OnInit {
         // console.log("iteration number ", i, " cycle id ", this.cycles[i].id)
       }
 
-      // console.log(this.currentCycleId, "**************")
+      console.log(this.currentCycleId, "**************")
 
     }, (err) => {
-      
+
     });
   }
 }

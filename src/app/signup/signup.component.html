@@ -1,14 +1,16 @@
+<div class="example" *ngIf="loading">
+  <nz-spin [nzSize]="'large'"></nz-spin>
+</div>
 
-<div class="example"  *ngIf="loading">
-    <nz-spin  [nzSize]="'large'"  ></nz-spin></div>
 
-
-<nz-tabset [nzType]="'card'"  *ngIf="!loading"  [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true" style="flex:1;">
-  <nz-tab nzTitle='Personal info'   [nzDisabled]="!flag">
+<nz-tabset [nzType]="'card'" *ngIf="!loading" [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true"
+  style="flex:1;">
+  <nz-tab nzTitle='Personal info' [nzDisabled]="!flag">
 
     <form nz-form [formGroup]="editForm">
-    
-      <nz-alert nzType="error" nzCloseable nzMessage="Error " nzDescription="Please fill in all the required information so you can complete your sign up process"
+
+      <nz-alert nzType="error" nzCloseable nzMessage="Error "
+        nzDescription="Please fill in all the required information so you can complete your sign up process"
         (nzOnClose)="afterClose()" *ngIf="error">
 
       </nz-alert>
@@ -16,90 +18,130 @@
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>First Name</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="firstName" formControlName="firstName" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('firstName').dirty && editForm.get('firstName').errors && !editForm.get('firstName').errors.pattern">Please input your first name!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('firstName').errors && editForm.get('firstName').errors.pattern">Must only include characters!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('firstName').dirty && editForm.get('firstName').errors && !editForm.get('firstName').errors.pattern">
+            Please input your first name!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('firstName').errors && editForm.get('firstName').errors.pattern">Must
+            only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Last Name</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="lastName" formControlName="lastName" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('lastName').dirty && editForm.get('lastName').errors && !editForm.get('lastName').errors.pattern">Please input your first name!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('lastName').errors && editForm.get('lastName').errors.pattern">Must only include characters!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('lastName').dirty && editForm.get('lastName').errors && !editForm.get('lastName').errors.pattern">
+            Please input your first name!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('lastName').errors && editForm.get('lastName').errors.pattern">Must only
+            include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>email</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="email" formControlName="email" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('email').dirty && editForm.get('email').errors && !editForm.get('email').errors.pattern">Please input your email!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('email').errors && editForm.get('email').errors.pattern">Please enter a valid email that must be @dell.com or @emc.com!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('email').dirty && editForm.get('email').errors && !editForm.get('email').errors.pattern">
+            Please input your email!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('email').errors && editForm.get('email').errors.pattern">Please enter a
+            valid email that must be @dell.com or @emc.com!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item *ngIf="type==1">
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Available hours</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="email" formControlName="hours" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('hours').dirty && editForm.get('hours').errors && !editForm.get('hours').errors.pattern">Please input how many hours you'll be available during this cycle!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('hours').errors && editForm.get('hours').errors.pattern">Must be a digit!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('hours').dirty && editForm.get('hours').errors && !editForm.get('hours').errors.pattern">
+            Please input how many hours you'll be available during this cycle!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('hours').errors && editForm.get('hours').errors.pattern">Must be a digit!
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-     
-              
+
+
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years of experience</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="yearsExperience" formControlName="yearsExperience" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('yearsExperience').dirty && editForm.get('yearsExperience').errors && !editForm.get('yearsExperience').errors.pattern">Please input your years of experience!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('yearsExperience').errors && editForm.get('yearsExperience').errors.pattern">Must be a digit!</nz-form-explain>
+          <nz-radio-group *ngIf="type==1" formControlName="yearsExperience">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
+          <nz-radio-group *ngIf="type!=1" formControlName="yearsExperience">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in organization</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="yearsOrganization" formControlName="yearsOrganization" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('yearsOrganization').dirty && editForm.get('yearsOrganization').errors && !editForm.get('yearsOrganization').errors.pattern">Please input how many years you have been in the organization for!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('yearsOrganization').errors && editForm.get('yearsOrganization').errors.pattern">Must be a digit!</nz-form-explain>
+          <nz-radio-group *ngIf="type==1" formControlName="yearsOrganization">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
+          <nz-radio-group *ngIf="type!=1" formControlName="yearsOrganization">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in role</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('yearsInRole').dirty && editForm.get('yearsInRole').errors && !editForm.get('yearsInRole').errors.pattern">Please input how many years you have been working in this role!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('yearsInRole').errors && editForm.get('yearsInRole').errors.pattern">Must be a digit!</nz-form-explain>
+          <!-- <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;"> -->
+          <nz-radio-group *ngIf="type==1" formControlName="yearsInRole">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
+          <nz-radio-group *ngIf="type!=1" formControlName="yearsInRole">
+            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+          </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Department</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Business Unit</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="department" formControlName="department" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors && !editForm.get('department').errors.pattern">Please input your department name!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must only include characters!</nz-form-explain>
+          <!-- <input nz-input id="department" formControlName="department" style="width: 200px;"> -->
+          <!-- <nz-dropdown [nzTrigger]="'click'">
+            <a nz-dropdown> Business Units <i nz-icon type="down"></i> </a>
+            <ul nz-menu *ngFor="let bu of businessUnits">
+              <li nz-menu-item>{{bu}}</li>
+            </ul>
+          </nz-dropdown> -->
+          <nz-select formControlName="department" style="width: 200px;">
+            <nz-option *ngFor="let bu of businessUnits" [nzLabel]='bu' [nzValue]='bu'></nz-option>
+          </nz-select>
+          <nz-form-explain
+            *ngIf="editForm.get('department').dirty && editForm.get('department').errors && !editForm.get('department').errors.pattern">
+            Please input your department name!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must
+            only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Position</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="position" formControlName="position" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('position').dirty && editForm.get('position').errors && !editForm.get('position').errors.pattern">Please input your position!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('position').errors && editForm.get('position').errors.pattern">Must only include characters!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('position').dirty && editForm.get('position').errors && !editForm.get('position').errors.pattern">
+            Please input your position!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('position').errors && editForm.get('position').errors.pattern">Must only
+            include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <!-- <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Location</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="location" formControlName="location" style="width: 200px;">
           <nz-form-explain *ngIf="editForm.get('location').dirty && editForm.get('location').errors && !editForm.get('location').errors.pattern">Please input your location!</nz-form-explain>
           <nz-form-explain *ngIf="editForm.get('location').errors && editForm.get('location').errors.pattern">Must only include characters!</nz-form-explain>
         </nz-form-control>
-      </nz-form-item>
+      </nz-form-item> -->
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Direct manager</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="directManager" formControlName="directManager" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('directManager').dirty && editForm.get('directManager').errors && !editForm.get('directManager').errors.pattern">Please input your direct manager's name!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('directManager').errors && editForm.get('directManager').errors.pattern">Must only include characters!</nz-form-explain>
+          <nz-form-explain
+            *ngIf="editForm.get('directManager').dirty && editForm.get('directManager').errors && !editForm.get('directManager').errors.pattern">
+            Please input your direct manager's name!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('directManager').errors && editForm.get('directManager').errors.pattern">
+            Must only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <button nz-button nzType="primary" (click)="logg()">Submit</button>
@@ -108,23 +150,27 @@
     </form>
   </nz-tab>
 
-  <nz-tab nzTitle='Mentorship Details'  [nzDisabled]="flag">
+  <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
     <div nz-row *ngIf="!registered">
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
         <div *ngFor="let question of questions">
           {{question.question_type}}
           <div *ngIf="question.question_type=='Text'">
-            <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.question_id"></app-text-question>
+            <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
+              (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
+              [questionId]="question.question_id"></app-text-question>
           </div>
           <div *ngIf="question.question_type=='MCQ'">
-            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [numberOfChoises]="1" [possibleAnswers]='question.answers'
-              [question]='question.question_text' [reset]='reset' [questionId]="question.id"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
           <div *ngIf="question.question_type=='MULTI_SELECT'">
 
-            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' [numberOfChoises]='0' [possibleAnswers]='question.answers'
-              [question]='question.question_text' [reset]='reset' [questionId]="question.id"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
           <br>
           <br>
@@ -142,8 +188,8 @@
     </div>
     <div nz-row *ngIf="registered">
       <h1>
-      we've recieved your info you'll get an email when we find you a match
-    </h1>
+        we've recieved your info you'll get an email when we find you a match
+      </h1>
     </div>
   </nz-tab>
 </nz-tabset>
