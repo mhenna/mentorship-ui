@@ -21,7 +21,8 @@ export class CycleComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
   cycles = [];
   open= false;
- deadlines: any
+  deadlines: any
+  startDate: any
   selectedId: any;
   skills: any
   cyclesFetched = false;
@@ -39,6 +40,12 @@ export class CycleComponent implements OnInit {
 
   });
   deadlineForm = new FormGroup({      
+    mentorDate: new FormControl('', [Validators.required]),
+    menteeDate: new FormControl('', [Validators.required]),    
+
+  });
+
+  StartDateForm = new FormGroup({      
     mentorDate: new FormControl('', [Validators.required]),
     menteeDate: new FormControl('', [Validators.required]),    
 
@@ -84,8 +91,19 @@ export class CycleComponent implements OnInit {
 editDeadline(){
 
   console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
-  this.adminService.editDeadlines(this.deadlineForm.value.mentorDate.toISOString(),this.deadlineForm.value.menteeDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
+  const mentorDeadline= new Date(this.deadlineForm.value.mentorDate)
+  const menteeDeadline= new Date(this.deadlineForm.value.menteeDate)
+  this.adminService.editDeadlines(mentorDeadline.toISOString(),menteeDeadline.toISOString(),this.deadlines[0].id).subscribe(res=>{
     console.log("deadline changed")
+  })
+}
+editStartDate(){
+
+  console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
+  const mentorStartDate= new Date(this.StartDateForm.value.mentorDate)
+  const menteeStartDate= new Date(this.StartDateForm.value.menteeDate)
+  this.adminService.editStartDate(mentorStartDate.toISOString(),menteeStartDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
+    console.log("StartDate changed")
   })
 }
   addSkill(skillId, cycleId){
