@@ -3,6 +3,41 @@
   <i nz-icon type="plus" theme="outline"></i>
 </button>
 <nz-divider></nz-divider>
+<div nz-row>
+  <h3>Existing questions</h3>
+  <br>
+  <div>
+    <div *ngFor="let question of qs">
+      {{question.question_type}}
+      <div *ngIf="question.question_type=='Text'">
+        <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
+          (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
+          [questionId]="question.question_id"></app-text-question>
+      </div>
+      <div *ngIf="question.question_type=='MCQ'">
+        <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+          [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
+          [reset]='reset' [questionId]="question.id"></app-select-many-question>
+          <button nz-button nzType="primary">Edit</button>
+      </div>
+      <div *ngIf="question.question_type=='MULTI_SELECT'">
+
+        <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+          [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
+          [reset]='reset' [questionId]="question.id"></app-select-many-question>
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+    <ng-template #indicatorTemplate>
+      <i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+    </ng-template>
+    <nz-spin [nzIndicator]="indicatorTemplate">
+    </nz-spin>`
+  </div>
+</div>
 <form nz-form>
   <nz-form-item *ngFor="let question of questions; let i = index" [ngSwitch]="question.type">
       <nz-form-label >Question type</nz-form-label>
