@@ -37,6 +37,7 @@ import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CycleMembersComponent } from './cycle-members/cycle-members.component';
+import { CoachSignupComponent } from './coach-signup/coachsignup.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -47,6 +48,7 @@ registerLocaleData(en);
     LoginComponent,
     AdminQuestionsComponent,
     SignupComponent,
+    CoachSignupComponent,
     McquestionComponent,
     SelectManyQuestionComponent,
     TextQuestionComponent,

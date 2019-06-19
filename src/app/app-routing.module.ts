@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions.component';
 import { SignupComponent } from './signup/signup.component';
+import { CoachSignupComponent } from './coach-signup/coachsignup.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
 import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.component';
@@ -53,8 +54,12 @@ const routes: Routes = [
     component: CycleMembersComponent,
   },
   {
-    path: 'signup',
+    path: 'signupMentoring',
     component: SignupComponent
+  },
+  {
+    path: 'signupCoaching',
+    component: CoachSignupComponent
   },
   {
     path: 'unauthorized',
