@@ -65,6 +65,25 @@ export class AdminService {
 
     })
   }
+ ////////////////////////////////////////////////////////// Review
+  editStartDate(mentor, mentee, id): Observable<string> {
+    return Observable.create(observer => {
+      const data = new FormData();
+      data.append('mentor', mentor);
+      data.append('mentee', mentee);
+      data.append('id', id);
+      const http = new XMLHttpRequest();
+      http.open('PUT', this.domain + '/cycles/edit/startdate');
+      http.setRequestHeader('Authorization', this.localStorage.get('token'))
+      http.send(data);
+      http.onload = () => {
+        observer.next(http.status);
+        observer.complete();
+      };
+
+    })
+  }
+///////////////////////////////////////////////////////////////
   addSkill(name, type): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();

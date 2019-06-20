@@ -21,7 +21,8 @@ export class CycleComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
   cycles = [];
   open= false;
- deadlines: any
+  deadlines: any
+  startDate: any
   selectedId: any;
   skills: any
   cyclesFetched = false;
@@ -39,6 +40,12 @@ export class CycleComponent implements OnInit {
 
   });
   deadlineForm = new FormGroup({      
+    mentorDate: new FormControl('', [Validators.required]),
+    menteeDate: new FormControl('', [Validators.required]),    
+
+  });
+
+  StartDateForm = new FormGroup({      
     mentorDate: new FormControl('', [Validators.required]),
     menteeDate: new FormControl('', [Validators.required]),    
 
@@ -72,6 +79,7 @@ export class CycleComponent implements OnInit {
     })
 
     this.adminService.getDeadlines().subscribe(res=>{
+      console.log('THIS IS RES', res)
       this.deadlines=res
       console.log(this.deadlines, "473985ytfh203re")
       this.setDeadlines(this.deadlines)
@@ -84,8 +92,19 @@ export class CycleComponent implements OnInit {
 editDeadline(){
 
   console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
-  this.adminService.editDeadlines(this.deadlineForm.value.mentorDate.toISOString(),this.deadlineForm.value.menteeDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
+  const mentorDeadline= new Date(this.deadlineForm.value.mentorDate)
+  const menteeDeadline= new Date(this.deadlineForm.value.menteeDate)
+  this.adminService.editDeadlines(mentorDeadline.toISOString(),menteeDeadline.toISOString(),this.deadlines[0].id).subscribe(res=>{
     console.log("deadline changed")
+  })
+}
+editStartDate(){
+
+  console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
+  const mentorStartDate= new Date(this.StartDateForm.value.mentorDate)
+  const menteeStartDate= new Date(this.StartDateForm.value.menteeDate)
+  this.adminService.editStartDate(mentorStartDate.toISOString(),menteeStartDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
+    console.log("StartDate changed")
   })
 }
   addSkill(skillId, cycleId){
@@ -192,9 +211,9 @@ selectedCycle(cycle){
 
   setDeadlines(deadline){
 
-    console.log(deadline,"HEERREE!!!!",deadline.mentor_registration,deadline.mentee_registration)
+    console.log(deadline,"HEERREE!!!!",deadline.mentor_DeadlineRegistration,deadline.mentee_DeadlineRegistration)
     // this.selectedEmp= employee;
-    this.deadlineForm.setValue({mentorDate: deadline[0].mentor_registration, menteeDate: deadline[0].mentee_registration })
+    this.deadlineForm.setValue({mentorDate: deadline[0].mentor_DeadlineRegistration, menteeDate: deadline[0].mentee_DeadlineRegistration })
     
     console.log(this.deadlineForm.value)
   }
