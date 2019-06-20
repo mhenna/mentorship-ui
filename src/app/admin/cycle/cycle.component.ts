@@ -79,6 +79,7 @@ export class CycleComponent implements OnInit {
     })
 
     this.adminService.getDeadlines().subscribe(res=>{
+      console.log('THIS IS RES', res)
       this.deadlines=res
       console.log(this.deadlines, "473985ytfh203re")
       this.setDeadlines(this.deadlines)
@@ -210,9 +211,9 @@ selectedCycle(cycle){
 
   setDeadlines(deadline){
 
-    console.log(deadline,"HEERREE!!!!",deadline.mentor_registration,deadline.mentee_registration)
+    console.log(deadline,"HEERREE!!!!",deadline.mentor_DeadlineRegistration,deadline.mentee_DeadlineRegistration)
     // this.selectedEmp= employee;
-    this.deadlineForm.setValue({mentorDate: deadline[0].mentor_registration, menteeDate: deadline[0].mentee_registration })
+    this.deadlineForm.setValue({mentorDate: deadline[0].mentor_DeadlineRegistration, menteeDate: deadline[0].mentee_DeadlineRegistration })
     
     console.log(this.deadlineForm.value)
   }

@@ -53,6 +53,7 @@ export class UserService {
       data.append('location',loc);
       data.append('cycles', cycleId);
       data.append('hours', hour);
+      data.append('coaching',coaching)
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
