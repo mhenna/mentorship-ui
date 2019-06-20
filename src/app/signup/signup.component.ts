@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
   tab: any;
   ex: any;
   type: any;
+  coaching = false;
   radioValue = "a";
   userid: any;
   Response: any[] = [];
@@ -276,7 +277,7 @@ export class SignupComponent implements OnInit {
 
 
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
-        this.editForm.get('email').value, mentor, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
+        this.editForm.get('email').value, mentor, this.coaching,  this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('hours').value).subscribe(async (res) => {
           console.log("______________________________-------------------", this.currentCycleId)
