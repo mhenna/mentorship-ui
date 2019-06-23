@@ -143,7 +143,10 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status<300)
+          observer.next(http.status);
+        else
+          observer.error(http.response);
         observer.complete();
       };
 

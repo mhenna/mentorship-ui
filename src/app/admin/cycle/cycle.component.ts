@@ -111,15 +111,16 @@ editStartDate(){
     this.cyclesFetched= false;
     this.adminService.addSkilltoCycle(skillId,cycleId).subscribe(async (res) => {
       
-      console.log("Skill added")
-       await this.getCycles();
+      console.log("Skill added", res)
+      await this.getCycles();
      
-     
-    }, (err) => {
-
-      console.log("ERR")
+    }, async (err) => {
+      alert(err)
+      console.log("ERR", err)
+      await this.getCycles();
     
     });
+    //  this.getCycles()
   }
   newCycle(){
     this.cyclesFetched= false;
