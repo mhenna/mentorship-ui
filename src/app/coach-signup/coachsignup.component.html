@@ -2,6 +2,11 @@
   <nz-spin [nzSize]="'large'"></nz-spin>
 </div>
 
+
+<nz-tabset [nzType]="'card'" *ngIf="!loading" [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true"
+  style="flex:1;">
+  <nz-tab nzTitle='Personal info' [nzDisabled]="!flag">
+
     <form nz-form [formGroup]="editForm">
 
       <nz-alert nzType="error" nzCloseable nzMessage="Error "
@@ -59,10 +64,10 @@
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years of experience</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-radio-group *ngIf="type==1" formControlName="yearsExperience">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
           <nz-radio-group *ngIf="type!=1" formControlName="yearsExperience">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of forcoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
@@ -70,10 +75,10 @@
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in organization</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-radio-group *ngIf="type==1" formControlName="yearsOrganization">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
           <nz-radio-group *ngIf="type!=1" formControlName="yearsOrganization">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of forcoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
@@ -82,10 +87,10 @@
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <!-- <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;"> -->
           <nz-radio-group *ngIf="type==1" formControlName="yearsInRole">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of mentorRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
           <nz-radio-group *ngIf="type!=1" formControlName="yearsInRole">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of menteeRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of forcoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
@@ -140,10 +145,51 @@
         </nz-form-control>
       </nz-form-item>
       <button nz-button nzType="primary" (click)="logg()">Submit</button>
-      <div nz-row *ngIf="registered">
-        <h1>
-          we've recieved your info you'll get an email when we find you a match
-        </h1>
-      </div>
+
 
     </form>
+  </nz-tab>
+
+  <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
+    <div nz-row *ngIf="!registered">
+
+      <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
+        <div *ngFor="let question of questions">
+          {{question.question_type}}
+          <div *ngIf="question.question_type=='Text'">
+            <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
+              (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
+              [questionId]="question.question_id"></app-text-question>
+          </div>
+          <div *ngIf="question.question_type=='MCQ'">
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id"></app-select-many-question>
+          </div>
+          <div *ngIf="question.question_type=='MULTI_SELECT'">
+
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id"></app-select-many-question>
+          </div>
+          <br>
+          <br>
+        </div>
+        <button nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
+
+      </div>
+      <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
+        <ng-template #indicatorTemplate>
+          <i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
+        </ng-template>
+        <nz-spin [nzIndicator]="indicatorTemplate">
+        </nz-spin>`
+      </div>
+    </div>
+    <div nz-row *ngIf="registered">
+      <h1>
+        we've recieved your info you'll get an email when we find you a match
+      </h1>
+    </div>
+  </nz-tab>
+</nz-tabset>

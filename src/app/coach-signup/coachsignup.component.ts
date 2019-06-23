@@ -15,10 +15,10 @@ import { AdminService } from '../Services/admin.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './coachsignup.component.html',
+  styleUrls: ['./coachsignup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class CoachSignupComponent implements OnInit {
   isLoadingOne = false;
   private question: string;
   private possibleAnswers: any[];
@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
   tab: any;
   ex: any;
   type: any;
-  coaching = false;
+  coaching = true;
   radioValue = "a";
   userid: any;
   Response: any[] = [];
@@ -46,8 +46,8 @@ export class SignupComponent implements OnInit {
   current = false;
   currentCycleId: any;
   businessUnits = []
-  mentorRanges = []
-  menteeRanges = []
+  iscoachRanges = []
+  forcoachRanges = []
   selectedBU: string
   aykalam:string
 
@@ -97,7 +97,7 @@ export class SignupComponent implements OnInit {
       Validators.required,
       Validators.pattern('[a-zA-Z ]+')
     ]),
-    mentor: new FormControl('', [
+    iscoach: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-zA-Z ]+')
     ]),
@@ -126,15 +126,15 @@ export class SignupComponent implements OnInit {
       this.businessUnits.push('hi')
       this.businessUnits.push('hello')
 
-      this.mentorRanges.push('[3 - 5]')
-      this.mentorRanges.push('[5 - 7]')
-      this.mentorRanges.push('[7 - 9]')
-      this.mentorRanges.push('9 +')
+      this.iscoachRanges.push('[3 - 5]')
+      this.iscoachRanges.push('[5 - 7]')
+      this.iscoachRanges.push('[7 - 9]')
+      this.iscoachRanges.push('9 +')
 
-      this.menteeRanges.push('[0 - 1]')
-      this.menteeRanges.push('[1 - 3]')
-      this.menteeRanges.push('[3 - 5]')
-      this.menteeRanges.push('5 +')
+      this.forcoachRanges.push('[0 - 1]')
+      this.forcoachRanges.push('[1 - 3]')
+      this.forcoachRanges.push('[3 - 5]')
+      this.forcoachRanges.push('5 +')
 
       this.selectedBU = 'MOSTAFA'
       this.getCycles()
@@ -143,7 +143,7 @@ export class SignupComponent implements OnInit {
       console.log(this.flag, "FLAG")
       this.route.queryParams
         .subscribe(async params => {
-          this.type = params.type === 'mentee' ? 0 : 1;
+          this.type = params.type === 'forcoach' ? 0 : 1;
           this.loading = true;
 
           this.questions = await this.questionsService.getQuestions(this.type);
@@ -191,7 +191,7 @@ export class SignupComponent implements OnInit {
       }
     }
 
-    let is_mentor = this.type === 1 ? false : true;
+    let is_iscoach = this.type === 1 ? false : true;
     try {
       for (let i = 0; i < this.Response.length; i++) {
 
@@ -255,7 +255,7 @@ export class SignupComponent implements OnInit {
   }
   logg() {
 
-    let mentor = false
+    let iscoach = false
     // console.log('#######################################')
     // console.log('#######################################')
     // console.log(this.editForm.get('yearsExperience').value)
@@ -270,14 +270,14 @@ export class SignupComponent implements OnInit {
       console.log("***********NO ERROR*************")
       this.flag = false;
       if (this.type == 1) {
-        mentor = true;
-        console.log(mentor, "mentor")
+        iscoach = true;
+        console.log(iscoach, "iscoach")
       }
 
 
 
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
-        this.editForm.get('email').value, mentor, this.coaching,  this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
+        this.editForm.get('email').value, iscoach, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('hours').value).subscribe(async (res) => {
           console.log("______________________________-------------------", this.currentCycleId)
@@ -292,10 +292,10 @@ export class SignupComponent implements OnInit {
       console.log("****************ERROR******************")
       console.log(this.editForm.get('department').value)
       if (this.type == 1) {
-        console.log("mentor")
+        console.log("iscoach")
       }
       else {
-        console.log("mentee")
+        console.log("forcoach")
       }
       this.error = true;
     }

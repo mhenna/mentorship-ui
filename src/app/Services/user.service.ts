@@ -36,13 +36,14 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-  addUser(fname,lname,email,mentor,yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour): Observable<string> {
+  addUser(fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('first_name',fname);
       data.append('last_name',lname);
       data.append('email', email);
       data.append('is_mentor', mentor);
+      data.append('coaching', coaching)
       data.append('direct_manager',manager);
       data.append('years_of_experience',yearsExp);
       data.append('years_in_role',yearsRole);
@@ -52,6 +53,7 @@ export class UserService {
       data.append('location',loc);
       data.append('cycles', cycleId);
       data.append('hours', hour);
+      data.append('coaching',coaching)
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))

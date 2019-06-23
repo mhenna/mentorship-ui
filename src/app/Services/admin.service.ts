@@ -65,6 +65,25 @@ export class AdminService {
 
     })
   }
+ ////////////////////////////////////////////////////////// Review
+  editStartDate(mentor, mentee, id): Observable<string> {
+    return Observable.create(observer => {
+      const data = new FormData();
+      data.append('mentor', mentor);
+      data.append('mentee', mentee);
+      data.append('id', id);
+      const http = new XMLHttpRequest();
+      http.open('PUT', this.domain + '/cycles/edit/startdate');
+      http.setRequestHeader('Authorization', this.localStorage.get('token'))
+      http.send(data);
+      http.onload = () => {
+        observer.next(http.status);
+        observer.complete();
+      };
+
+    })
+  }
+///////////////////////////////////////////////////////////////
   addSkill(name, type): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
@@ -124,7 +143,10 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status<300)
+          observer.next(http.status);
+        else
+          observer.error(http.response);
         observer.complete();
       };
 
