@@ -36,36 +36,36 @@ export class QuestionsService {
       data.append('is_mentor', mentor)
       data.append('user_info', userInfo)
       data.append('question_type', type)
-      data.append('answers[]', answers)
+      data.append('text', answers)
+      console.log("TEXTTTTTTTTTTTTTTTT", answers)
       const http = new XMLHttpRequest();
       http.open('POST', this.domain + '/questions/');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       console.log("DATAAAAAAAAAAAAAAAAAA", data)
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        observer.next(http.response)
         observer.complete();
       };
 
     })
   }
-  submitPossibleAnswersToQuestion(id, original, text): Observable<string> {
-    return Observable.create(observer => {
-      const data = new FormData();
-      // console.log(id, original, text)
-      data.append('answer_to_question_id', id.toString);
-      data.append('original', original);
-      data.append('text', text.toString())
-      const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/answers/');
-      http.setRequestHeader('Authorization', this.localStorage.get('token'))
-      http.send(data);
-      http.onload = () => {
-        observer.next(http.status);
-        observer.complete();
-      };
+  submitPossibleAnswersToQuestion(id, original, text) {
+    const reqHeaders: HttpHeaders = new HttpHeaders();
+    reqHeaders.append('Content-Type', 'application/json');
+    console.log('THIS IS TEXTTTTT', text)
+    let a = []
 
-    })
+    var i = 0
+    console.log('THIS IS TEXT[0]', text[0])
+    console.log('THI IS TEXT[0].ANSWER', text[0].answer)
+    for (i=0; i < text.length; i++)
+      a.push(text[i].answer)
+    
+    console.log('THIS IS A IN SERVICE', a)
+    reqHeaders.append('Authorization',  this.localStorage.get('token'));
+    return this.http.post(this.domain + "/answers/" ,{"answer_to_question":id, "original": original, "text": a}, { headers: reqHeaders })
+    .subscribe(res => {console.log(res, "SUBMITING")});
   }
   editQuestion(question): Observable<string> {
     return Observable.create(observer => {
@@ -75,13 +75,11 @@ export class QuestionsService {
         data.append('is_mentor', 'True');
       else
         data.append('is_mentor', 'False')
-      data.append('answers', question.answers);
       if(question.is_matching)
         data.append('is_matching', 'True');
       else
         data.append('is_matching', 'False');
-      // data.append('mapped', 'true');
-      data.append('question_text', question.question_text + ' edited');
+      data.append('question_text', question.question_text);
       data.append('question_type', question.question_type);
       const http = new XMLHttpRequest();
       http.open('PUT', this.domain + '/questions/edit');
@@ -93,6 +91,23 @@ export class QuestionsService {
       };
 
     })
+  }
+  editAnswersToQuestion(id, text) {
+    const reqHeaders: HttpHeaders = new HttpHeaders();
+    reqHeaders.append('Content-Type', 'application/json');
+    console.log('THIS IS TEXTTTTT', text)
+    let a = []
+
+    var i = 0
+    console.log('THIS IS TEXT[0]', text[0])
+    // console.log('THI IS TEXT[0].ANSWER', text[0].answer)
+    // for (i=0; i < text.length; i++)
+    //   a.push(text[i].answer)
+    
+    // console.log('THIS IS A IN SERVICE', a)
+    reqHeaders.append('Authorization',  this.localStorage.get('token'));
+    return this.http.put(this.domain + "/answers/edit" ,{"id":id, "text": text}, { headers: reqHeaders })
+    .subscribe(res => {console.log(res, "SUBMITING")});
   }
   submitAnswer(text, matching, mentor, userInfo, type): Observable<string> {
     return Observable.create(observer => {

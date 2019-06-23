@@ -9,23 +9,86 @@
   <div>
     <div *ngFor="let question of qs">
       {{question.question_type}}
-      <div *ngIf="question.question_type=='Text'">
+      <div *ngIf="question.question_type=='TEXT'">
         <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
           (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
-          [questionId]="question.question_id"></app-text-question>
+          [questionId]="question.id"></app-text-question>
+          <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
       </div>
       <div *ngIf="question.question_type=='MCQ'">
         <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
           [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
           [reset]='reset' [questionId]="question.id"></app-select-many-question>
-          <button nz-button nzType="primary">Edit</button>
+          <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
       </div>
       <div *ngIf="question.question_type=='MULTI_SELECT'">
 
         <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
           [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
           [reset]='reset' [questionId]="question.id"></app-select-many-question>
+          <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
       </div>
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit Question" (nzOnCancel)="handleCancel()" (nzOnOk)="editQuestion()">
+          <form nz-form>
+              <nz-form-item [ngSwitch]="questionToEdit.question_type">
+                <div [ngSwitch]="questionToEdit.question_type">
+            
+                  <nz-form-control *ngSwitchCase="'TEXT'">
+                    <nz-input-group>
+                        <nz-form-label>Question Text</nz-form-label>
+                      <input [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}" nz-input placeholder="questionToEdit.question_text">
+                    </nz-input-group>
+                  </nz-form-control>
+            
+                  <nz-form-control *ngSwitchCase="'MCQ'">
+                    <nz-input-group>
+                        <nz-form-label >Question Text</nz-form-label>
+                      <input nz-input placeholder="questionToEdit.question_text" [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
+                    </nz-input-group>
+            
+                    <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(questionToEdit)">
+                      <i nz-icon type="plus" theme="outline"></i>
+                    </button>
+                    <form nz-form>
+                      <nz-form-item *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
+                          
+                        <nz-form-control [nzSpan]="14">
+                            <nz-form-label  >Option {{ j +1 }}</nz-form-label>
+                          <input nz-input  [(ngModel)]="questionToEdit.answers[0].text[j]" [ngModelOptions]="{standalone: true}">
+                        </nz-form-control>
+                      </nz-form-item>
+                    </form>
+            
+                  </nz-form-control>
+            
+                  <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
+                      <nz-form-label  >Question Text</nz-form-label>
+                    <nz-input-group>
+                      <input nz-input placeholder="questionToEdit.question_text" [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
+                    </nz-input-group>
+            
+                    <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(questionToEdit)">
+                      <i nz-icon type="plus" theme="outline"></i>
+                    </button>
+                    <form nz-form>
+                      <nz-form-item *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
+                        <nz-form-control [nzSpan]="14">
+                            <nz-form-label  >Option {{ j +1 }}</nz-form-label>
+                          <input nz-input placeholder = "answer" [(ngModel)]="questionToEdit.answers[0].text[j]" [ngModelOptions]="{standalone: true}">
+                        </nz-form-control>
+                      </nz-form-item>
+                    </form>
+            
+                  </nz-form-control>
+            
+                </div>
+                <nz-divider></nz-divider>
+                <button nz-button nzType="primary" (click)="submit()"><i nz-icon type="check" theme="outline" ></i>Submit</button>
+              </nz-form-item>
+              
+              
+            </form>
+      </nz-modal>
       <br>
       <br>
     </div>
