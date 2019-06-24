@@ -123,8 +123,7 @@ export class CoachSignupComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.businessUnits.push('hi')
-      this.businessUnits.push('hello')
+      this.businessUnits = await this.userservice.getBusinessUnits();
 
       this.iscoachRanges.push('[3 - 5]')
       this.iscoachRanges.push('[5 - 7]')
@@ -136,7 +135,7 @@ export class CoachSignupComponent implements OnInit {
       this.forcoachRanges.push('[3 - 5]')
       this.forcoachRanges.push('5 +')
 
-      this.selectedBU = 'MOSTAFA'
+      this.selectedBU = ''
       this.getCycles()
       this.headerButtonsService.signOut();
       this.localStorageService.remove('token')
