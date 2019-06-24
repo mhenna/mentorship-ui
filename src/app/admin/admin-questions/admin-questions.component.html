@@ -3,168 +3,149 @@
   <i nz-icon type="plus" theme="outline"></i>
 </button>
 <nz-divider></nz-divider>
-<div nz-row>
-  <h3>Existing questions</h3>
-  <br>
-  <div>
-    <div *ngFor="let question of qs">
-      {{question.question_type}}
-      <div *ngIf="question.question_type=='TEXT'">
-        <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
-          (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
-          [questionId]="question.id"></app-text-question>
+<nz-spin [nzSize]="'large'" [nzSpinning]="questionLoading">
+  <div nz-row>
+    <h3>Existing questions</h3>
+    <br>
+    <div>
+      <div *ngFor="let question of qs">
+        {{question.question_type}}
+        <div *ngIf="question.question_type=='TEXT'">
+          <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
+            (selectedAnswer)='changeAnswer($event)' [question]='question.question_text' [questionId]="question.id">
+          </app-text-question>
           <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
-      </div>
-      <div *ngIf="question.question_type=='MCQ'">
-        <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
-          [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
-          [reset]='reset' [questionId]="question.id"></app-select-many-question>
+        </div>
+        <div *ngIf="question.question_type=='MCQ'">
+          <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+            [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
+            [reset]='reset' [questionId]="question.id"></app-select-many-question>
           <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
-      </div>
-      <div *ngIf="question.question_type=='MULTI_SELECT'">
-
-        <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
-          [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
-          [reset]='reset' [questionId]="question.id"></app-select-many-question>
+        </div>
+        <div *ngIf="question.question_type=='MULTI_SELECT'">
+          <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+            [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
+            [reset]='reset' [questionId]="question.id"></app-select-many-question>
           <button nz-button [nzType]="'primary'" (click)="showModal(question)"><span>Edit</span></button>
-      </div>
-      <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit Question" (nzOnCancel)="handleCancel()" (nzOnOk)="editQuestion()">
+        </div>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit Question" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="editQuestion()">
           <form nz-form>
-              <nz-form-item [ngSwitch]="questionToEdit.question_type">
-                <div [ngSwitch]="questionToEdit.question_type">
-            
-                  <nz-form-control *ngSwitchCase="'TEXT'">
-                    <nz-input-group>
-                        <nz-form-label>Question Text</nz-form-label>
-                      <input [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}" nz-input placeholder="questionToEdit.question_text">
-                    </nz-input-group>
-                  </nz-form-control>
-            
-                  <nz-form-control *ngSwitchCase="'MCQ'">
-                    <nz-input-group>
-                        <nz-form-label >Question Text</nz-form-label>
-                      <input nz-input placeholder="questionToEdit.question_text" [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
-                    </nz-input-group>
-            
-                    <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(questionToEdit)">
-                      <i nz-icon type="plus" theme="outline"></i>
-                    </button>
-                    <form nz-form>
-                      <nz-form-item *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
-                          
-                        <nz-form-control [nzSpan]="14">
-                            <nz-form-label  >Option {{ j +1 }}</nz-form-label>
-                          <input nz-input  [(ngModel)]="questionToEdit.answers[0].text[j]" [ngModelOptions]="{standalone: true}">
-                        </nz-form-control>
-                      </nz-form-item>
-                    </form>
-            
-                  </nz-form-control>
-            
-                  <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
-                      <nz-form-label  >Question Text</nz-form-label>
-                    <nz-input-group>
-                      <input nz-input placeholder="questionToEdit.question_text" [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
-                    </nz-input-group>
-            
-                    <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(questionToEdit)">
-                      <i nz-icon type="plus" theme="outline"></i>
-                    </button>
-                    <form nz-form>
-                      <nz-form-item *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
-                        <nz-form-control [nzSpan]="14">
-                            <nz-form-label  >Option {{ j +1 }}</nz-form-label>
-                          <input nz-input placeholder = "answer" [(ngModel)]="questionToEdit.answers[0].text[j]" [ngModelOptions]="{standalone: true}">
-                        </nz-form-control>
-                      </nz-form-item>
-                    </form>
-            
-                  </nz-form-control>
-            
-                </div>
-                <nz-divider></nz-divider>
-                <button nz-button nzType="primary" (click)="submit()"><i nz-icon type="check" theme="outline" ></i>Submit</button>
-              </nz-form-item>
-              
-              
-            </form>
-      </nz-modal>
-      <br>
-      <br>
+            <nz-form-item [ngSwitch]="questionToEdit.question_type">
+              <div [ngSwitch]="questionToEdit.question_type">
+                <nz-form-control *ngSwitchCase="'TEXT'">
+                  <nz-input-group>
+                    <nz-form-label>Question Text</nz-form-label>
+                    <input [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}" nz-input
+                      placeholder="questionToEdit.question_text">
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control *ngSwitchCase="'MCQ'">
+                  <nz-input-group>
+                    <nz-form-label>Question Text</nz-form-label>
+                    <input nz-input placeholder="questionToEdit.question_text"
+                      [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
+                  </nz-input-group>
+                  <form nz-form>
+                    <nz-form-item
+                      *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
+                      <nz-form-control [nzSpan]="14">
+                        <nz-form-label>Option {{ j +1 }}</nz-form-label>
+                        <input nz-input [(ngModel)]="questionToEdit.answers[0].text[j]"
+                          [ngModelOptions]="{standalone: true}">
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                </nz-form-control>
+                <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
+                  <nz-form-label>Question Text</nz-form-label>
+                  <nz-input-group>
+                    <input nz-input placeholder="questionToEdit.question_text"
+                      [(ngModel)]="questionToEdit.question_text" [ngModelOptions]="{standalone: true}">
+                  </nz-input-group>
+                  <form nz-form>
+                    <nz-form-item
+                      *ngFor="let answer of questionToEdit.answers[0].text; let j = index; trackBy:indexTracker">
+                      <nz-form-control [nzSpan]="14">
+                        <nz-form-label>Option {{ j +1 }}</nz-form-label>
+                        <input nz-input placeholder="answer" [(ngModel)]="questionToEdit.answers[0].text[j]"
+                          [ngModelOptions]="{standalone: true}">
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                </nz-form-control>
+              </div>
+            </nz-form-item>
+          </form>
+        </nz-modal>
+        <br>
+        <br>
+      </div>
     </div>
   </div>
-  <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
-    <ng-template #indicatorTemplate>
-      <i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
-    </ng-template>
-    <nz-spin [nzIndicator]="indicatorTemplate">
-    </nz-spin>`
-  </div>
-</div>
-<form nz-form>
-  <nz-form-item *ngFor="let question of questions; let i = index" [ngSwitch]="question.type">
-      <nz-form-label >Question type</nz-form-label>
-    <nz-select (ngModelChange)="clearQuestion(question)" style="width: 120px;" [(ngModel)]="question.type" [ngModelOptions]="{standalone: true}" nzAllowClear
-    nzPlaceHolder="Choose">
-    <nz-option nzValue="MCQ" nzLabel="mcq"></nz-option>
-    <nz-option nzValue="MULTI_SELECT" nzLabel="multi select"></nz-option>
-    <nz-option nzValue="TEXT" nzLabel="text"></nz-option>
-  </nz-select>
-    <div [ngSwitch]="question.type">
+  <form nz-form>
+    <nz-form-item *ngFor="let question of questions; let i = index" [ngSwitch]="question.type">
+      <nz-form-label>Question type</nz-form-label>
+      <nz-select (ngModelChange)="clearQuestion(question)" style="width: 120px;" [(ngModel)]="question.type"
+        [ngModelOptions]="{standalone: true}" nzAllowClear nzPlaceHolder="Choose">
+        <nz-option nzValue="MCQ" nzLabel="mcq"></nz-option>
+        <nz-option nzValue="MULTI_SELECT" nzLabel="multi select"></nz-option>
+        <nz-option nzValue="TEXT" nzLabel="text"></nz-option>
+      </nz-select>
+      <div [ngSwitch]="question.type">
 
-      <nz-form-control *ngSwitchCase="'TEXT'">
-        <nz-input-group>
-            <nz-form-label  >Question Text</nz-form-label>
-          <input [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}" nz-input placeholder="">
-        </nz-input-group>
-      </nz-form-control>
+        <nz-form-control *ngSwitchCase="'TEXT'">
+          <nz-input-group>
+            <nz-form-label>Question Text</nz-form-label>
+            <input [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}" nz-input placeholder="">
+          </nz-input-group>
+        </nz-form-control>
 
-      <nz-form-control *ngSwitchCase="'MCQ'">
-        <nz-input-group>
-            <nz-form-label  >Question Text</nz-form-label>
-          <input nz-input placeholder="" [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}">
-        </nz-input-group>
+        <nz-form-control *ngSwitchCase="'MCQ'">
+          <nz-input-group>
+            <nz-form-label>Question Text</nz-form-label>
+            <input nz-input placeholder="" [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}">
+          </nz-input-group>
 
-        <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
-          <i nz-icon type="plus" theme="outline"></i>
-        </button>
-        <form nz-form>
-          <nz-form-item *ngFor="let answer of question.answers; let j = index">
-              
-            <nz-form-control [nzSpan]="14">
-                <nz-form-label  >Option {{ j +1 }}</nz-form-label>
-              <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
-            </nz-form-control>
-          </nz-form-item>
-        </form>
+          <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
+            (click)="addMCQOptionsToQuestion(question)">
+            <i nz-icon type="plus" theme="outline"></i>
+          </button>
+          <form nz-form>
+            <nz-form-item *ngFor="let answer of question.answers; let j = index">
 
-      </nz-form-control>
+              <nz-form-control [nzSpan]="14">
+                <nz-form-label>Option {{ j +1 }}</nz-form-label>
+                <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
+              </nz-form-control>
+            </nz-form-item>
+          </form>
 
-      <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
-          <nz-form-label  >Question Text</nz-form-label>
-        <nz-input-group>
-          <input nz-input placeholder="" [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}">
-        </nz-input-group>
+        </nz-form-control>
 
-        <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" (click)="addMCQOptionsToQuestion(question)">
-          <i nz-icon type="plus" theme="outline"></i>
-        </button>
-        <form nz-form>
-          <nz-form-item *ngFor="let answer of question.answers; let j = index ">
-              
-            <nz-form-control [nzSpan]="14">
-                <nz-form-label  >Option {{ j +1 }}</nz-form-label>
-              <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
-            </nz-form-control>
-          </nz-form-item>
-        </form>
+        <nz-form-control *ngSwitchCase="'MULTI_SELECT'">
+          <nz-form-label>Question Text</nz-form-label>
+          <nz-input-group>
+            <input nz-input placeholder="" [(ngModel)]="question.text" [ngModelOptions]="{standalone: true}">
+          </nz-input-group>
 
-      </nz-form-control>
+          <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
+            (click)="addMCQOptionsToQuestion(question)">
+            <i nz-icon type="plus" theme="outline"></i>
+          </button>
+          <form nz-form>
+            <nz-form-item *ngFor="let answer of question.answers; let j = index ">
 
-    </div>
-    <nz-divider></nz-divider>
-    <button nz-button nzType="primary" (click)="submit()"><i nz-icon type="check" theme="outline" ></i>Submit</button>
-  </nz-form-item>
-  
-  
-</form>
+              <nz-form-control [nzSpan]="14">
+                <nz-form-label>Option {{ j +1 }}</nz-form-label>
+                <input nz-input [(ngModel)]="answer.answer" [ngModelOptions]="{standalone: true}">
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-form-control>
+      </div>
+      <nz-divider></nz-divider>
+      <button nz-button nzType="primary" (click)="submit()"><i nz-icon type="check" theme="outline"></i>Submit</button>
+    </nz-form-item>
+  </form>
+</nz-spin>

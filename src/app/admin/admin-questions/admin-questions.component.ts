@@ -15,10 +15,12 @@ export class AdminQuestionsComponent implements OnInit {
   questionToEdit = ''
   answersToEdit = []
   answerEdited = ''
+  questionLoading = false;
 
   constructor(private questionservice: QuestionsService) { }
 
   async ngOnInit() {
+    this.questionLoading=false;
     this.qs = await this.questionservice.getQuestions(true)
     console.log('RETRIEVED QUESTIONs', this.qs)
     // this.questionservice.editQuestion(this.qs[0]).subscribe(res => {
@@ -61,24 +63,33 @@ export class AdminQuestionsComponent implements OnInit {
     
     console.log('hellllllll', a)
     console.log('THIS IS AAAAAAAAAAAAAAAAAA', a[0])
+    this.questionLoading = true;
     await this.questionservice.submitQuestion(this.questions[0].text, this.questions[0].matching, this.questions[0].mentor, this.questions[0].userInfo, this.questions[0].type, a).subscribe(async res => {
       console.log('THIS IS QUESTION RES', res);
       console.log(JSON.parse(res).id)
       // console.log(this.questions[0].answers)
-      await this.questionservice.submitPossibleAnswersToQuestion(JSON.parse(res).id, true, this.questions[0].answers)
+      await this.questionservice.submitPossibleAnswersToQuestion(JSON.parse(res).id, true, a)
+      this.qs = await this.questionservice.getQuestions(true)
       await this.questions.pop();
-      window.location.reload();
+      this.questionLoading=false;
+      // window.location.reload();
     })
   }
 
+  getLoading() : Boolean {
+    return this.questionLoading;
+  }
   editQuestion() {
    
     let answersToEdit = JSON.parse(JSON.stringify(this.questionToEdit)).answers[0].text
     let answerId = JSON.parse(JSON.stringify(this.questionToEdit)).answers[0].id
 
+    this.isVisible = false;
+    this.questionLoading = true;
     this.questionservice.editQuestion(JSON.parse(JSON.stringify(this.questionToEdit))).subscribe( async res => {
       await this.questionservice.editAnswersToQuestion(answerId, answersToEdit)
-      this.isVisible = false;
+      this.qs = await this.questionservice.getQuestions(true)
+      this.questionLoading = false;
     })
   }
 

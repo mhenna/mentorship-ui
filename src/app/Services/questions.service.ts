@@ -53,18 +53,9 @@ export class QuestionsService {
   submitPossibleAnswersToQuestion(id, original, text) {
     const reqHeaders: HttpHeaders = new HttpHeaders();
     reqHeaders.append('Content-Type', 'application/json');
-    console.log('THIS IS TEXTTTTT', text)
-    let a = []
-
-    var i = 0
-    console.log('THIS IS TEXT[0]', text[0])
-    console.log('THI IS TEXT[0].ANSWER', text[0].answer)
-    for (i=0; i < text.length; i++)
-      a.push(text[i].answer)
-    
-    console.log('THIS IS A IN SERVICE', a)
+    console.log('THIS IS TEXTTTTT', text)    
     reqHeaders.append('Authorization',  this.localStorage.get('token'));
-    return this.http.post(this.domain + "/answers/" ,{"answer_to_question":id, "original": original, "text": a}, { headers: reqHeaders })
+    return this.http.post(this.domain + "/answers/" ,{"answer_to_question":id, "original": original, "text": text}, { headers: reqHeaders })
     .subscribe(res => {console.log(res, "SUBMITING")});
   }
   editQuestion(question): Observable<string> {
@@ -96,15 +87,6 @@ export class QuestionsService {
     const reqHeaders: HttpHeaders = new HttpHeaders();
     reqHeaders.append('Content-Type', 'application/json');
     console.log('THIS IS TEXTTTTT', text)
-    let a = []
-
-    var i = 0
-    console.log('THIS IS TEXT[0]', text[0])
-    // console.log('THI IS TEXT[0].ANSWER', text[0].answer)
-    // for (i=0; i < text.length; i++)
-    //   a.push(text[i].answer)
-    
-    // console.log('THIS IS A IN SERVICE', a)
     reqHeaders.append('Authorization',  this.localStorage.get('token'));
     return this.http.put(this.domain + "/answers/edit" ,{"id":id, "text": text}, { headers: reqHeaders })
     .subscribe(res => {console.log(res, "SUBMITING")});
