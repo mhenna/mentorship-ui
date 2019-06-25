@@ -59,13 +59,16 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status < 300)
+          observer.next(http.status);
+        else
+          observer.error(JSON.parse(http.response).message);
         observer.complete();
       };
 
     })
   }
- ////////////////////////////////////////////////////////// Review
+
   editStartDate(mentor, mentee, id): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
@@ -77,13 +80,16 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status < 300)
+          observer.next(http.status);
+        else
+          observer.error(JSON.parse(http.response).message);
         observer.complete();
       };
 
     })
   }
-///////////////////////////////////////////////////////////////
+
   addSkill(name, type): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
@@ -120,7 +126,6 @@ export class AdminService {
       const data = new FormData();
       data.append('start_date', startDate);
       data.append('end_date', endDate);
-      
       data.append('name', name);
       const http = new XMLHttpRequest();
       http.open('POST', this.domain + '/cycles/');
@@ -143,10 +148,10 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        if (http.status<300)
+        if (http.status < 300)
           observer.next(http.status);
         else
-          observer.error(http.response);
+          observer.error(JSON.parse(http.response).message);
         observer.complete();
       };
 
@@ -164,7 +169,10 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status < 300)
+          observer.next(http.status);
+        else
+          observer.error(JSON.parse(http.response).message);
         observer.complete();
       };
 
@@ -182,7 +190,10 @@ export class AdminService {
       http.send(data);
       console.log("DELETE")
       http.onload = () => {
-        observer.next(http.status);
+        if (http.status < 300)
+          observer.next(http.status);
+        else
+          observer.error(JSON.parse(http.response).message);
         observer.complete();
       };
 
@@ -193,10 +204,10 @@ export class AdminService {
 
   sendEmail(type, email, body): Observable<string> {
     return Observable.create(observer => {
-      console.log("EMAIL", typeof(email))
+      console.log("EMAIL", typeof (email))
       var t = [];
       t = email
-      console.log("TTTTTTTTTT", t, " ", typeof(t))
+      console.log("TTTTTTTTTT", t, " ", typeof (t))
       const data = new FormData();
       data.append('type', type);
       data.append('email', email);
