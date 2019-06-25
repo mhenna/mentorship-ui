@@ -287,6 +287,7 @@ export class SignupComponent implements OnInit {
           this.ex = 2
 
         })
+        this.registered = true;
     }
     else {
       console.log("****************ERROR******************")
