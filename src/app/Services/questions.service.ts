@@ -27,6 +27,15 @@ export class QuestionsService {
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }
+  getSpecQuestions(type): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*')
+      this.http.get(environment.apiUrl + `/questions/${type}`, { headers: reqHeaders })
+        .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
   submitQuestion(text, matching, mentor, userInfo, type, answers): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();

@@ -144,6 +144,9 @@
           </form>
         </nz-form-control>
       </div>
+      
+      <label nz-checkbox [(ngModel)]="question.mentor" [ngModelOptions]="{standalone: true}">Check if this is a question for mentors (uncheck for mentees)</label>
+      <label nz-checkbox [(ngModel)]="question.matching" [ngModelOptions]="{standalone: true}">Check if this is a question for matching (uncheck for not for matching)</label>
       <nz-divider></nz-divider>
       <button nz-button nzType="primary" (click)="submit()"><i nz-icon type="check" theme="outline"></i>Submit</button>
     </nz-form-item>

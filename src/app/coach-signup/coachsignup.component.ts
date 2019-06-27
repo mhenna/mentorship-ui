@@ -145,7 +145,7 @@ export class CoachSignupComponent implements OnInit {
           this.type = params.type === 'forcoach' ? 0 : 1;
           this.loading = true;
 
-          this.questions = await this.questionsService.getQuestions(this.type);
+          this.questions = await this.questionsService.getSpecQuestions(this.type);
           console.log(this.questions, "kkkkk")
           this.loading = false;
           this.questions.forEach(element => {
@@ -190,7 +190,7 @@ export class CoachSignupComponent implements OnInit {
       }
     }
 
-    let is_iscoach = this.type === 1 ? false : true;
+    let iscoach = this.type === 1 ? false : true;
     try {
       for (let i = 0; i < this.Response.length; i++) {
 
