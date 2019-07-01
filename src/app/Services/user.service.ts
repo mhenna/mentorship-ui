@@ -26,7 +26,15 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-
+  getBusinessUnits(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*')
+      this.http.get(environment.apiUrl + `/users/getBUs`, { headers: reqHeaders })
+        .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
   getUsers(): Promise<any> {
     return new Promise((resolve, reject) => {
       const reqHeaders: HttpHeaders = new HttpHeaders();
