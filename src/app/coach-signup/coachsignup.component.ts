@@ -120,7 +120,6 @@ export class CoachSignupComponent implements OnInit {
     private route: ActivatedRoute, private message: NzMessageService, private userservice: UserService) {
 
   }
-
   async ngOnInit() {
     try {
       this.businessUnits = await this.userservice.getBusinessUnits();
