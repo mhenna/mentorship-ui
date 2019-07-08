@@ -152,7 +152,7 @@ export class CoachSignupComponent implements OnInit {
             // let id = element.question_id
             this.Response.push({ id: element.id, answer: [] })
 
-
+            
             for (let i = 1; i < 4; i++) {
               console.log(element.answers[0].text[i])
               let answer = element.answers[0].text[i]
@@ -225,7 +225,7 @@ export class CoachSignupComponent implements OnInit {
     for (let i = 0; i < this.Response.length; i++) {
 
       if (answer.questionId == this.Response[i].id) {
-
+        
 
         console.log(this.index, "1")
         this.Response[i].answer.push(answer.item)
@@ -235,6 +235,16 @@ export class CoachSignupComponent implements OnInit {
       }
     }
     console.log(this.Response, "RRRRRRR")
+  }
+
+  clearAnswers(answer){
+    console.log("ClearAnswers()")
+    for (let i = 0; i < this.Response.length; i++) {
+      if (answer.questionId == this.Response[i].id) {
+        this.Response[i].answer = []
+        console.log(this.Response[i].answer, 'Answers Cleared')
+      }
+    }
   }
 
   editAnswer(answer) {
