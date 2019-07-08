@@ -55,6 +55,12 @@ export class AdminQuestionsComponent implements OnInit {
     all_answers.push('')
   }
 
+  removePossibleAnswer(all_answers, index) {
+    console.log(index)
+    all_answers.splice(index, 1)
+    console.log('ANSWERS AFTER POP', all_answers)
+  }
+
   clearQuestion(question) {
     question.question = '';
     question.answers = [];

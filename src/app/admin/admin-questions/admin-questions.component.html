@@ -73,6 +73,10 @@
                         
                           
                           
+                          <button nz-button nzType="danger" [nzSize]="'small'" nzShape="circle"
+                        (click)="removePossibleAnswer(questionToEdit.answers[0].text, j)">
+                        <i nz-icon type="minus" theme="outline"></i>
+                      </button>
                         </nz-form-control>
                       </nz-form-item>
                       <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
