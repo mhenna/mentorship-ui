@@ -155,7 +155,6 @@
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
         <div *ngFor="let question of questions">
-          {{question.question_type}}
           <div *ngIf="question.question_type=='TEXT'">
             <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
               (selectedAnswer)='changeAnswer($event)' [question]='question.question_text'
