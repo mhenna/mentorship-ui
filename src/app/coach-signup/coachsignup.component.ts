@@ -83,7 +83,7 @@ export class CoachSignupComponent implements OnInit {
     ]),
     department: new FormControl('', [
       Validators.required,
-      Validators.pattern('[a-zA-Z ]+')
+      //Validators.pattern('[a-zA-Z ]+')
     ]),
     position: new FormControl('', [
       Validators.required,

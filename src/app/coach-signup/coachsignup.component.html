@@ -108,10 +108,10 @@
             <nz-option *ngFor="let bu of businessUnits" [nzLabel]='bu' [nzValue]='bu'></nz-option>
           </nz-select>
           <nz-form-explain
-            *ngIf="editForm.get('department').dirty && editForm.get('department').errors && !editForm.get('department').errors.pattern">
+            *ngIf="editForm.get('department').dirty && editForm.get('department').errors">
             Please input your department name!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must
-            only include characters!</nz-form-explain>
+          <!-- <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must
+            only include characters!</nz-form-explain> -->
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
