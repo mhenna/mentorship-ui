@@ -10,15 +10,19 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
   @Input() possibleAnswers:any[];
   @Input() questionId:any;
   @Input() numberOfChoises:any; 
-  @Input() reset:boolean; 
+  @Input() reset:boolean;
+  @Input() isMentee:any;
   @Output() selectedAnswer= new EventEmitter<any>();
   @Output() deletedAnswer= new EventEmitter<any>();
+  @Output() deselectAll= new EventEmitter<any>();
   private  possibleAnswerstemp:any[];
   
   dropdownList = [];
   selectedItems = [];
   answers=[];
   dropdownSettings = {};
+  IsCareerMentoring = false; 
+  careerMentoringValue = "Career mentoring";
   private optionSelected:any;
   constructor() {
     
@@ -49,12 +53,24 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
   }
   onItemSelect(item: any) {
     console.log(item.id,item.item, "ITEMSelect")
-
-    let response = {}    
-      response = {item:item.item,"questionId":this.questionId}
-
-    this.selectedAnswer.emit(response);
+    let response = {item:item.item, "questionId":this.questionId}
     
+    console.log("isMentee value:", this.isMentee == 0)
+    if (this.isMentee == 0){
+      if (!this.IsCareerMentoring){
+
+        // This is to remove selected answers
+        if (item.item == this.careerMentoringValue){
+          this.onUnSelectAll(item)
+          this.IsCareerMentoring = true
+        }
+        
+      }else{
+        this.onUnSelectAll(item)
+        this.IsCareerMentoring = false
+      }
+    }
+    this.selectedAnswer.emit(response); 
   }
 
   private itemHelper(){
@@ -66,19 +82,24 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
     this.selectedAnswer.emit(response);
   }
   onItemUnSelect(item: any) {
+    if (item.item == this.careerMentoringValue){
+      this.IsCareerMentoring = false;
+    }
     let answer=[]
     for (let i=0;i<this.selectedItems.length;i++){
       answer[i]=this.selectedItems[i].item
     }
     let response = {}
     console.log(answer,"deleted")
-      response = {"answer":answer,"questionId":this.questionId}
+    response = {"answer":answer,"questionId":this.questionId}
     this.deletedAnswer.emit(response);
     
   }
-  onUnSelectAll(items: any) {
-    let response = {"answer":items,"questionId":this.questionId}    
-    this.selectedAnswer.emit(response);
+  onUnSelectAll(item: any) {
+    console.log("onUnselectall()")
+    this.selectedItems = [item]
+    let response = {"answer":[],"questionId":this.questionId}    
+    this.deselectAll.emit(response);
   }
   onOptionsSelected(answer:any){
     console.log(answer,"MULTI")
