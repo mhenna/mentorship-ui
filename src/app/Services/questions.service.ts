@@ -120,6 +120,17 @@ export class QuestionsService {
     })
   }
 
+  getMembersAnswers(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
+      this.http.get(environment.apiUrl + `/answers/getAnswers`, {headers: reqHeaders})
+      .subscribe((data) => resolve(data), err => reject(err));
+    });
+
+  }
+
 
   submit(user, id, answer) {
     const reqHeaders: HttpHeaders = new HttpHeaders();
