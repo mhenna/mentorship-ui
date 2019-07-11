@@ -23,7 +23,7 @@ export class QuestionsService {
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');
       reqHeaders.append('Access-Control-Allow-Origin', '*')
-      this.http.get(environment.apiUrl + `/questions/`, { headers: reqHeaders })
+      this.http.get(environment.apiUrl + `/questions/get`, { headers: reqHeaders })
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }

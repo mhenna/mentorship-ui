@@ -60,7 +60,7 @@ export class UserService {
       data.append('position', pos);
       data.append('location',loc);
       data.append('cycles', cycleId);
-      data.append('hours', hour);
+      data.append('capacity', hour);
       data.append('coaching',coaching)
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');

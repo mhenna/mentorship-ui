@@ -70,8 +70,19 @@
                         <nz-form-label>Option {{ j +1 }}</nz-form-label>
                         <input nz-input placeholder="answer" [(ngModel)]="questionToEdit.answers[0].text[j]"
                           [ngModelOptions]="{standalone: true}">
-                      </nz-form-control>
-                    </nz-form-item>
+                        
+                          
+                          
+                          <button nz-button nzType="danger" [nzSize]="'small'" nzShape="circle"
+                        (click)="removePossibleAnswer(questionToEdit.answers[0].text, j)">
+                        <i nz-icon type="minus" theme="outline"></i>
+                      </button>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle"
+                      (click)="addPossibleAnswer(questionToEdit.answers[0].text)">
+                      <i nz-icon type="plus" theme="outline"></i>
+                    </button>
                   </form>
                 </nz-form-control>
               </div>
