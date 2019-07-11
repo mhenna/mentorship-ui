@@ -120,7 +120,6 @@ export class CoachSignupComponent implements OnInit {
     private route: ActivatedRoute, private message: NzMessageService, private userservice: UserService) {
 
   }
-
   async ngOnInit() {
     try {
       this.businessUnits = await this.userservice.getBusinessUnits();
@@ -146,7 +145,7 @@ export class CoachSignupComponent implements OnInit {
           this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
 
-          this.questions = await this.questionsService.getQuestions(this.type);
+          this.questions = await this.questionsService.getSpecQuestions(this.type);
           console.log(this.questions, "kkkkk")
           this.loading = false;
           this.questions.forEach(element => {

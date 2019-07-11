@@ -43,9 +43,22 @@ export class AdminQuestionsComponent implements OnInit {
 
   addMCQOptionsToQuestion(question) {
     console.log(question, "HLLLLLLLLLLLLLLLL")
+
     question.answers.push({
       answer: ''
     });
+  }
+
+  addPossibleAnswer(all_answers) {
+    console.log('THIS IS THE PARAMETER', all_answers)
+
+    all_answers.push('')
+  }
+
+  removePossibleAnswer(all_answers, index) {
+    console.log(index)
+    all_answers.splice(index, 1)
+    console.log('ANSWERS AFTER POP', all_answers)
   }
 
   clearQuestion(question) {
