@@ -1,6 +1,12 @@
 <div *ngIf="membersFetched">
-  <h1>Members</h1>
-  <nz-table #basicTable nzBordered [nzData]="members">
+  <div class="row">
+      <h1>Members</h1>
+
+      <input type="checkbox" [(ngModel)]="showMentors" (ngModelChange)="checkShowMentors()" style="margin-right: auto" name="chk1" value="bb"> Show Mentors<br>
+      <input type="checkbox" [(ngModel)]="showMentees" (ngModelChange)="checkShowMentees()" style="margin-right: auto" name="chk2" value="aa"> Show Mentees<br>
+
+  </div>
+  <nz-table #basicTable nzBordered [nzData]="members_temp">
     <thead>
       <tr>
         <th>Email</th>
@@ -10,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let member of members">
+      <tr *ngFor="let member of members_temp">
         <td>{{member.email}}</td>
         <td>{{member.departement}}</td>
         <td>{{member.years_of_experience}}</td>
@@ -23,3 +29,6 @@
     <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
 </div>
 <button nz-button nzType="primary" [routerLink] = "['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>
+<button nz-button nzType="primary" *ngIf="membersFetched" (click)="download()" [nzSize]="large" nzShape="round">
+  Download
+  </button>

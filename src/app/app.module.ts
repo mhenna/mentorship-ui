@@ -14,7 +14,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AdminQuestionsComponent } from './admin/admin-questions/admin-questions.component';
 import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
-import { SignupComponent } from './signup/signup.component';
 import { McquestionComponent } from './mcquestion/mcquestion.component';
 import { SelectManyQuestionComponent } from './select-many-question/select-many-question.component';
 import { TextQuestionComponent } from './text-question/text-question.component';
@@ -47,7 +46,6 @@ registerLocaleData(en);
     FooterComponent,
     LoginComponent,
     AdminQuestionsComponent,
-    SignupComponent,
     CoachSignupComponent,
     McquestionComponent,
     SelectManyQuestionComponent,

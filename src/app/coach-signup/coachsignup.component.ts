@@ -36,7 +36,7 @@ export class CoachSignupComponent implements OnInit {
   tab: any;
   ex: any;
   type: any;
-  coaching = true;
+  coaching = false;
   radioValue = "a";
   userid: any;
   Response: any[] = [];
@@ -77,7 +77,7 @@ export class CoachSignupComponent implements OnInit {
       Validators.required,
       // Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
-    hours: new FormControl('', [
+    capacity: new FormControl('', [
       Validators.required,
       Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
@@ -141,7 +141,8 @@ export class CoachSignupComponent implements OnInit {
       console.log(this.flag, "FLAG")
       this.route.queryParams
         .subscribe(async params => {
-          this.type = params.type === 'forcoach' ? 0 : 1;
+          //this.type = params.type === 'forcoach' ? 0 : 1;
+          this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
 
           this.questions = await this.questionsService.getSpecQuestions(this.type);
@@ -151,7 +152,7 @@ export class CoachSignupComponent implements OnInit {
             // let id = element.question_id
             this.Response.push({ id: element.id, answer: [] })
 
-
+            
             for (let i = 1; i < 4; i++) {
               console.log(element.answers[0].text[i])
               let answer = element.answers[0].text[i]
@@ -189,7 +190,8 @@ export class CoachSignupComponent implements OnInit {
       }
     }
 
-    let iscoach = this.type === 1 ? false : true;
+    //let is_iscoach = this.type === 1 ? false : true;
+    let is_mentor = this.type === 1 ? false : true;
     try {
       for (let i = 0; i < this.Response.length; i++) {
 
@@ -224,7 +226,7 @@ export class CoachSignupComponent implements OnInit {
     for (let i = 0; i < this.Response.length; i++) {
 
       if (answer.questionId == this.Response[i].id) {
-
+        
 
         console.log(this.index, "1")
         this.Response[i].answer.push(answer.item)
@@ -234,6 +236,16 @@ export class CoachSignupComponent implements OnInit {
       }
     }
     console.log(this.Response, "RRRRRRR")
+  }
+
+  clearAnswers(answer){
+    console.log("ClearAnswers()")
+    for (let i = 0; i < this.Response.length; i++) {
+      if (answer.questionId == this.Response[i].id) {
+        this.Response[i].answer = []
+        console.log(this.Response[i].answer, 'Answers Cleared')
+      }
+    }
   }
 
   editAnswer(answer) {
@@ -253,7 +265,8 @@ export class CoachSignupComponent implements OnInit {
   }
   logg() {
 
-    let iscoach = false
+    // let iscoach = false
+    let mentor = false
     // console.log('#######################################')
     // console.log('#######################################')
     // console.log(this.editForm.get('yearsExperience').value)
@@ -268,16 +281,17 @@ export class CoachSignupComponent implements OnInit {
       console.log("***********NO ERROR*************")
       this.flag = false;
       if (this.type == 1) {
-        iscoach = true;
-        console.log(iscoach, "iscoach")
+        //iscoach = true;
+        mentor = true;
+        console.log(mentor, "is mentor")
       }
 
 
 
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
-        this.editForm.get('email').value, iscoach, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
+        this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
-        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('hours').value).subscribe(async (res) => {
+        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value).subscribe(async (res) => {
           console.log("______________________________-------------------", this.currentCycleId)
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
           this.editForm.reset()
@@ -289,11 +303,17 @@ export class CoachSignupComponent implements OnInit {
     else {
       console.log("****************ERROR******************")
       console.log(this.editForm.get('department').value)
+      // if (this.type == 1) {
+      //   console.log("iscoach")
+      // }
+      // else {
+      //   console.log("forcoach")
+      // }
       if (this.type == 1) {
-        console.log("iscoach")
+        console.log("mentor")
       }
       else {
-        console.log("forcoach")
+        console.log("mentee")
       }
       this.error = true;
     }
