@@ -6,3 +6,11 @@
     padding: 30px 50px;
     margin: 20px 0;
   }
+  [nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }
+
+  .nz-button-group [nz-button] {
+    margin-right: 0;
+  }

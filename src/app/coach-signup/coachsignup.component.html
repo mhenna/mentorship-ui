@@ -48,13 +48,13 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item *ngIf="type==1">
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Available hours</nz-form-label>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Mentee Capacity:</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="email" formControlName="hours" style="width: 200px;">
+          <input nz-input id="email" formControlName="capacity" style="width: 200px;">
           <nz-form-explain
-            *ngIf="editForm.get('hours').dirty && editForm.get('hours').errors && !editForm.get('hours').errors.pattern">
+            *ngIf="editForm.get('capacity').dirty && editForm.get('capacity').errors && !editForm.get('capacity').errors.pattern">
             Please input how many hours you'll be available during this cycle!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('hours').errors && editForm.get('hours').errors.pattern">Must be a digit!
+          <nz-form-explain *ngIf="editForm.get('capacity').errors && editForm.get('capacity').errors.pattern">Must be a digit!
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -165,11 +165,18 @@
               [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
               [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
-          <div *ngIf="question.question_type=='MULTI_SELECT'">
+          <div *ngIf="question.question_type=='MULTI_SELECT' && question.question_text != 'In what areas do you want further experience?' ">
 
-            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
-              [numberOfChoises]='0' [possibleAnswers]='question.answers' [question]='question.question_text'
-              [reset]='reset' [questionId]="question.id"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' (deselectAll)='clearAnswers($event)'
+              [numberOfChoises]='3' [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id" [isMentee]="type"></app-select-many-question>
+          </div>
+          <div *ngIf="question.question_type=='MULTI_SELECT' && question.question_text=='In what areas do you want further experience?'">
+
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' (deselectAll)='clearAnswers($event)'
+              [numberOfChoises]='3' [possibleAnswers]='question.answers' [question]='question.question_text'
+              [reset]='reset' [questionId]="question.id" [isMentee]="type"></app-select-many-question>
+              <span><I> Note: You can either pick career mentorship only, or up to 3 other areas. </I></span>
           </div>
           <br>
           <br>

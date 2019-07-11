@@ -94,8 +94,12 @@ editDeadline(){
   console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
   const mentorDeadline= new Date(this.deadlineForm.value.mentorDate)
   const menteeDeadline= new Date(this.deadlineForm.value.menteeDate)
-  this.adminService.editDeadlines(mentorDeadline.toISOString(),menteeDeadline.toISOString(),this.deadlines[0].id).subscribe(res=>{
+  this.adminService.editDeadlines(mentorDeadline.toISOString(),menteeDeadline.toISOString(),
+  this.deadlines[0].id).subscribe(res=>{
     console.log("deadline changed")
+  }, (err) => {
+    alert(err)
+    console.log("ERR", err)
   })
 }
 editStartDate(){
@@ -103,8 +107,12 @@ editStartDate(){
   console.log(this.deadlines[0].id, "fHAIHIUAIHIUH")
   const mentorStartDate= new Date(this.StartDateForm.value.mentorDate)
   const menteeStartDate= new Date(this.StartDateForm.value.menteeDate)
-  this.adminService.editStartDate(mentorStartDate.toISOString(),menteeStartDate.toISOString(),this.deadlines[0].id).subscribe(res=>{
+  this.adminService.editStartDate(mentorStartDate.toISOString(),menteeStartDate.toISOString(),
+  this.deadlines[0].id).subscribe(res=>{
     console.log("StartDate changed")
+  }, (err) => {
+    alert(err)
+    console.log('ERR', err)
   })
 }
   addSkill(skillId, cycleId){
@@ -114,10 +122,10 @@ editStartDate(){
       console.log("Skill added", res)
       await this.getCycles();
      
-    }, async (err) => {
+    }, (err) => {
       alert(err)
       console.log("ERR", err)
-      await this.getCycles();
+      this.getCycles();
     
     });
     //  this.getCycles()
@@ -146,9 +154,9 @@ editStartDate(){
        this.open =false;
      
     }, (err) => {
-
-      console.log("ERR")
-    
+      alert(err)
+      console.log("ERR", err)
+      // this.getCycles()
     });
  
   }
@@ -195,7 +203,7 @@ editStartDate(){
     }
 
    }, (err) => {
-     
+     alert(err)
    });
 
   }
