@@ -144,13 +144,13 @@
             Must only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-      <button nz-button nzType="primary" (click)="logg()">Submit</button>
+      <button nz-button nzType="primary" (click)="logg()">Next</button>
 
 
     </form>
   </nz-tab>
 
-  <nz-tab nzTitle='Mentorship Details' [nzDisabled]="false">
+  <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
     <div nz-row *ngIf="!registered">
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">

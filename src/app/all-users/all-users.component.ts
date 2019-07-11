@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../Services/user.service';
-import { AdminService} from '../Services/admin.service'
+import { AdminService} from '../Services/admin.service';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-all-users',
@@ -16,7 +18,10 @@ export class AllUsersComponent implements OnInit {
   sortName = null;
   sortValue = null;
   listOfSearchName = [];
+  usersFetched = false;
   searchAddress: string;  
+  EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  EXCEL_EXTENSION = '.xlsx';
 
   constructor(private userService: UserService,
     private adminService: AdminService) { }
@@ -24,6 +29,7 @@ export class AllUsersComponent implements OnInit {
     try {
       this.loading = true;
       this.users = await this.userService.getUsers();
+      this.usersFetched = true;
       this.loading = false;
  this.displayData = [ ...this.users ];
 
@@ -77,5 +83,19 @@ export class AllUsersComponent implements OnInit {
     } else {
       this.displayData = data;
     }
+  }
+
+  async download() {
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.users);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, "Users");
+
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: this.EXCEL_TYPE });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + this.EXCEL_EXTENSION);
   }
 }

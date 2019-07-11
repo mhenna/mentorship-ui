@@ -34,7 +34,7 @@ h1 {
 .bb-overlay {
     /* background: url("https://inside.dell.com/resources/statics/1355203/cq5dam.web.1280.1280.jpeg?a=1541377162507") no-repeat center center fixed; */
     /* background-size: cover; */
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.3);
     padding-top: 200px;
     padding-bottom: 250px;
     width: 100%;
