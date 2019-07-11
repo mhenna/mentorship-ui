@@ -44,51 +44,35 @@ export class CycleMembersComponent implements OnInit {
     this.members_temp = this.members;
     this.filteredMentees = this.filteredMentors = []
 
-    if(this.showMentors)
-    {
-        console.log("Getting mentors")
-        for (i = 0; i < this.members.length; i++) {
-          if (this.members[i].is_mentor)
-            this.filteredMentors.push(this.members[i])
-        }
-        console.log(this.filteredMentors)
+    if (this.showMentors) {
+      for (i = 0; i < this.members.length; i++) {
+        if (this.members[i].is_mentor)
+          this.filteredMentors.push(this.members[i])
+      }
     }
-    if(this.showMentees)
-    {
-      console.log("Getting mentees")
+    if (this.showMentees) {
       for (i = 0; i < this.members.length; i++) {
         if (!this.members[i].is_mentor)
           this.filteredMentees.push(this.members[i])
       }
     }
 
-    //this.members = []
     this.members_temp = []
-    if(this.showMentees && this.showMentors)
-    {
-      console.log("Both are true")
+    if (this.showMentees && this.showMentors) {
       this.members_temp = this.members;
-      // this.members_temp.concat(this.filteredMentors);
-      // this.members_temp.concat(this.filteredMentees);
     }
-    else if (this.showMentors && !this.showMentees)
-    {
+    else if (this.showMentors && !this.showMentees) {
       this.members_temp = this.filteredMentors
     }
-    else if (this.showMentees && !this.showMentors){
+    else if (this.showMentees && !this.showMentors) {
       this.members_temp = this.filteredMentees
     }
-    else{
+    else {
       this.members_temp = this.members;
     }
-      
-
-    console.log("Hellllooooo", this.members_temp)
-
   }
 
   async getUsers() {
-    //this.members = [];
     this.users = await this.userService.getUsers();
     this.membersFetched = true;
     var i;
@@ -96,28 +80,16 @@ export class CycleMembersComponent implements OnInit {
     for (i = 0; i < this.users.length; i++) {
       if (this.users[i].cycles.includes(this.cycleId))
         this.members.push(this.users[i])
-      }
+    }
     this.members_temp = this.members;
-    console.log(this.members)
   }
 
-  public checkShowMentors(){
-    //console.log(this.allowOthers)
-    //this.showMentors = !this.showMentors;
-    console.log("CHECKINGGGG mentors", this.showMentors)
-
-
+  public checkShowMentors() {
     this.filter();
-}
-public checkShowMentees(){
-  //console.log(this.allowOthers)
-  console.log("CHECKINGGGG mentees", this.showMentees)
-
-  
-  //this.showMentees = !this.showMentees;
-
-  this.filter();
-}
+  }
+  public checkShowMentees() {
+    this.filter();
+  }
 
 
   async download() {

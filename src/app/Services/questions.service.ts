@@ -39,18 +39,15 @@ export class QuestionsService {
   submitQuestion(text, matching, mentor, userInfo, type, answers): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
-      console.log(answers)
       data.append('question_text', text);
       data.append('is_matching', matching);
       data.append('is_mentor', mentor)
       data.append('user_info', userInfo)
       data.append('question_type', type)
       data.append('text', answers)
-      console.log("TEXTTTTTTTTTTTTTTTT", answers)
       const http = new XMLHttpRequest();
       http.open('POST', this.domain + '/questions/');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
-      console.log("DATAAAAAAAAAAAAAAAAAA", data)
       http.send(data);
       http.onload = () => {
         observer.next(http.response)
@@ -62,7 +59,6 @@ export class QuestionsService {
   submitPossibleAnswersToQuestion(id, original, text) {
     const reqHeaders: HttpHeaders = new HttpHeaders();
     reqHeaders.append('Content-Type', 'application/json');
-    console.log('THIS IS TEXTTTTT', text)    
     reqHeaders.append('Authorization',  this.localStorage.get('token'));
     return this.http.post(this.domain + "/answers/" ,{"answer_to_question":id, "original": original, "text": text}, { headers: reqHeaders })
     .subscribe(res => {console.log(res, "SUBMITING")});
@@ -95,7 +91,6 @@ export class QuestionsService {
   editAnswersToQuestion(id, text) {
     const reqHeaders: HttpHeaders = new HttpHeaders();
     reqHeaders.append('Content-Type', 'application/json');
-    console.log('THIS IS TEXTTTTT', text)
     reqHeaders.append('Authorization',  this.localStorage.get('token'));
     return this.http.put(this.domain + "/answers/edit" ,{"id":id, "text": text}, { headers: reqHeaders })
     .subscribe(res => {console.log(res, "SUBMITING")});

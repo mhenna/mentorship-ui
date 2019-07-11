@@ -24,9 +24,7 @@ signOut()
 }
 
 setUnauthorized() {
-  console.log('inside set unauthorized')
   this.unauthorized.next(true);
-  console.log(this.unauthorized, 'unauthorized')
 }
 
 setAuthorized() {

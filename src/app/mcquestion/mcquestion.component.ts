@@ -15,12 +15,7 @@ export class McquestionComponent implements OnInit {
     
    }
 
-  ngOnInit() {
-    console.log(this.question);
-    console.log(this.possibleAnswers, "KKKKKKKKKKKKK");
-    console.log(this.questionId);
-    
-    
+  ngOnInit() {    
   }
   onOptionsSelected(answer:any){
     let response = {...answer,"questionId":this.questionId}
