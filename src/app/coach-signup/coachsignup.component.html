@@ -50,11 +50,11 @@
       <nz-form-item *ngIf="type==1">
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Mentee Capacity:</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="email" formControlName="hours" style="width: 200px;">
+          <input nz-input id="email" formControlName="capacity" style="width: 200px;">
           <nz-form-explain
-            *ngIf="editForm.get('hours').dirty && editForm.get('hours').errors && !editForm.get('hours').errors.pattern">
+            *ngIf="editForm.get('capacity').dirty && editForm.get('capacity').errors && !editForm.get('capacity').errors.pattern">
             Please input how many hours you'll be available during this cycle!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('hours').errors && editForm.get('hours').errors.pattern">Must be a digit!
+          <nz-form-explain *ngIf="editForm.get('capacity').errors && editForm.get('capacity').errors.pattern">Must be a digit!
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
