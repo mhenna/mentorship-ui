@@ -32,13 +32,10 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
       this.selectedItems = [
 
     ];
-    console.log(this.possibleAnswers,"POSSIBLE")
     for (let j = 0; j<this.possibleAnswers[0].text.length; j++){
-      console.log(this.possibleAnswers[0].text[j],"POSSIBLE")
       this.answers.push({id: j, item: this.possibleAnswers[0].text[j]})
       
     }
-  console.log(this.answers.length,"SIZE", this.answers)
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -52,10 +49,8 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
    
   }
   onItemSelect(item: any) {
-    console.log(item.id,item.item, "ITEMSelect")
     let response = {item:item.item, "questionId":this.questionId}
     
-    console.log("isMentee value:", this.isMentee == 0)
     if (this.isMentee == 0){
       if (!this.IsCareerMentoring){
 
@@ -77,7 +72,6 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
 
   }
   onSelectAll(items: any) {
-    console.log(items,"ITEMSAll")
     let response = {"answer":items,"questionId":this.questionId}    
     this.selectedAnswer.emit(response);
   }
@@ -90,19 +84,16 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
       answer[i]=this.selectedItems[i].item
     }
     let response = {}
-    console.log(answer,"deleted")
     response = {"answer":answer,"questionId":this.questionId}
     this.deletedAnswer.emit(response);
     
   }
   onUnSelectAll(item: any) {
-    console.log("onUnselectall()")
     this.selectedItems = [item]
     let response = {"answer":[],"questionId":this.questionId}    
     this.deselectAll.emit(response);
   }
   onOptionsSelected(answer:any){
-    console.log(answer,"MULTI")
      let response = {answer,"questionId":this.questionId}
     this.selectedAnswer.emit(response);
 
@@ -116,8 +107,6 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
         
         
         if (this.reset === true){
-          console.log("RESET TRUE", this.reset);
-
          let response = {"answer":[],"questionId":this.questionId};
          this.deletedAnswer.emit(response);
          this.selectedItems = [];

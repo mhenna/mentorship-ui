@@ -19,22 +19,22 @@ export class EmailComponent implements OnInit {
   type: any;
   body: any;
   email: any;
-  inputValue : string
-  active= false;
-  flag=false;
-  users : any;
+  inputValue: string
+  active = false;
+  flag = false;
+  users: any;
   listOfSelectedValue = [];
-  count : any;
+  count: any;
 
   emailForm = new FormGroup({
-    
+
     email: new FormControl(''),
-   
-   
+
+
   });
 
   constructor(private adminService: AdminService,
-    private userService : UserService) { }
+    private userService: UserService) { }
 
   ngOnInit() {
     this.count = 0;
@@ -42,39 +42,34 @@ export class EmailComponent implements OnInit {
   }
 
 
-modalOpen(){
-  this.active = true;
-  console.log(this.active)
-}
+  modalOpen() {
+    this.active = true;
+  }
 
-  sendEmail(){
-    
+  sendEmail() {
+
     this.count = this.count + 1;
 
     if (this.count == 1)
       this.emailForm.value.email.shift()
 
-    console.log(this.emailForm.value.email, " AFTER kjwfkjweifhwei")
-    // console.log(this.inputValue,"||||||", this.emailForm.value.email)
-    this.adminService.sendEmail(this.type,this.emailForm.value.email,this.inputValue).subscribe(async (res) => {
+    this.adminService.sendEmail(this.type, this.emailForm.value.email, this.inputValue).subscribe(async (res) => {
 
-      this.active = false ;
-      
-      console.log("email sent")
+      this.active = false;
     }, (err) => {
-      
+
     });
 
     this.emailForm.reset()
   }
 
-  log(x){
+  log(x) {
 
     this.type = x;
-    if(this.type=="seperate"){
-      this.flag= true;
-    }else{
-      this.flag= false;
+    if (this.type == "seperate") {
+      this.flag = true;
+    } else {
+      this.flag = false;
     }
 
   }

@@ -32,19 +32,12 @@ export class MatchUsersComponent implements OnInit {
      
       
     }
-    console.log('menteessss',this.mentees,this.mentors);          
     for(let i = 0 ; i<this.mentors.length;i++){
       
-      for(let j = 0 ; j <this.mentors[i].matched.length;j++){
-    console.log('ment',{"mentorId":this.mentors[i].user_id,"mentorEmail":this.mentors[i].email,"menteeId":this.mentors[i].matched[j].user_id,"menteeEmail":this.mentors[i].matched[j].email});          
-        
+      for(let j = 0 ; j <this.mentors[i].matched.length;j++){        
         this.matchings.push({"mentorId":this.mentors[i].user_id,"mentorEmail":this.mentors[i].email,"menteeId":this.mentors[i].matched[j].user_id,"menteeEmail":this.mentors[i].matched[j].email})
       }
-    }
-
-    console.log("matchinggg",this.matchings);      
-    
-    
+    }    
   } catch (error) {
     }
     
@@ -57,9 +50,7 @@ this.selectedMentor=mentor
   this.selectedMentee = mentee
 
   }
-  match(){
-    console.log('matchh',this.selectedMentee.user_id,this.selectedMentor.user_id);
-    
+  match(){    
     this.userService.matchUsers(this.selectedMentee.user_id,this.selectedMentor.user_id)
   }
   unmatch(mentorId,menteeId){
