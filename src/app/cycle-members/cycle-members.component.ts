@@ -54,7 +54,7 @@ export class CycleMembersComponent implements OnInit {
     var i, j;
     console.log("Startinggggggg")
     for(j = 0; j < this.members.length; j++){
-        this.members[j]["AnswersList"] = []
+        // this.members[j]["AnswersList"] = []
           for(i = 0; i < this.answers.length; i++){
 
             if(this.answers[i].answer_from_user != undefined && this.answers[i].answer_from_user.id == this.members[j].id){
@@ -63,21 +63,23 @@ export class CycleMembersComponent implements OnInit {
                   id: this.answers[i].answer_to_question.id,
                   value: this.answers[i].text
               }
-              this.members[j]["AnswersList"].push(obj)
+              //this.members[j]["AnswersList"].push(obj)
+              this.members[j]["Answer_to_" + this.answers[i].answer_to_question.question_text]  = this.answers[i].text.join(", ")
             }
             else
-              console.log("Mafeesh")
+              {
+                console.log("Mafeesh")
+            }
           }
           
           
-          this.members[j]["AnswersList"].sort((a,b) => {
-            if (a.id > b.id) return -1;
-            else return 1;
-            return 0;
-          })
-          console.log(this.members[j])
-
+          // this.members[j]["AnswersList"].sort((a,b) => {
+          //   if (a.id > b.id) return -1;
+          //   else return 1;
+          //   return 0;
+          // })
     }
+    
 
 
   }
@@ -165,11 +167,13 @@ public checkShowMentees(){
 
   async download() {
 
-    // const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.members);
-    // const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    // const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    // this.saveAsExcelFile(excelBuffer, "Members");
     this.concatAns();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.members);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, "Members");
+    
+    console.log("Hello we are final members", this.members)
 
   }
 
