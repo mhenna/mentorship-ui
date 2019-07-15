@@ -29,6 +29,6 @@
     <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
 </div>
 <button nz-button nzType="primary" [routerLink] = "['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>
-<button nz-button nzType="primary" *ngIf="membersFetched" (click)="download()" [nzSize]="large" nzShape="round">
+<button nz-button nzType="primary" *ngIf="membersFetched && answersFetched" (click)="download()" [nzSize]="large" nzShape="round">
   Download
   </button>
