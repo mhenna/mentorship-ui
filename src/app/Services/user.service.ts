@@ -35,14 +35,12 @@ export class UserService {
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-  getUsers(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  getUsers(): Observable<any>  {
+    
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');
       reqHeaders.append('Access-Control-Allow-Origin', '*');
-      this.http.get(environment.apiUrl + `/users/users`, {headers: reqHeaders})
-      .subscribe((data) => resolve(data), err => reject(err));
-    });
+      return this.http.get(environment.apiUrl + `/users/users`, { headers: reqHeaders });
   }
   businessUnitNotListed(businessUnit): Observable<string> {
     return Observable.create(observer => {
@@ -99,9 +97,20 @@ export class UserService {
   unMatchUsers(menteeId,mentorId): Promise<any> {
     return new Promise((resolve, reject) => {
       const reqHeaders: HttpHeaders = new HttpHeaders();
+      console.log('HIIIIIIIIIIIIIIIIIII', menteeId, '      ', mentorId)
       reqHeaders.append('Content-Type', 'application/json');
       reqHeaders.append('Access-Control-Allow-Origin', '*');
       this.http.post(environment.apiUrl + `/users/unmatch`, {'mentorId':mentorId,'menteeId':menteeId},{headers: reqHeaders})
+      .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
+  mentorScore(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.set('Authorization', this.localStorage.get('token'));
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*');
+      this.http.get(environment.apiUrl + '/users/score', {headers: reqHeaders})
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }

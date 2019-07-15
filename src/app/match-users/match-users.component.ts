@@ -17,7 +17,10 @@ export class MatchUsersComponent implements OnInit {
   async ngOnInit() {
     try {
      
-      this.users = await this.userService.getUsers();
+      this.userService.getUsers().subscribe(users =>{
+        this.users = users
+      })
+      console.log(this.users)
       for(let i =0;i<this.users.length;i++){
             
         if(this.users[i].is_mentor )

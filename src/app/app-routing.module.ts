@@ -14,6 +14,7 @@ import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CycleMembersComponent } from './cycle-members/cycle-members.component';
+import { MentorScoresComponent } from './mentor-scores/mentor-scores.component';
 
 const routes: Routes = [
   {
@@ -39,11 +40,11 @@ const routes: Routes = [
     component: AdminQuestionsComponent,
     canActivate: [AuthGuardService]
   },
-  {
-    path: 'admin/match',
-    component: MatchUsersComponent,
-    canActivate: [AuthGuardService]
-  },
+  // {
+  //   path: 'admin/match',
+  //   component: MatchUsersComponent,
+  //   canActivate: [AuthGuardService]
+  // },
   {
     path: '',
     component: HomeComponent
@@ -72,6 +73,11 @@ const routes: Routes = [
   {
     path: 'admin/invite',
     component: InviteMentorComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin/users/match',
+    component: MentorScoresComponent,
     canActivate: [AuthGuardService]
   }
 ];

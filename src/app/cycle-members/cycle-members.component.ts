@@ -118,7 +118,10 @@ export class CycleMembersComponent implements OnInit {
   }
 
   async getUsers() {
-    this.users = await this.userService.getUsers();
+    //this.members = [];
+    this.userService.getUsers().subscribe(users =>{
+      this.users = users
+    })
     this.membersFetched = true;
     var i;
 
