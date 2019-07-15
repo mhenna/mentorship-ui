@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of basicTable.data">
-      <td> <a [routerLink]="['/user']" [queryParams]="{ id: user.user_id}">{{user.email}}</a>  <button class="btn btn-danger btn-sm" (click)="deleteUser(user.user_id)">Delete
+      <td> <a [routerLink]="['/user']" [queryParams]="{ id: user.id}">{{user.email}}</a>  <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete
        
       </button></td>
       <td *ngIf="user.is_mentor==true">Mentor</td>
