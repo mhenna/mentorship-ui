@@ -49,9 +49,11 @@ export class EmailComponent implements OnInit {
   sendEmail() {
 
     this.count = this.count + 1;
-
+    console.log(this.emailForm.value.email)
     if (this.count == 1)
       this.emailForm.value.email.shift()
+
+    console.log(this.emailForm.value.email)
 
     this.adminService.sendEmail(this.type, this.emailForm.value.email, this.inputValue).subscribe(async (res) => {
 
