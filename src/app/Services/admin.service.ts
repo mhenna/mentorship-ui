@@ -18,7 +18,8 @@ export class AdminService {
       const data = new FormData();
       data.append('email', email);
       const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/admin/invite');
+      http.open('POST', this.domain + '/admins/invite');
+      console.log("TOKEN", this.localStorage.get('token'))
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
@@ -110,7 +111,7 @@ export class AdminService {
       const data = new FormData();
       data.append('user_id', id);
       const http = new XMLHttpRequest();
-      http.open('DELETE', this.domain + '/admin/delete');
+      http.open('DELETE', this.domain + '/admins/delete');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
@@ -207,7 +208,7 @@ export class AdminService {
       data.append('email', email);
       data.append('emailBody', body);
       const http = new XMLHttpRequest();
-      http.open('POST', this.domain + '/admin/email');
+      http.open('POST', this.domain + '/admins/email');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
