@@ -50,7 +50,10 @@ export class EmailComponent implements OnInit {
     this.count = this.count + 1;
 
     if (this.count == 1 &&  this.emailForm.value.email)
+
       this.emailForm.value.email.shift()
+
+    console.log(this.emailForm.value.email)
 
     this.adminService.sendEmail(this.type, this.emailForm.value.email, this.inputValue).subscribe(async (res) => {
 

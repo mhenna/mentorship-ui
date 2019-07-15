@@ -54,7 +54,6 @@ export class AllUsersComponent implements OnInit {
       this.userService.getUsers().subscribe(async users =>{
         this.displayData = await users
         this.users = users
-        this.loading = false
       })
 
     }, (err) => {
