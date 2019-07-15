@@ -53,7 +53,7 @@ export class AllUsersComponent implements OnInit {
 
       this.userService.getUsers().subscribe(async users =>{
         this.displayData = await users
-        this.loading = false
+        this.users = users
       })
 
     }, (err) => {
