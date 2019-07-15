@@ -47,10 +47,10 @@ export class EmailComponent implements OnInit {
   }
 
   sendEmail() {
-
     this.count = this.count + 1;
-    console.log(this.emailForm.value.email)
-    if (this.count == 1)
+
+    if (this.count == 1 &&  this.emailForm.value.email)
+
       this.emailForm.value.email.shift()
 
     console.log(this.emailForm.value.email)
@@ -77,6 +77,6 @@ export class EmailComponent implements OnInit {
   }
 
   async getUsers() {
-    this.users = await this.userService.getUsers();
+    this.users = await this.userService.getUsersEmail()
   }
 }

@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let member of members_temp">
+      <tr *ngFor="let member of basicTable.data">
         <td>{{member.email}}</td>
         <td>{{member.departement}}</td>
         <td>{{member.years_of_experience}}</td>
@@ -29,6 +29,6 @@
     <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
 </div>
 <button nz-button nzType="primary" [routerLink] = "['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>
-<button nz-button nzType="primary" *ngIf="membersFetched" (click)="download()" [nzSize]="large" nzShape="round">
+<button nz-button nzType="primary" *ngIf="membersFetched && answersFetched" (click)="download()" [nzSize]="large" nzShape="round">
   Download
   </button>

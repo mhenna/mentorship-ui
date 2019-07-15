@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-all-users',
   templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.css']
+  styleUrls: ['./all-users.component.css'],
 })
 export class AllUsersComponent implements OnInit {
   nameList = [{text:'mentor',value:true},
@@ -24,16 +24,19 @@ export class AllUsersComponent implements OnInit {
   EXCEL_EXTENSION = '.xlsx';
 
   constructor(private userService: UserService,
-    private adminService: AdminService) { }
+    private adminService: AdminService,
+    ) { }
   async ngOnInit() {
     try {
       this.loading = true;
-      this.users = await this.userService.getUsers();
-      this.usersFetched = true;
-      this.loading = false;
- this.displayData = [ ...this.users ];
-
-      
+      // this.data.currentMessage.subscribe(message => this.users = message)
+      this.userService.getUsers().subscribe(users =>{
+        this.users = users
+        this.displayData = [ ...this.users ];
+        this.usersFetched = true;
+        this.loading=false;
+      })
+     
     } catch (error) {
     }
     
@@ -45,9 +48,13 @@ export class AllUsersComponent implements OnInit {
   }
   deleteUser(id){
 
+    this.loading = true
     this.adminService.deleteUser(id).subscribe(async (res) => {
 
-      this.users = await this.userService.getUsers()
+      this.userService.getUsers().subscribe(async users =>{
+        this.displayData = await users
+        this.loading = false
+      })
 
     }, (err) => {
       

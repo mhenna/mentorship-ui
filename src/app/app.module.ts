@@ -26,7 +26,6 @@ import {QuestionsService} from '../app/Services/questions.service'
 import {LoginService} from './Services/login.service';
 import {UserService} from './Services/user.service';
 import { HttpModule } from '@angular/http';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { MatchUsersComponent } from './match-users/match-users.component'
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
@@ -37,6 +36,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CycleMembersComponent } from './cycle-members/cycle-members.component';
 import { CoachSignupComponent } from './coach-signup/coachsignup.component';
+import { MentorScoresComponent } from './mentor-scores/mentor-scores.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -51,7 +51,6 @@ registerLocaleData(en);
     SelectManyQuestionComponent,
     TextQuestionComponent,
     UnauthorizedComponent,
-    UserProfileComponent,
     AllUsersComponent,
     CycleComponent,
     MatchUsersComponent,
@@ -59,7 +58,8 @@ registerLocaleData(en);
     EmailComponent,
     DashboardComponent,
     HomeComponent,
-    CycleMembersComponent,    
+    CycleMembersComponent,
+    MentorScoresComponent,    
   ],
   imports: [
     BrowserModule,

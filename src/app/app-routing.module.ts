@@ -6,7 +6,6 @@ import { CoachSignupComponent } from './coach-signup/coachsignup.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
 import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.component';
-import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import {CycleComponent} from './admin/cycle/cycle.component';
 import { MatchUsersComponent } from './match-users/match-users.component';
@@ -14,6 +13,7 @@ import { EmailComponent } from './admin/email/email.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { CycleMembersComponent } from './cycle-members/cycle-members.component';
+import { MentorScoresComponent } from './mentor-scores/mentor-scores.component';
 
 const routes: Routes = [
   {
@@ -39,11 +39,11 @@ const routes: Routes = [
     component: AdminQuestionsComponent,
     canActivate: [AuthGuardService]
   },
-  {
-    path: 'admin/match',
-    component: MatchUsersComponent,
-    canActivate: [AuthGuardService]
-  },
+  // {
+  //   path: 'admin/match',
+  //   component: MatchUsersComponent,
+  //   canActivate: [AuthGuardService]
+  // },
   {
     path: '',
     component: HomeComponent
@@ -61,10 +61,6 @@ const routes: Routes = [
     component: UnauthorizedComponent
   },
   {
-    path: 'user',
-    component: UserProfileComponent
-  },
-  {
     path: 'admin/users',
     component: AllUsersComponent,
     canActivate: [AuthGuardService]
@@ -72,6 +68,11 @@ const routes: Routes = [
   {
     path: 'admin/invite',
     component: InviteMentorComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin/users/match',
+    component: MentorScoresComponent,
     canActivate: [AuthGuardService]
   }
 ];
