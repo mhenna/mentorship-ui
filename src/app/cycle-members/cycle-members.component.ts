@@ -114,7 +114,6 @@ export class CycleMembersComponent implements OnInit {
       }
       this.members_temp = this.members;
     })
-   
   }
 
   public checkShowMentors() {

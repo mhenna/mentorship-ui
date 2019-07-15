@@ -26,7 +26,6 @@ import {QuestionsService} from '../app/Services/questions.service'
 import {LoginService} from './Services/login.service';
 import {UserService} from './Services/user.service';
 import { HttpModule } from '@angular/http';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { MatchUsersComponent } from './match-users/match-users.component'
 import { InviteMentorComponent } from './admin/invite-mentor/invite-mentor.component'
@@ -52,7 +51,6 @@ registerLocaleData(en);
     SelectManyQuestionComponent,
     TextQuestionComponent,
     UnauthorizedComponent,
-    UserProfileComponent,
     AllUsersComponent,
     CycleComponent,
     MatchUsersComponent,
