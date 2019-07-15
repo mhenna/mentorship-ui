@@ -28,6 +28,7 @@ export class CoachSignupComponent implements OnInit {
   private answers: any[] = [];
   private loading = false;
   private reset = false;
+  businessUnitExists = false
   error = false;
   registered = false;
   validateForm: FormGroup;
@@ -123,6 +124,7 @@ export class CoachSignupComponent implements OnInit {
   async ngOnInit() {
     try {
       this.businessUnits = await this.userservice.getBusinessUnits();
+      this.businessUnits.push('Other')
 
       this.iscoachRanges.push('[3 - 5]')
       this.iscoachRanges.push('[5 - 7]')
@@ -250,10 +252,13 @@ export class CoachSignupComponent implements OnInit {
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value).subscribe(async (res) => {
           this.userid = await this.userservice.getUser(this.editForm.get('email').value)
+          
+          if (this.businessUnitExists) 
+            this.businessUnitNotListed(this.editForm.get('department').value)
+          
           this.editForm.reset()
 
           this.ex = 2
-
         })
     }
     else {
@@ -283,5 +288,15 @@ export class CoachSignupComponent implements OnInit {
     }, (err) => {
 
     });
+  }
+
+  toggleBU() {
+    this.businessUnitExists = true
+  }
+  async businessUnitNotListed(businessUnit) {
+    await this.userservice.businessUnitNotListed(businessUnit).subscribe(res => {
+    })
+
+    // alert('We have received your email, please continue with the signup form and select the "Other" option for business unit')
   }
 }
