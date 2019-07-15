@@ -17,7 +17,7 @@
         <td *ngIf="user.is_mentor==false">Mentee</td>
       <td *ngIf="user.is_mentor==false && user.matched.length==0">No matched</td>
       <td *ngIf="user.is_mentor==false&& user.matched.length!=0">{{user.matched.length}}  mentors</td>
-      <td> <a (click)="deleteUser(user.user_id)">Delete
+      <td> <a (click)="deleteUser(user.id)">Delete
        
       </a></td>
       </tr>
