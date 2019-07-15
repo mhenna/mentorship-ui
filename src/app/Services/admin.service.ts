@@ -108,7 +108,7 @@ export class AdminService {
   deleteUser(id): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
-      data.append('user_id', id);
+      data.append('id', id);
       const http = new XMLHttpRequest();
       http.open('DELETE', this.domain + '/admin/delete');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))

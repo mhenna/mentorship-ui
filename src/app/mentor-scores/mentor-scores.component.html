@@ -1,0 +1,76 @@
+<div *ngIf="membersFetched">
+  <h1>Mentees</h1>
+  <nz-table #matchData [nzPageIndex]="pageIndex" (nzPageSize)="pageSize" [nzBordered]="true" [nzData]="match" (nzPageIndexChange)="changePageIndex($event)">
+    <thead (nzSortChange)="sort($event)">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Skills</th>
+        <th>Years of Exp.</th>
+        <th>Years within Org.</th>
+        <th>Suggested Mentors for match</th>
+        <th>Current Mentor Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of matchData.data">
+        <td>{{m.mentee.info.name}}</td>
+        <td>{{m.mentee.info.email}}</td>
+        <td>{{m.mentee.info.skills_interested_in}}</td>
+        <td>{{m.mentee.info.years_of_experience}}</td>
+        <td>{{m.mentee.info.years_within_organization}}</td>
+        <td>
+          <nz-dropdown>
+            <a nz-dropdown>
+              Match with mentor:
+              <i nz-icon type="down"></i>
+            </a>
+            <ul nz-menu *ngFor="let mentor of m.mentee.mentors">
+              <li nz-menu-item (click)=choose(m.mentee.id,mentor.id)>ID: {{mentor.id}}, Email: {{mentor.data.email}}
+              </li>
+            </ul>
+          </nz-dropdown>
+        </td>
+        <td>{{m.currentMentor}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <h1>Mentors</h1>
+  <nz-table #mentorData nzBordered [nzPageIndex]="pageIndexMentors" [nzData]="mentors" [nzPageSize]="mentorPageSize">
+    <thead (nzSortChange)="sort($event)">
+      <tr>
+        <th>Name</th>
+        <th nzCustomFilter>Email
+
+        </th>
+        <th>Skills</th>
+        <th>Capacity</th>
+        <th>Years of Exp.</th>
+        <th>Years within Org.</th>
+        <th>Mentees</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mentor of mentorData.data">
+        <td>{{mentor.data.name}}</td>
+        <td>{{mentor.data.email}}</td>
+        <td>{{mentor.data.skills}}</td>
+        <td>{{mentor.data.capacity}}</td>
+        <td>{{mentor.data.years_of_experience}}</td>
+        <td>{{mentor.data.years_within_organization}}</td>
+        <td>
+          <ul class='lists'  *ngFor="let ment of mentor.data.mentees">
+            <td >{{ment.email}}</td>
+          </ul>
+        </td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="example">
+  <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
+</div>
+<button nz-button nzType="primary" [routerLink]="['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>

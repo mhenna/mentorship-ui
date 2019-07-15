@@ -74,6 +74,6 @@ export class EmailComponent implements OnInit {
   }
 
   async getUsers() {
-    this.users = await this.userService.getUsers();
+    this.users = await this.userService.getUsersEmail()
   }
 }
