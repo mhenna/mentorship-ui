@@ -16,12 +16,14 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
-    await this.route.queryParams
+    await this.route.params
       .subscribe(async params => {
+     
         this.user_id = params.id;
         this.loading = true;
         const response = await this.userService.getUser(this.user_id);
         this.user = response;
+      
         this.loading = false;
          response.answers.forEach(element => {
            if (this.tempQuestions[element.answer_to_question.question_text] === undefined) {
