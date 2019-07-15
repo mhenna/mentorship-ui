@@ -85,8 +85,8 @@
   </nz-table>
 
 </div>
-<div class="example">
-<nz-spin  [nzSize]="'large'" *ngIf="!cyclesFetched" ></nz-spin></div>
+<div class="example" *ngIf="!cyclesFetched">
+<nz-spin  [nzSize]="'large'"  ></nz-spin></div>
 <nz-modal [(nzVisible)]="open" nzTitle="Edit Cycle" (nzOnCancel)="open = false" (nzOnOk)="editCycle()">
   <form nz-form [formGroup]="editForm" (ngSubmit)="Submit()">
 

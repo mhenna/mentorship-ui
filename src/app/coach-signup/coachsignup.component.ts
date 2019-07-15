@@ -26,7 +26,7 @@ export class CoachSignupComponent implements OnInit {
   private deletedAnswer: any;
   private questions: any;
   private answers: any[] = [];
-  private loading = false;
+  private loading = true;
   private reset = false;
   businessUnitExists = false
   error = false;
@@ -258,7 +258,9 @@ export class CoachSignupComponent implements OnInit {
           
           this.editForm.reset()
 
-          this.ex = 2
+          this.ex = 1
+        }, err=>{
+          console.log(err)
         })
     }
     else {
