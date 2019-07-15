@@ -75,9 +75,6 @@ export class EmailComponent implements OnInit {
   }
 
   async getUsers() {
-    // if(localStorage.getItem('users') == null) 
-    //   this.users = await this.userService.getUsers()
-    // else
-    //   this.users = localStorage.getItem('users')
+    this.users = await this.userService.getUsersEmail()
   }
 }

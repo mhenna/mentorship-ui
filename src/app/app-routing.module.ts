@@ -6,7 +6,6 @@ import { CoachSignupComponent } from './coach-signup/coachsignup.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './Services/auth-guard.service';
 import{InviteMentorComponent} from './admin/invite-mentor/invite-mentor.component';
-import {UserProfileComponent} from './user-profile/user-profile.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import {CycleComponent} from './admin/cycle/cycle.component';
 import { MatchUsersComponent } from './match-users/match-users.component';
@@ -60,10 +59,6 @@ const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent
-  },
-  {
-    path: 'user',
-    component: UserProfileComponent
   },
   {
     path: 'admin/users',

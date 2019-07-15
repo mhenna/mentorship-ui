@@ -121,15 +121,15 @@ export class CycleMembersComponent implements OnInit {
     //this.members = [];
     this.userService.getUsers().subscribe(users =>{
       this.users = users
+      this.membersFetched = true;
+      var i;
+  
+      for (i = 0; i < this.users.length; i++) {
+        if (this.users[i].cycles.includes(this.cycleId))
+          this.members.push(this.users[i])
+      }
+      this.members_temp = this.members;
     })
-    this.membersFetched = true;
-    var i;
-
-    for (i = 0; i < this.users.length; i++) {
-      if (this.users[i].cycles.includes(this.cycleId))
-        this.members.push(this.users[i])
-    }
-    this.members_temp = this.members;
   }
 
   public checkShowMentors() {
