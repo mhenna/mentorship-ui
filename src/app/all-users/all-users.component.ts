@@ -48,10 +48,11 @@ export class AllUsersComponent implements OnInit {
   }
   deleteUser(id){
 
+    this.loading = true
     this.adminService.deleteUser(id).subscribe(async (res) => {
-      this.loading = true
+
       this.userService.getUsers().subscribe(async users =>{
-        this.users = await users
+        this.displayData = await users
         this.loading = false
       })
 
