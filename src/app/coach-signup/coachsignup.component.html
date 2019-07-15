@@ -54,7 +54,8 @@
           <nz-form-explain
             *ngIf="editForm.get('capacity').dirty && editForm.get('capacity').errors && !editForm.get('capacity').errors.pattern">
             Please input how many hours you'll be available during this cycle!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('capacity').errors && editForm.get('capacity').errors.pattern">Must be a digit!
+          <nz-form-explain *ngIf="editForm.get('capacity').errors && editForm.get('capacity').errors.pattern">Must be a
+            digit!
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -94,7 +95,7 @@
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <nz-form-item *ngIf='!businessUnitExists'>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Business Unit</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <!-- <input nz-input id="department" formControlName="department" style="width: 200px;"> -->
@@ -107,11 +108,19 @@
           <nz-select formControlName="department" style="width: 200px;">
             <nz-option *ngFor="let bu of businessUnits" [nzLabel]='bu' [nzValue]='bu'></nz-option>
           </nz-select>
-          <nz-form-explain
-            *ngIf="editForm.get('department').dirty && editForm.get('department').errors">
+          <a (click)="toggleBU()">If your business unit is not listed please click here</a>
+          <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors">
             Please input your department name!</nz-form-explain>
           <!-- <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must
             only include characters!</nz-form-explain> -->
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf='businessUnitExists'>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Business Unit</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input id='department' formControlName='department' style='width:200px; line-height:23px;'>
+          <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors">
+            Please input your department name!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -121,7 +130,8 @@
           <nz-form-explain
             *ngIf="editForm.get('position').dirty && editForm.get('position').errors && !editForm.get('position').errors.pattern">
             Please input your position!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('position').errors && editForm.get('position').errors.pattern">Must only
+          <nz-form-explain *ngIf="editForm.get('position').errors && editForm.get('position').errors.pattern">Must
+            only
             include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -144,7 +154,7 @@
             Must only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-      <button nz-button nzType="primary" (click)="logg()">Submit</button>
+      <button nz-button nzType="primary" (click)="logg()">Next</button>
 
 
     </form>
@@ -165,23 +175,28 @@
               [numberOfChoises]="1" [possibleAnswers]='question.answers' [question]='question.question_text'
               [reset]='reset' [questionId]="question.id"></app-select-many-question>
           </div>
-          <div *ngIf="question.question_type=='MULTI_SELECT' && question.question_text != 'In what areas do you want further experience?' ">
+          <div
+            *ngIf="question.question_type=='MULTI_SELECT' && question.question_text != 'In what areas do you want further experience?' ">
 
-            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' (deselectAll)='clearAnswers($event)'
-              [numberOfChoises]='3' [possibleAnswers]='question.answers' [question]='question.question_text'
-              [reset]='reset' [questionId]="question.id" [isMentee]="type"></app-select-many-question>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              (deselectAll)='clearAnswers($event)' [numberOfChoises]='3' [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]='reset' [questionId]="question.id" [isMentee]="type">
+            </app-select-many-question>
           </div>
-          <div *ngIf="question.question_type=='MULTI_SELECT' && question.question_text=='In what areas do you want further experience?'">
+          <div
+            *ngIf="question.question_type=='MULTI_SELECT' && question.question_text=='In what areas do you want further experience?'">
 
-            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)' (deselectAll)='clearAnswers($event)'
-              [numberOfChoises]='3' [possibleAnswers]='question.answers' [question]='question.question_text'
-              [reset]='reset' [questionId]="question.id" [isMentee]="type"></app-select-many-question>
-              <span><I> Note: You can either pick career mentorship only, or up to 3 other areas. </I></span>
+            <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
+              (deselectAll)='clearAnswers($event)' [numberOfChoises]='3' [possibleAnswers]='question.answers'
+              [question]='question.question_text' [reset]='reset' [questionId]="question.id" [isMentee]="type">
+            </app-select-many-question>
+            <span><I> Note: You can either pick career mentorship only, or up to 3 other areas. </I></span>
           </div>
           <br>
           <br>
         </div>
-        <button nz-button nzType="primary" style="margin-top: 15%; margin-bottom: 10%" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
+        <button nz-button nzType="primary" style="margin-top: 15%; margin-bottom: 10%" (click)="loadOne()"
+          [nzLoading]="isLoadingOne">Submit</button>
 
       </div>
       <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">

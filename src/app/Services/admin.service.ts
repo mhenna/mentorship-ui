@@ -48,12 +48,12 @@ export class AdminService {
       map((res) => res.json()));
     ;
   }
-  editDeadlines(mentor, mentee, id): Observable<string> {
+  editDeadlines(mentor, mentee, cycle): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('mentor', mentor);
       data.append('mentee', mentee);
-      data.append('id', id);
+      data.append('cycle', cycle.id)
       const http = new XMLHttpRequest();
       http.open('PUT', this.domain + '/cycles/edit/deadline');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
@@ -69,12 +69,12 @@ export class AdminService {
     })
   }
 
-  editStartDate(mentor, mentee, id): Observable<string> {
+  editStartDate(mentor, mentee, cycle): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('mentor', mentor);
       data.append('mentee', mentee);
-      data.append('id', id);
+      data.append('cycle', cycle.id)
       const http = new XMLHttpRequest();
       http.open('PUT', this.domain + '/cycles/edit/startdate');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
@@ -182,13 +182,10 @@ export class AdminService {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('id', id);
-      console.log(this.localStorage.get('token'))
       const http = new XMLHttpRequest();
       http.open('DELETE', this.domain + '/cycles/delete');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
-      console.log("DELETE")
       http.send(data);
-      console.log("DELETE")
       http.onload = () => {
         if (http.status < 300)
           observer.next(http.status);
@@ -204,10 +201,8 @@ export class AdminService {
 
   sendEmail(type, email, body): Observable<string> {
     return Observable.create(observer => {
-      console.log("EMAIL", typeof (email))
       var t = [];
       t = email
-      console.log("TTTTTTTTTT", t, " ", typeof (t))
       const data = new FormData();
       data.append('type', type);
       data.append('email', email);

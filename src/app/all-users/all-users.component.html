@@ -37,7 +37,9 @@
          
   </li>
 </ul> -->
-
+<button nz-button nzType="primary" *ngIf="usersFetched" (click)="download()" [nzSize]="large" nzShape="round">
+  Download
+  </button>
 <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
     <ng-template #indicatorTemplate><i nz-icon type="loading" style="text-align: center; font-size: 100px;"></i>
     </ng-template>

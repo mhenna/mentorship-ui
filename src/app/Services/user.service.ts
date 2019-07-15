@@ -44,6 +44,20 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
+  businessUnitNotListed(businessUnit): Observable<string> {
+    return Observable.create(observer => {
+      const data = new FormData();
+      data.append('businessUnit', businessUnit)
+      const http = new XMLHttpRequest();
+      http.open('POST',environment.apiUrl + '/users/business-unit-not-listed');
+      http.setRequestHeader('Authorization', this.localStorage.get('token'))
+      http.send(data);
+      http.onload = () => {
+        observer.next(http.status);
+        observer.complete();
+      };
+    })
+  }
   addUser(fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();

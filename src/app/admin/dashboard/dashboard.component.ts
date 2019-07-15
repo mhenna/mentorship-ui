@@ -9,19 +9,15 @@ import { AdminService } from '../../Services/admin.service';
 })
 export class DashboardComponent implements OnInit {
 
-  skills : any
+  skills: any
 
-  constructor(private adminService: AdminService ) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
 
-this.adminService.getSkills().subscribe(res=>{
-
-  this.skills=res;
-  console.log(this.skills,res)
-
-
-})
+    this.adminService.getSkills().subscribe(res => {
+      this.skills = res;
+    })
   }
 
 }
