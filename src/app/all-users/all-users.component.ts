@@ -32,7 +32,7 @@ export class AllUsersComponent implements OnInit {
       // this.data.currentMessage.subscribe(message => this.users = message)
       this.userService.getUsers().subscribe(users =>{
         this.users = users
-        this.displayData = [ ...this.users ];
+	this.displayData = [ ...this.users ];
         this.usersFetched = true;
         this.loading=false;
       })
@@ -54,6 +54,7 @@ export class AllUsersComponent implements OnInit {
       this.userService.getUsers().subscribe(async users =>{
         this.displayData = await users
         this.users = users
+        this.loading = false
       })
 
     }, (err) => {
