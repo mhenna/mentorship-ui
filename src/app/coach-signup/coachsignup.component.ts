@@ -50,7 +50,7 @@ export class CoachSignupComponent implements OnInit {
   iscoachRanges = []
   forcoachRanges = []
   selectedBU: string
-  aykalam: string
+  numChoices: any
 
   editForm = new FormGroup({
 
@@ -135,7 +135,7 @@ export class CoachSignupComponent implements OnInit {
       this.forcoachRanges.push('[1 - 3]')
       this.forcoachRanges.push('[3 - 5]')
       this.forcoachRanges.push('5 +')
-
+      
       this.selectedBU = ''
       this.getCycles()
       this.headerButtonsService.signOut();
@@ -145,7 +145,10 @@ export class CoachSignupComponent implements OnInit {
           //this.type = params.type === 'forcoach' ? 0 : 1;
           this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
-
+          if (this.type == 0)
+            this.numChoices = 3
+          else
+            this.numChoices = 0
           this.questions = await this.questionsService.getSpecQuestions(this.type);
           this.loading = false;
           this.questions.forEach(element => {
