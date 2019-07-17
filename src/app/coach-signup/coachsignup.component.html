@@ -179,7 +179,7 @@
             *ngIf="question.question_type=='MULTI_SELECT' && question.question_text != 'In what areas do you want further experience?' ">
 
             <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
-              (deselectAll)='clearAnswers($event)' [numberOfChoises]='3' [possibleAnswers]='question.answers'
+              (deselectAll)='clearAnswers($event)' [numberOfChoises]="numChoices" [possibleAnswers]='question.answers'
               [question]='question.question_text' [reset]='reset' [questionId]="question.id" [isMentee]="type">
             </app-select-many-question>
           </div>
@@ -187,7 +187,7 @@
             *ngIf="question.question_type=='MULTI_SELECT' && question.question_text=='In what areas do you want further experience?'">
 
             <app-select-many-question (deletedAnswer)='editAnswer($event)' (selectedAnswer)='changeAnswer($event)'
-              (deselectAll)='clearAnswers($event)' [numberOfChoises]='3' [possibleAnswers]='question.answers'
+              (deselectAll)='clearAnswers($event)' [numberOfChoises]=numChoices [possibleAnswers]='question.answers'
               [question]='question.question_text' [reset]='reset' [questionId]="question.id" [isMentee]="type">
             </app-select-many-question>
             <span><I> Note: You can either pick career mentorship only, or up to 3 other areas. </I></span>

@@ -87,7 +87,7 @@ export class CycleComponent implements OnInit {
   editDeadline() {
 
     const chosenCycle = this.deadlineForm.get('cycleName').value
-    const ind = this.cycles.findIndex(function(item, i) {
+    const ind = this.cycles.findIndex(function (item, i) {
       return item.name === chosenCycle
     })
     const mentorDeadline = new Date(this.deadlineForm.value.mentorDate)
@@ -101,10 +101,10 @@ export class CycleComponent implements OnInit {
   editStartDate() {
 
     const chosenCycle = this.StartDateForm.get('cycleName').value
-    const ind = this.cycles.findIndex(function(item, i) {
+    const ind = this.cycles.findIndex(function (item, i) {
       return item.name === chosenCycle
     })
-    
+
     const mentorStartDate = new Date(this.StartDateForm.value.mentorDate)
     const menteeStartDate = new Date(this.StartDateForm.value.menteeDate)
     this.adminService.editStartDate(mentorStartDate.toISOString(), menteeStartDate.toISOString(),
@@ -135,14 +135,49 @@ export class CycleComponent implements OnInit {
   }
   editCycle() {
     this.cyclesFetched = false;
-    this.adminService.editCycle(this.selectedId, this.editForm.value.startDate.toISOString(), this.editForm.value.endDate.toISOString(), this.editForm.value.name).subscribe(async (res) => {
-      this.open = false;
-      await this.getCycles();
-      this.open = false;
+    if (typeof (this.editForm.value.startDate) == 'object' && typeof (this.editForm.value.endDate) == 'object') {
+      this.adminService.editCycle(this.selectedId, this.editForm.value.startDate.toISOString(), this.editForm.value.endDate.toISOString(), this.editForm.value.name).subscribe(async (res) => {
+        this.open = false;
+        await this.getCycles();
+        this.open = false;
 
-    }, (err) => {
-      alert(err)
-    });
+      }, (err) => {
+        alert(err)
+      });
+    }
+
+    else if (typeof (this.editForm.value.startDate) == 'object') {
+      this.adminService.editCycle(this.selectedId, this.editForm.value.startDate.toISOString(), this.editForm.value.endDate, this.editForm.value.name).subscribe(async (res) => {
+        this.open = false;
+        await this.getCycles();
+        this.open = false;
+
+      }, (err) => {
+        alert(err)
+      });
+    }
+
+    else if (typeof (this.editForm.value.endDate) == 'object') {
+      this.adminService.editCycle(this.selectedId, this.editForm.value.startDate, this.editForm.value.endDate.toISOString(), this.editForm.value.name).subscribe(async (res) => {
+        this.open = false;
+        await this.getCycles();
+        this.open = false;
+
+      }, (err) => {
+        alert(err)
+      });
+    }
+
+    else {
+      this.adminService.editCycle(this.selectedId, this.editForm.value.startDate, this.editForm.value.endDate, this.editForm.value.name).subscribe(async (res) => {
+        this.open = false;
+        await this.getCycles();
+        this.open = false;
+
+      }, (err) => {
+        alert(err)
+      });
+    }
 
   }
 
@@ -157,7 +192,7 @@ export class CycleComponent implements OnInit {
       var i;
 
       for (i = 0; i < this.cycles.length; i++) {
-        
+
         if (now >= new Date(this.cycles[i].start_date) && now <= new Date(this.cycles[i].end_date)) {
           this.current = true;
           this.currentCycleId = this.cycles[i].id
@@ -190,7 +225,6 @@ export class CycleComponent implements OnInit {
     this.editForm.setValue({ name: cycle.name, startDate: cycle.start_date, endDate: cycle.end_date })
     this.open = true;
     this.selectedId = cycle.id
-
   }
 
   setDeadlines(deadline) {

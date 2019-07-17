@@ -26,7 +26,7 @@
               <i nz-icon type="down"></i>
             </a>
             <ul nz-menu *ngFor="let mentor of m.mentee.mentors">
-              <li nz-menu-item (click)=choose(m.mentee.id,mentor.id)>ID: {{mentor.id}}, Email: {{mentor.data.email}}
+              <li nz-menu-item (click)=choose(m.mentee.id,mentor.id)>ID: {{mentor.id}}, Name: {{mentor.data.name}}
               </li>
             </ul>
           </nz-dropdown>
