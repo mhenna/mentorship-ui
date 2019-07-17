@@ -17,11 +17,11 @@ export class MentorScoresComponent implements OnInit {
   loading = true
   list: any
   mentorsMap: any
-  pageIndex: number =1
-  pageIndexMentors: number =1
+  pageIndex: number = 1
+  pageIndexMentors: number = 1
   sortName = null;
   sortValue = null;
-  displayData:any
+  displayData: any
   mentorPageSize: number = 5;
   pageSize: number = 10
 
@@ -38,12 +38,16 @@ export class MentorScoresComponent implements OnInit {
     this.membersFetched = false
     this.loading = true
     this.pageIndex = 1
-    this.UserService.getUsers().subscribe(users => {
-      this.users = users
-    })
-    this.match = await this.UserService.mentorScore()
-    await this.loadData();
+    this.UserService.mentorScore().subscribe(async res => {
 
+      this.match = res
+
+      this.UserService.getUsers().subscribe(async users => {
+        this.users = users
+        await this.loadData();
+      })
+    })
+    console.log(this.match)
   }
 
 
@@ -55,7 +59,7 @@ export class MentorScoresComponent implements OnInit {
 
     try {
       if (this.users !== undefined) {
-
+        console.log("HERE")
         this.membersFetched = true
         this.loading = false
         this.list = this.users.reduce((map, obj) => {
@@ -127,21 +131,21 @@ export class MentorScoresComponent implements OnInit {
     window.location.reload()
   }
 
-  changePageIndex(event){
+  changePageIndex(event) {
     console.log("Pass changePageIndex " + event);
     this.pageIndex = event;
-   }
-   
-   sort(sort: { key: string, value: string }): void {
+  }
+
+  sort(sort: { key: string, value: string }): void {
     this.sortName = sort.key;
-    this.sortValue = sort.value;    
+    this.sortValue = sort.value;
     this.search();
   }
 
   search() {
     console.log(this.sortValue)
     if (this.sortName && this.sortValue) {
-      this.displayData = this.match.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+      this.displayData = this.match.sort((a, b) => (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
     } else {
       this.displayData = this.match;
     }
