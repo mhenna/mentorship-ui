@@ -94,6 +94,7 @@ export class CycleComponent implements OnInit {
     const menteeDeadline = new Date(this.deadlineForm.value.menteeDate)
     this.adminService.editDeadlines(mentorDeadline.toISOString(), menteeDeadline.toISOString(),
       this.cycles[ind]).subscribe(res => {
+        alert('Date updated')
       }, (err) => {
         alert(err)
       })
@@ -109,6 +110,7 @@ export class CycleComponent implements OnInit {
     const menteeStartDate = new Date(this.StartDateForm.value.menteeDate)
     this.adminService.editStartDate(mentorStartDate.toISOString(), menteeStartDate.toISOString(),
       this.cycles[ind]).subscribe(res => {
+        alert('Date updated')
       }, (err) => {
         alert(err)
       })
@@ -240,6 +242,7 @@ export class CycleComponent implements OnInit {
         })
 
         this.skillsForm.reset()
+        alert('Skill added')
       }, (err) => {
 
       });
