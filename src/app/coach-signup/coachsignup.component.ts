@@ -50,7 +50,7 @@ export class CoachSignupComponent implements OnInit {
   iscoachRanges = []
   forcoachRanges = []
   selectedBU: string
-  aykalam: string
+  numChoices: any
 
   editForm = new FormGroup({
 
@@ -145,7 +145,10 @@ export class CoachSignupComponent implements OnInit {
           //this.type = params.type === 'forcoach' ? 0 : 1;
           this.type = params.type === 'mentee' ? 0 : 1;
           this.loading = true;
-
+          if (this.type == 0)
+            this.numChoices = 3
+          else
+            this.numChoices = 0
           this.questions = await this.questionsService.getSpecQuestions(this.type);
           this.loading = false;
           this.questions.forEach(element => {
@@ -241,7 +244,6 @@ export class CoachSignupComponent implements OnInit {
       !this.editForm.get('lastName').errors && !this.editForm.get('email').errors && !this.editForm.get('yearsExperience').errors &&
       !this.editForm.get('yearsOrganization').errors && !this.editForm.get('yearsInRole').errors && !this.editForm.get('department').errors &&
       !this.editForm.get('position').errors && !this.editForm.get('directManager').errors) {
-      this.flag = false;
 
       if (this.type == 1) {
         mentor = true;
@@ -251,15 +253,22 @@ export class CoachSignupComponent implements OnInit {
         this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value).subscribe(async (res) => {
-          this.userid = await this.userservice.getUser(this.editForm.get('email').value)
-          
-          if (this.businessUnitExists) 
-            this.businessUnitNotListed(this.editForm.get('department').value)
-          
-          this.editForm.reset()
+          console.log(res, typeof(res))
+          if (res.toString() == '201') {
+            this.userid = await this.userservice.getUser(this.editForm.get('email').value)
+            this.flag = false;
+            if (this.businessUnitExists)
+              this.businessUnitNotListed(this.editForm.get('department').value)
 
-          this.ex = 1
-        }, err=>{
+            this.editForm.reset()
+
+            this.ex = 1
+          }
+          else {
+            this.flag = true
+            alert('Error: Please make sure there is a current cycle and you have not missed the deadline for registration')
+          }
+        }, err => {
           console.log(err)
         })
     }

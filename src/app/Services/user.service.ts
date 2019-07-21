@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import "rxjs";
 
@@ -114,14 +115,15 @@ export class UserService {
       .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-  mentorScore(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  mentorScore(): Observable<any> {
+   
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.set('Authorization', this.localStorage.get('token'));
-      reqHeaders.append('Content-Type', 'application/json');
-      reqHeaders.append('Access-Control-Allow-Origin', '*');
-      this.http.get(environment.apiUrl + '/users/score', {headers: reqHeaders})
-      .subscribe((data) => resolve(data), err => reject(err));
-    });
-  }
+     return this.http.get(environment.apiUrl + '/users/score', {headers: reqHeaders})
+      .pipe(
+        map((res) => {
+          return res;
+        }));
+    }
+ 
 }
