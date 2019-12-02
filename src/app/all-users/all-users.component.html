@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of basicTable.data">
+      <tr *ngFor="let user of users">
       <td> {{user.email}} </td>
       <td *ngIf="user.is_mentor==true">Mentor</td>
       <td *ngIf="user.is_mentor==true && user.matched.length==0">No matched</td>

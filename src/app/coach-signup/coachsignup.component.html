@@ -60,7 +60,6 @@
         </nz-form-control>
       </nz-form-item>
 
-
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years of experience</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
@@ -86,7 +85,6 @@
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years in role</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <!-- <input nz-input id="yearsInRole" formControlName="yearsInRole" style="width: 200px;"> -->
           <nz-radio-group *ngIf="type==1" formControlName="yearsInRole">
             <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
@@ -98,21 +96,12 @@
       <nz-form-item *ngIf='!businessUnitExists'>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Business Unit</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <!-- <input nz-input id="department" formControlName="department" style="width: 200px;"> -->
-          <!-- <nz-dropdown [nzTrigger]="'click'">
-            <a nz-dropdown> Business Units <i nz-icon type="down"></i> </a>
-            <ul nz-menu *ngFor="let bu of businessUnits">
-              <li nz-menu-item>{{bu}}</li>
-            </ul>
-          </nz-dropdown> -->
           <nz-select formControlName="department" style="width: 200px;">
             <nz-option *ngFor="let bu of businessUnits" [nzLabel]='bu' [nzValue]='bu'></nz-option>
           </nz-select>
           <a (click)="toggleBU()">If your business unit is not listed please click here</a>
           <nz-form-explain *ngIf="editForm.get('department').dirty && editForm.get('department').errors">
             Please input your department name!</nz-form-explain>
-          <!-- <nz-form-explain *ngIf="editForm.get('department').errors && editForm.get('department').errors.pattern">Must
-            only include characters!</nz-form-explain> -->
         </nz-form-control>
       </nz-form-item>
       <nz-form-item *ngIf='businessUnitExists'>
@@ -135,14 +124,7 @@
             include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-      <!-- <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Location</nz-form-label>
-        <nz-form-control [nzSm]="16" [nzXs]="24">
-          <input nz-input id="location" formControlName="location" style="width: 200px;">
-          <nz-form-explain *ngIf="editForm.get('location').dirty && editForm.get('location').errors && !editForm.get('location').errors.pattern">Please input your location!</nz-form-explain>
-          <nz-form-explain *ngIf="editForm.get('location').errors && editForm.get('location').errors.pattern">Must only include characters!</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item> -->
+
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Direct manager</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
@@ -154,10 +136,13 @@
             Must only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
+
       <button nz-button nzType="primary" (click)="logg()">Next</button>
 
 
     </form>
+    <a href='../../assets/Mentoring_Toolkit (1).pptx' download="Mentoring_Toolkit.pptx">Download Mentoring Toolkit from
+      here for getting more information on what is expected during the mentoring cycle</a>
   </nz-tab>
 
   <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
