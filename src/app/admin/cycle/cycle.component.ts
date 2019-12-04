@@ -77,7 +77,8 @@ export class CycleComponent implements OnInit {
 
     this.adminService.getDeadlines().subscribe(res => {
       this.deadlines = res
-      this.setDeadlines(this.deadlines)
+      if(!(!Array.isArray(res) || !res.length))
+        this.setDeadlines(this.deadlines)
     }
 
     )
