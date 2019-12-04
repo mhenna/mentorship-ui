@@ -19,7 +19,6 @@ export class AdminService {
       data.append('email', email);
       const http = new XMLHttpRequest();
       http.open('POST', this.domain + '/admins/invite');
-      console.log("TOKEN", this.localStorage.get('token'))
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
