@@ -121,14 +121,14 @@ export class MentorScoresComponent implements OnInit {
     }
 
     this.matches[menteeID] = { "menteeId": menteeID, "mentorId": mentorID }
-    this.UserService.matchUsers(menteeID, mentorID)
+    this.UserService.matchUsers(menteeID, mentorID).then(() => window.location.reload())
     // this.UserService.getUsers().subscribe(users => {
     //   this.users = users
     // })
     // this.match = await this.UserService.mentorScore();
     // await this.loadData()
     // this.membersFetched = true;
-    window.location.reload()
+    // window.location.reload()
   }
 
   changePageIndex(event) {
