@@ -4,7 +4,7 @@
 
 
 <nz-tabset [nzType]="'card'" *ngIf="!loading" [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true"
-  style="flex:1;">
+  style="flex:1; overflow: scroll;">
   <nz-tab nzTitle='Personal info' [nzDisabled]="!flag">
 
     <form nz-form [formGroup]="editForm">
@@ -146,7 +146,7 @@
   </nz-tab>
 
   <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
-    <div nz-row *ngIf="!registered">
+    <div nz-row *ngIf="!registered" style="overflow: scroll;">
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
         <div *ngFor="let question of questions">
@@ -180,7 +180,7 @@
           <br>
           <br>
         </div>
-        <button nz-button nzType="primary" style="margin-top: 15%; margin-bottom: 10%" (click)="loadOne()"
+        <button nz-button nzType="primary" (click)="loadOne()"
           [nzLoading]="isLoadingOne">Submit</button>
 
       </div>

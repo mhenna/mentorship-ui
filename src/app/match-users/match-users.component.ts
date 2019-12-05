@@ -11,6 +11,8 @@ export class MatchUsersComponent implements OnInit {
   mentors:any[]=[];
   mentees:any[]=[];
   selectedMentor:any;
+  isLoadingOne:boolean;
+  loading:boolean;
   selectedMentee:any;
   matchings :any[]=[];
   constructor(private userService: UserService) { }
