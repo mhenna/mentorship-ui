@@ -255,7 +255,9 @@ export class CycleComponent implements OnInit {
   }
 
 
-
+  Submit() {
+    console.log("Submit() called but the function does not exist, this log was entered to detect when the function gets called")
+  }
 
 
 

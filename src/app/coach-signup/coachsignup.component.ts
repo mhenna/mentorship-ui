@@ -20,14 +20,14 @@ import { AdminService } from '../Services/admin.service';
 })
 export class CoachSignupComponent implements OnInit {
   isLoadingOne = false;
-  private question: string;
-  private possibleAnswers: any[];
-  private selectedAnswer: any;
-  private deletedAnswer: any;
-  private questions: any;
-  private answers: any[] = [];
-  private loading = true;
-  private reset = false;
+  question: string;
+  possibleAnswers: any[];
+  selectedAnswer: any;
+  deletedAnswer: any;
+  questions: any;
+  answers: any[] = [];
+  loading = true;
+  reset = false;
   businessUnitExists = false
   error = false;
   registered = false;
