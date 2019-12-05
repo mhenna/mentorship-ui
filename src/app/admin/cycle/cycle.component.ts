@@ -77,7 +77,8 @@ export class CycleComponent implements OnInit {
 
     this.adminService.getDeadlines().subscribe(res => {
       this.deadlines = res
-      this.setDeadlines(this.deadlines)
+      if(!(!Array.isArray(res) || !res.length))
+        this.setDeadlines(this.deadlines)
     }
 
     )
@@ -254,7 +255,9 @@ export class CycleComponent implements OnInit {
   }
 
 
-
+  Submit() {
+    console.log("Submit() called but the function does not exist, this log was entered to detect when the function gets called")
+  }
 
 
 

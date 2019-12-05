@@ -1,5 +1,5 @@
-<nz-layout class="layout">
-  <app-header></app-header>
+<nz-layout style="min-height:calc(100% - 72px);">
+  <app-header style="min-height: 64px;"></app-header>
   <!-- <nz-sider *ngIf="showSide" [nzWidth]="200" style="background:#fff; padding-top: 64px;">
     <ul nz-menu [nzMode]="'inline'" style="height:100%">
       <li nz-submenu [nzOpen]="true">
@@ -12,28 +12,28 @@
     </ul>
   </nz-sider> -->
 
-  <nz-sider *ngIf="showSideAdmin" [nzWidth]="200" style="background:#fff; padding-top: 64px;">
-      <ul nz-menu [nzMode]="'inline'" style="height:100%">
-        <li nz-submenu [nzOpen]="true">
-          <span title><i nz-icon type="user"></i><a [routerLink]="['/admin/dashboard']">Admin</a></span>
-          <ul>
-            <a [routerLink]="['/admin/users']"><li nz-menu-item>All users</li></a>
-            <a [routerLink]="['/admin/questions']"><li nz-menu-item>Add questions</li></a>
-            <a [routerLink]="['/admin/users/match']"><li nz-menu-item>Match Mentees</li></a>
-            <a><li nz-menu-item><app-email></app-email></li></a>
-            <a><li nz-menu-item><app-invite-mentor></app-invite-mentor></li></a>
-          </ul>
-        </li>
-      </ul>
-    </nz-sider>
-  <nz-content style="padding-top: 60px;">
-      <nz-layout style="padding:24px 0; background: #fff">
+  <!-- <nz-content class="app-content-wrapper"> -->
+    <nz-layout class="layout" style="background: #fff">
+        <nz-sider *ngIf="showSideAdmin" [nzWidth]="200" style="background:#fff;">
+            <ul nz-menu [nzMode]="'inline'" style="height:100%">
+              <li nz-submenu [nzOpen]="true">
+                <span title><i nz-icon type="user"></i><a [routerLink]="['/admin/dashboard']">Admin</a></span>
+                <ul>
+                  <a [routerLink]="['/admin/users']"><li nz-menu-item>All users</li></a>
+                  <a [routerLink]="['/admin/questions']"><li nz-menu-item>Add questions</li></a>
+                  <a [routerLink]="['/admin/users/match']"><li nz-menu-item>Match Mentees</li></a>
+                  <a><li nz-menu-item><app-email></app-email></li></a>
+                  <a><li nz-menu-item><app-invite-mentor></app-invite-mentor></li></a>
+                </ul>
+              </li>
+            </ul>
+          </nz-sider>
    
 
-        <nz-content style="padding: 0 24px; min-height: 750px; display: flex; flex-direction: column;">
+        <nz-content class="app-content">
           <router-outlet></router-outlet>
         </nz-content>
       </nz-layout>
-      <app-footer></app-footer>
-    </nz-content>
-</nz-layout>
+      <!-- </nz-content> -->
+    </nz-layout>
+    <app-footer></app-footer>

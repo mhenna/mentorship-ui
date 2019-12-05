@@ -10,7 +10,7 @@ export class McquestionComponent implements OnInit {
   @Input() possibleAnswers:any[];
   @Input() questionId:any;
   @Output() selectedAnswer= new EventEmitter<any>();
-  private optionSelected:any;
+  optionSelected:any;
   constructor() {
     
    }
