@@ -4,7 +4,7 @@
 
 
 <nz-tabset [nzType]="'card'" *ngIf="!loading" [nzSize]="'large'" [nzSelectedIndex]="ex" [nzAnimated]="true"
-  style="flex:1; overflow: scroll;">
+  style="flex:1; overflow: hidden scroll;">
   <nz-tab nzTitle='Personal info' [nzDisabled]="!flag">
 
     <form nz-form [formGroup]="editForm">
