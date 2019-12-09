@@ -21,7 +21,7 @@ import { AdminService } from '../Services/admin.service';
 export class CoachSignupComponent implements OnInit {
   isLoadingOne = false;
   question: string;
-  possibleAnswers: any[];
+  possibleAnswers = []
   selectedAnswer: any;
   deletedAnswer: any;
   questions: any;
@@ -51,6 +51,8 @@ export class CoachSignupComponent implements OnInit {
   forcoachRanges = []
   selectedBU: string
   numChoices: any
+  skillsQuestionID = -1
+  questionsFilled = false;
 
   editForm = new FormGroup({
 
@@ -150,9 +152,22 @@ export class CoachSignupComponent implements OnInit {
           else
             this.numChoices = 0
           this.questions = await this.questionsService.getSpecQuestions(this.type);
+
           this.loading = false;
           this.questions.forEach(element => {
-            // let id = element.question_id
+
+            if (element.answers[0].text.includes("Career mentoring") && this.type === 0) {
+              this.adminService.getSkills().subscribe(res => {
+                for (var i = 0; i < res.length; i += 1) {
+                  this.possibleAnswers.push(res[i].name)
+                }
+                element.answers[0].text = this.possibleAnswers
+              });
+            }
+
+            else if (element.answers[0].text.includes("Career mentoring"))
+              this.skillsQuestionID = element.id
+
             this.Response.push({ id: element.id, answer: [] })
 
 
@@ -179,7 +194,6 @@ export class CoachSignupComponent implements OnInit {
 
 
     let answersProps = Object.keys(this.questions[0].answers);
-
     let answerMessage = [];
     for (let i = 0; i < answersProps.length; i++) {
 
@@ -190,11 +204,24 @@ export class CoachSignupComponent implements OnInit {
         this.Response[i].answer[j].id = j + 1;
       }
     }
-
     let is_mentor = this.type === 1 ? false : true;
     try {
       for (let i = 0; i < this.Response.length; i++) {
         this.questionsService.submit(this.userid.id, this.Response[i].id, this.Response[i].answer)
+        if (this.Response[i].id == this.skillsQuestionID) {
+          this.Response[i].answer.forEach(a => {
+            try {
+              this.adminService.addSkill(a, "Technical").subscribe(res => {
+                let addSkillRes = JSON.parse(res['response'])
+                this.adminService.addSkilltoCycle(addSkillRes.id, this.currentCycleId).subscribe(res => {
+                  console.log(res)
+                })
+              })
+            } catch (error) {
+              console.log("SKILL EXISTS ALREADY SO NO NEED TO ADD IT")
+            }
+          })
+        }
       }
       this.reset = true;
       this.registered = true;
@@ -235,7 +262,6 @@ export class CoachSignupComponent implements OnInit {
     }
   }
   logg() {
-
     let mentor = false
     if (!(this.editForm.get('firstName').value == "" && this.editForm.get('lastName').value == "" &&
       this.editForm.get('email').value == "" && this.editForm.get('yearsExperience').value == "" && this.editForm.get('yearsOrganization').value == "" &&
@@ -253,7 +279,6 @@ export class CoachSignupComponent implements OnInit {
         this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value).subscribe(async (res) => {
-          console.log(res, typeof(res))
           if (res.toString() == '201') {
             this.userid = await this.userservice.getUser(this.editForm.get('email').value)
             this.flag = false;
@@ -263,6 +288,7 @@ export class CoachSignupComponent implements OnInit {
             this.editForm.reset()
 
             this.ex = 1
+            this.questionsFilled = true
           }
           else {
             this.flag = true
