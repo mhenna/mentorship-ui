@@ -95,7 +95,6 @@ export class UserService {
       data.append('capacity', hour);
       data.append('coaching',coaching);
       data.append('empLevel', empLevel);
-      console.log('EMPLEVEL', empLevel)
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
