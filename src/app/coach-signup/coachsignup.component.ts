@@ -53,6 +53,7 @@ export class CoachSignupComponent implements OnInit {
   numChoices: any
   skillsQuestionID = -1
   questionsFilled = false;
+  employmentLevels = [];
 
   editForm = new FormGroup({
 
@@ -85,6 +86,10 @@ export class CoachSignupComponent implements OnInit {
       Validators.pattern(/^-?(0|[1-9]\d*)?$/)
     ]),
     department: new FormControl('', [
+      Validators.required,
+      //Validators.pattern('[a-zA-Z ]+')
+    ]),
+    empLevel: new FormControl('', [
       Validators.required,
       //Validators.pattern('[a-zA-Z ]+')
     ]),
@@ -125,6 +130,7 @@ export class CoachSignupComponent implements OnInit {
   }
   async ngOnInit() {
     try {
+      this.employmentLevels = await this.userservice.getEmpLevels();
       this.businessUnits = await this.userservice.getBusinessUnits();
       this.businessUnits.push('Other')
 
@@ -266,10 +272,10 @@ export class CoachSignupComponent implements OnInit {
     if (!(this.editForm.get('firstName').value == "" && this.editForm.get('lastName').value == "" &&
       this.editForm.get('email').value == "" && this.editForm.get('yearsExperience').value == "" && this.editForm.get('yearsOrganization').value == "" &&
       this.editForm.get('yearsInRole').value == "", this.editForm.get('department').value == "", this.editForm.get('position').value == "",
-      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "") && !this.editForm.get('firstName').errors &&
+      this.editForm.get('location').value == "" && this.editForm.get('directManager').value == "" && this.editForm.get('empLevel').value == "") && !this.editForm.get('firstName').errors &&
       !this.editForm.get('lastName').errors && !this.editForm.get('email').errors && !this.editForm.get('yearsExperience').errors &&
       !this.editForm.get('yearsOrganization').errors && !this.editForm.get('yearsInRole').errors && !this.editForm.get('department').errors &&
-      !this.editForm.get('position').errors && !this.editForm.get('directManager').errors) {
+      !this.editForm.get('position').errors && !this.editForm.get('directManager').errors && !this.editForm.get('empLevel').errors) {
 
       if (this.type == 1) {
         mentor = true;
@@ -278,7 +284,7 @@ export class CoachSignupComponent implements OnInit {
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
         this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
-        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value).subscribe(async (res) => {
+        this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value, this.editForm.get('empLevel').value).subscribe(async (res) => {
           if (res.toString() == '201') {
             this.userid = await this.userservice.getUser(this.editForm.get('email').value)
             this.flag = false;
