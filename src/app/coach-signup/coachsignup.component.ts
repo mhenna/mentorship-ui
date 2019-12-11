@@ -192,7 +192,7 @@ export class CoachSignupComponent implements OnInit {
   }
   async submit() {
 
-
+    this.loading = true;
     let answersProps = Object.keys(this.questions[0].answers);
     let answerMessage = [];
     for (let i = 0; i < answersProps.length; i++) {
@@ -226,6 +226,9 @@ export class CoachSignupComponent implements OnInit {
       this.reset = true;
       this.registered = true;
 
+      setTimeout(() => {
+        this.loading = false;
+      }, 5000)
       setTimeout(() => {
         this.reset = false;
       }, 2000);
@@ -275,6 +278,7 @@ export class CoachSignupComponent implements OnInit {
         mentor = true;
       }
 
+      this.loading = true;
       this.userservice.addUser(this.editForm.get('firstName').value, this.editForm.get('lastName').value,
         this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
@@ -294,6 +298,7 @@ export class CoachSignupComponent implements OnInit {
             this.flag = true
             alert('Error: Please make sure there is a current cycle and you have not missed the deadline for registration')
           }
+          this.loading = false;
         }, err => {
           console.log(err)
         })
