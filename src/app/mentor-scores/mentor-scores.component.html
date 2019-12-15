@@ -1,6 +1,7 @@
 <div *ngIf="membersFetched">
   <h1>Mentees</h1>
-  <nz-table #matchData [nzPageIndex]="pageIndex" (nzPageSize)="pageSize" [nzBordered]="true" [nzData]="match" (nzPageIndexChange)="changePageIndex($event)">
+  <nz-table #matchData [nzPageIndex]="pageIndex" (nzPageSize)="pageSize" [nzBordered]="true" [nzData]="match"
+    (nzPageIndexChange)="changePageIndex($event)">
     <thead (nzSortChange)="sort($event)">
       <tr>
         <th>Name</th>
@@ -25,9 +26,12 @@
               Match with mentor:
               <i nz-icon type="down"></i>
             </a>
-            <ul nz-menu *ngFor="let mentor of m.mentee.mentors">
-              <li nz-menu-item (click)=choose(m.mentee.id,mentor.id)>ID: {{mentor.id}}, Name: {{mentor.data.name}}
+            <ul nz-menu *ngFor="let mentor of m.mentee.mentors; let i=index">
+              <li *ngIf="i<5 && !isMenteeCapacityFull(mentor.data.email)" nz-menu-item
+                (click)=choose(m.mentee.id,mentor.id)>ID: {{mentor.id}}, Name:
+                {{mentor.data.name}}
               </li>
+              <li *ngIf="i==5" nz-menu-item (click)=showMentorScores(m.mentee.mentors,m.mentee.id)>Show More</li>
             </ul>
           </nz-dropdown>
         </td>
@@ -61,9 +65,9 @@
         <td>{{mentor.data.years_of_experience}}</td>
         <td>{{mentor.data.years_within_organization}}</td>
         <td>
-          <ul class='lists'  *ngFor="let ment of mentor.data.mentees">
-            <td >{{ment.email}}</td>
-          </ul>
+          <ul class='lists' *ngFor="let ment of mentor.data.mentees">
+        <td>{{ment.email}}</td>
+        </ul>
         </td>
 
       </tr>
@@ -74,3 +78,15 @@
   <nz-spin [nzSize]="'large'" *ngIf="!membersFetched"></nz-spin>
 </div>
 <button nz-button nzType="primary" [routerLink]="['/admin/dashboard']"><i nz-icon type="left"></i>Back</button>
+
+<div *ngIf="membersFetched">
+  <nz-drawer [nzClosable]="false" [nzVisible]="showAllMentorScores" nzPlacement="right" nzTitle="Mentors"
+    (nzOnClose)="hideMentorScores()">
+    <ul nz-menu *ngFor="let mentor of selectedMenteeMentors" (click)=choose(m.mentee.id,mentor.id)>
+      <li nz-menu-item (click)=choose(selectedMenteeId,mentor.id) *ngIf="!isMenteeCapacityFull(mentor.data.email)">ID:
+        {{mentor.id}}, Name:
+        {{mentor.data.name}}
+      </li>
+    </ul>
+  </nz-drawer>
+</div>

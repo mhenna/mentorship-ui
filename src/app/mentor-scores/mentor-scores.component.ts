@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../Services/user.service';
 import { NzFormatEmitEvent } from 'ng-zorro-antd';
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-mentor-scores',
@@ -24,6 +25,10 @@ export class MentorScoresComponent implements OnInit {
   displayData: any
   mentorPageSize: number = 5;
   pageSize: number = 10
+  showAllMentorScores = false;
+  selectedMenteeMentors: any;
+  selectedMenteeId: any;
+  mentorsWithMaxCapacity = []
 
 
   constructor(
@@ -39,15 +44,13 @@ export class MentorScoresComponent implements OnInit {
     this.loading = true
     this.pageIndex = 1
     this.UserService.mentorScore().subscribe(async res => {
-
       this.match = res
-
+      this.mentorsWithMaxCapacity = this.match.pop()
       this.UserService.getUsers().subscribe(async users => {
         this.users = users
         await this.loadData();
       })
     })
-    console.log(this.match)
   }
 
 
@@ -59,7 +62,6 @@ export class MentorScoresComponent implements OnInit {
 
     try {
       if (this.users !== undefined) {
-        console.log("HERE")
         this.membersFetched = true
         this.loading = false
         this.list = this.users.reduce((map, obj) => {
@@ -88,13 +90,10 @@ export class MentorScoresComponent implements OnInit {
             console.log(err)
           }
         });
-        console.log('MENTORS', this.mentors)
-
       }
     } catch (err) {
       console.log(err);
     }
-
   }
 
 
@@ -104,24 +103,32 @@ export class MentorScoresComponent implements OnInit {
     })
   }
 
+  isMenteeCapacityFull(mentor) {
+    if (this.mentorsWithMaxCapacity.includes(mentor))
+      return true;
+    return false;
+  }
 
   async choose(menteeID, mentorID) {
-
     this.membersFetched = false;
-    console.log(menteeID, mentorID)
+    this.showAllMentorScores = false;
     let menteeUser = this.users.find(user => {
       if (user.id == menteeID)
         return user
     })
-    console.log("##########USER", menteeUser)
-
-    if (menteeUser.matched.length > 0) {
-      this.UserService.unMatchUsers(menteeID, menteeUser.matched[0])
-      console.log("Unmatching")
-    }
 
     this.matches[menteeID] = { "menteeId": menteeID, "mentorId": mentorID }
-    this.UserService.matchUsers(menteeID, mentorID).then(() => window.location.reload())
+    if (menteeUser.matched.length > 0) {
+      this.UserService.unMatchUsers(menteeID, menteeUser.matched[0]).then(() => {
+        this.UserService.matchUsers(menteeID, mentorID).then(() => {
+          this.membersFetched = true;
+          window.location.reload()
+        })
+      })
+    }
+    else {
+      this.UserService.matchUsers(menteeID, mentorID).then(() => { this.membersFetched = true; window.location.reload() })
+    }
     // this.UserService.getUsers().subscribe(users => {
     //   this.users = users
     // })
@@ -132,7 +139,6 @@ export class MentorScoresComponent implements OnInit {
   }
 
   changePageIndex(event) {
-    console.log("Pass changePageIndex " + event);
     this.pageIndex = event;
   }
 
@@ -149,5 +155,15 @@ export class MentorScoresComponent implements OnInit {
     } else {
       this.displayData = this.match;
     }
+  }
+
+  showMentorScores(menteeMentors, menteeId) {
+    this.selectedMenteeMentors = menteeMentors;
+    this.selectedMenteeId = menteeId;
+    this.showAllMentorScores = true;
+  }
+
+  hideMentorScores() {
+    this.showAllMentorScores = false;
   }
 }
