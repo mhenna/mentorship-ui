@@ -123,13 +123,13 @@
       <nz-form-item>
         <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>Start Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="startDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="startDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>End Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="endDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="endDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -146,13 +146,13 @@
       <nz-form-item>
         <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentor's Start Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="mentorDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="mentorDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentee's Start Date</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="menteeDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="menteeDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -182,13 +182,13 @@
       <nz-form-item>
         <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentor's Deadline</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="mentorDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="mentorDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>Mentee's Deadline</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="menteeDate"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabledDate]="disabledDate" formControlName="menteeDate"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>

@@ -6,6 +6,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import * as differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import { NullInjector } from '@angular/core/src/di/injector';
 import { AdminService } from '../../Services/admin.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -29,7 +30,7 @@ export class CycleComponent implements OnInit {
   current = false;
   currentCycleId: any;
   error: any;
-
+  today = new Date();
 
   editForm = new FormGroup({
 
@@ -259,9 +260,7 @@ export class CycleComponent implements OnInit {
     console.log("Submit() called but the function does not exist, this log was entered to detect when the function gets called")
   }
 
-
-
-
-
-
+  disabledDate = (current: Date): boolean => {
+    return differenceInCalendarDays(current, this.today) < 0;
+  };
 }
