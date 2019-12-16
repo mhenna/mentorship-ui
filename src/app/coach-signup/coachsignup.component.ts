@@ -289,7 +289,7 @@ export class CoachSignupComponent implements OnInit {
         this.editForm.get('email').value, mentor, this.coaching, this.editForm.get('yearsExperience').value, this.editForm.get('yearsOrganization').value,
         this.editForm.get('yearsInRole').value, this.editForm.get('department').value, this.editForm.get('position').value,
         this.editForm.get('location').value, this.editForm.get('directManager').value, this.currentCycleId, this.editForm.get('capacity').value, this.editForm.get('empLevel').value).subscribe(async (res) => {
-          if (res.toString() == '201') {
+          if (res['status'] == '201') {
             this.userid = await this.userservice.getUser(this.editForm.get('email').value)
             this.flag = false;
             if (this.businessUnitExists)
@@ -302,7 +302,8 @@ export class CoachSignupComponent implements OnInit {
           }
           else {
             this.flag = true
-            alert('Error: Please make sure there is a current cycle and you have not missed the deadline for registration')
+            let e = JSON.parse(res['responseText'])
+            alert(e['non_field_errors'][0])
           }
           this.loading = false;
         }, err => {
