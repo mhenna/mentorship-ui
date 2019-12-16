@@ -36,14 +36,14 @@ export class CycleMembersComponent implements OnInit {
     this.cycleId = parseInt(temp.toString(), 10)
   }
 
-  
+
 
   ngOnInit() {
     this.getUsers();
     this.getAnswers();
     this.showMentors = false;
     this.showMentees = false;
-    
+
   }
 
   async getAnswers() {
@@ -51,19 +51,19 @@ export class CycleMembersComponent implements OnInit {
     this.answersFetched = true;
   }
 
-  concatAns(){
+  concatAns() {
     var i, j;
-    for(j = 0; j < this.members.length; j++){
-        // this.members[j]["AnswersList"] = []
-          for(i = 0; i < this.answers.length; i++){
+    for (j = 0; j < this.members.length; j++) {
+      // this.members[j]["AnswersList"] = []
+      for (i = 0; i < this.answers.length; i++) {
 
-            if(this.answers[i].answer_from_user != undefined && this.answers[i].answer_from_user.id == this.members[j].id){
-              this.members[j]["Answer_to_" + this.answers[i].answer_to_question.question_text]  = this.answers[i].text.join(", ")
-            }
-          }
+        if (this.answers[i].answer_from_user != undefined && this.answers[i].answer_from_user.id == this.members[j].id) {
+          this.members[j]["Answer_to_" + this.answers[i].answer_to_question.question_text] = this.answers[i].text.join(", ")
+        }
+      }
 
     }
-    
+
 
 
   }
@@ -103,11 +103,11 @@ export class CycleMembersComponent implements OnInit {
 
   async getUsers() {
     //this.members = [];
-    this.userService.getUsers().subscribe(users =>{
+    this.userService.getUsers().subscribe(users => {
       this.users = users
       this.membersFetched = true;
       var i;
-  
+
       for (i = 0; i < this.users.length; i++) {
         if (this.users[i].cycles.includes(this.cycleId))
           this.members.push(this.users[i])
@@ -116,20 +116,29 @@ export class CycleMembersComponent implements OnInit {
     })
   }
 
-  public checkShowMentors() {
-    this.filter();
-  }
-  public checkShowMentees() {
+  toggleShowMentors() {
+    if (!this.showMentors && !this.showMentees)
+      this.showMentors = true;
+
+    else if (this.showMentors && !this.showMentees) {
+      this.showMentors = false;
+      this.showMentees = true;
+    }
+
+    else if (!this.showMentors && this.showMentees) {
+      this.showMentors = false;
+      this.showMentees = false;
+    }
     this.filter();
   }
 
 
   async download() {
-        this.concatAns();
-        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.members);
-        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "Members");
+    this.concatAns();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.members);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, "Members");
   }
 
   private saveAsExcelFile(buffer: any, fileName: string): void {
