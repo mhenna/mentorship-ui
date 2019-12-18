@@ -124,7 +124,6 @@
             include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-
       <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Direct manager</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
@@ -136,7 +135,19 @@
             Must only include characters!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
-
+      <nz-form-item style="margin-bottom: 0;">
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Employment Level</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <nz-select formControlName="empLevel" style="width: 200px;">
+            <nz-option *ngFor="let level of employmentLevels" [nzLabel]='level' [nzValue]='level'></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="editForm.get('empLevel').dirty && editForm.get('empLevel').errors">
+            Please input your employment level!</nz-form-explain>
+          </nz-form-control>
+          <br>
+          <span class="disclaimer-text"><I>Disclaimer: This information will only be visible by the admin and it will help make the matching process more efficient</I></span>
+        </nz-form-item>
+        <br>
       <button nz-button nzType="primary" (click)="logg()">Next</button>
 
 
@@ -148,7 +159,7 @@
   <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
     <div nz-row *ngIf="!registered">
 
-      <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading">
+      <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading && questionsFilled">
         <div *ngFor="let question of questions">
           <div *ngIf="question.question_type=='TEXT'">
             <app-text-question [reset]='reset' (deletedAnswer)='editAnswer($event)'
@@ -180,8 +191,7 @@
           <br>
           <br>
         </div>
-        <button nz-button nzType="primary" (click)="loadOne()"
-          [nzLoading]="isLoadingOne">Submit</button>
+        <button nz-button nzType="primary" (click)="loadOne()" [nzLoading]="isLoadingOne">Submit</button>
 
       </div>
       <div nz-col nzSpan="8" nzOffset="8" *ngIf="loading">
