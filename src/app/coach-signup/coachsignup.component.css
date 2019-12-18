@@ -30,3 +30,9 @@ I{
     font-size: 12px;
     font-style: italic;
 }
+
+.disclaimer-text {
+    display: flex;
+    margin-left: 16.667%;
+    width: 38%;
+}

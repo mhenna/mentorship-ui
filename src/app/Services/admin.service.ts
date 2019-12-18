@@ -99,7 +99,7 @@ export class AdminService {
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        observer.next(http);
         observer.complete();
       };
 

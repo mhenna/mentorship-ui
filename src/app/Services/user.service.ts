@@ -36,6 +36,15 @@ export class UserService {
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }
+  getEmpLevels(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reqHeaders: HttpHeaders = new HttpHeaders();
+      reqHeaders.append('Content-Type', 'application/json');
+      reqHeaders.append('Access-Control-Allow-Origin', '*')
+      this.http.get(environment.apiUrl + `/users/getEmpLevels`, { headers: reqHeaders })
+        .subscribe((data) => resolve(data), err => reject(err));
+    });
+  }
   getUsers(): Observable<any>  {
     
       const reqHeaders: HttpHeaders = new HttpHeaders();
@@ -67,7 +76,7 @@ export class UserService {
       };
     })
   }
-  addUser(fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour): Observable<string> {
+  addUser(fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour, empLevel): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
       data.append('first_name',fname);
@@ -84,13 +93,14 @@ export class UserService {
       data.append('location',loc);
       data.append('cycles', cycleId);
       data.append('capacity', hour);
-      data.append('coaching',coaching)
+      data.append('coaching',coaching);
+      data.append('empLevel', empLevel);
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
       http.send(data);
       http.onload = () => {
-        observer.next(http.status);
+        observer.next(http);
         observer.complete();
       };
 
