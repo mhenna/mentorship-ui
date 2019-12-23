@@ -302,8 +302,12 @@ export class CoachSignupComponent implements OnInit {
           }
           else {
             this.flag = true
-            let e = JSON.parse(res['responseText'])
-            alert(e['non_field_errors'][0])
+            try {
+                let e = JSON.parse(res['responseText'])
+                alert(e['non_field_errors'][0])
+            } catch (err) {
+                alert('No cycle available for registration')
+            }
           }
           this.loading = false;
         }, err => {

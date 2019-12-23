@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Dates } from 'date-format';
 import { Observable } from 'rxjs';
 import "rxjs";
 
@@ -95,6 +96,7 @@ export class UserService {
       data.append('capacity', hour);
       data.append('coaching',coaching);
       data.append('empLevel', empLevel);
+      data.append('now', new Date().toISOString());
       const http = new XMLHttpRequest();
       http.open('POST',environment.apiUrl + '/users/users');
       http.setRequestHeader('Authorization', this.localStorage.get('token'))
