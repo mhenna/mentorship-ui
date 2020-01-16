@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200 --host ec2-52-89-77-149.us-west-2.compute.amazonaws.com --disable-host-check",
+    "start": "ng serve --port 4200 --host ec2-34-214-28-143.us-west-2.compute.amazonaws.com --disable-host-check",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
