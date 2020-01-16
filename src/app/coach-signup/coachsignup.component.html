@@ -15,6 +15,17 @@
 
       </nz-alert>
       <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Employment ID</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <input nz-input id="employmentID" formControlName="employmentID" style="width: 200px;">
+          <nz-form-explain
+            *ngIf="editForm.get('employmentID').dirty && editForm.get('employmentID').errors && !editForm.get('employmentID').errors.pattern">
+            Please input your employment id!</nz-form-explain>
+          <nz-form-explain *ngIf="editForm.get('employmentID').errors && editForm.get('employmentID').errors.pattern">Must
+            only include numbers!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>First Name</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <input nz-input id="firstName" formControlName="firstName" style="width: 200px;">
@@ -139,15 +150,17 @@
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Employment Level</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-select formControlName="empLevel" style="width: 200px;">
-            <nz-option *ngFor="let level of employmentLevels" [nzLabel]='level' [nzValue]='level'></nz-option>
+            <nz-option *ngFor="let level of employmentLevels" [nzLabel]='level.level' [nzValue]='level.level'>
+            </nz-option>
           </nz-select>
           <nz-form-explain *ngIf="editForm.get('empLevel').dirty && editForm.get('empLevel').errors">
             Please input your employment level!</nz-form-explain>
-          </nz-form-control>
-          <br>
-          <span class="disclaimer-text"><I>Disclaimer: This information will only be visible by the admin and it will help make the matching process more efficient</I></span>
-        </nz-form-item>
+        </nz-form-control>
         <br>
+        <span class="disclaimer-text"><I>Disclaimer: This information will only be visible by the admin and it will help
+            make the matching process more efficient</I></span>
+      </nz-form-item>
+      <br>
       <button nz-button nzType="primary" (click)="logg()">Next</button>
 
 
@@ -187,6 +200,7 @@
               [question]='question.question_text' [reset]='reset' [questionId]="question.id" [isMentee]="type">
             </app-select-many-question>
             <span><I> Note: You can either pick career mentorship only, or up to 3 other areas. </I></span>
+            <span><I> <br>The listed skills are the ones that are available for the current cycle. The skill set could change for the next cycle. </I></span>
           </div>
           <br>
           <br>

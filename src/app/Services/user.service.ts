@@ -37,12 +37,17 @@ export class UserService {
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }
-  getEmpLevels(): Promise<any> {
+  getEmpLevels(type): Promise<any> {
     return new Promise((resolve, reject) => {
+      var i
+      if (type == 0)
+        i = 'f'
+      else
+        i = 't'
       const reqHeaders: HttpHeaders = new HttpHeaders();
       reqHeaders.append('Content-Type', 'application/json');
       reqHeaders.append('Access-Control-Allow-Origin', '*')
-      this.http.get(environment.apiUrl + `/users/getEmpLevels`, { headers: reqHeaders })
+      this.http.get(environment.apiUrl + `/users/getEmpLevels/${i}`, { headers: reqHeaders })
         .subscribe((data) => resolve(data), err => reject(err));
     });
   }
@@ -77,9 +82,10 @@ export class UserService {
       };
     })
   }
-  addUser(fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour, empLevel): Observable<string> {
+  addUser(empID, fname,lname,email,mentor, coaching, yearsExp,yearsOrg,yearsRole,dept,pos,loc,manager,cycleId, hour, empLevel): Observable<string> {
     return Observable.create(observer => {
       const data = new FormData();
+      data.append('employment_id', empID);
       data.append('first_name',fname);
       data.append('last_name',lname);
       data.append('email', email);
