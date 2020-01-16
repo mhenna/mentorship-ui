@@ -170,7 +170,7 @@
   </nz-tab>
 
   <nz-tab nzTitle='Mentorship Details' [nzDisabled]="flag">
-    <div nz-row *ngIf="!registered" style="overflow: scroll;">
+    <div nz-row *ngIf="!registered">
 
       <div nz-col nzSpan="6" nzOffset="6" *ngIf="!loading && questionsFilled">
         <div *ngFor="let question of questions">
