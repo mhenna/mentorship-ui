@@ -71,7 +71,7 @@ export class CoachSignupComponent implements OnInit {
     ]),
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern("^[a-z0-9._%+-]+@(dell|emc)\.com$")
+      Validators.pattern("^[a-z0-9._%+-]+@(dell|emc|rsa)\.com$")
     ]),
     yearsExperience: new FormControl('', [
       Validators.required,

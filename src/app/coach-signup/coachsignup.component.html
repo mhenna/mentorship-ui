@@ -55,7 +55,7 @@
             *ngIf="editForm.get('email').dirty && editForm.get('email').errors && !editForm.get('email').errors.pattern">
             Please input your email!</nz-form-explain>
           <nz-form-explain *ngIf="editForm.get('email').errors && editForm.get('email').errors.pattern">Please enter a
-            valid email that must be @dell.com or @emc.com!</nz-form-explain>
+            valid email that must be a dell technologies domain!</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item *ngIf="type==1">
