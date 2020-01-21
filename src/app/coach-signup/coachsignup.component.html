@@ -75,7 +75,7 @@
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="nickname" nzRequired>Years of experience</nz-form-label>
         <nz-form-control [nzSm]="16" [nzXs]="24">
           <nz-radio-group *ngIf="type==1" formControlName="yearsExperience">
-            <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges" nzValue={{range}}>{{range}}</label>
+            <label nz-radio [ngStyle]="style" *ngFor="let range of iscoachRanges | slice:1" nzValue={{range}}>{{range}}</label>
           </nz-radio-group>
           <nz-radio-group *ngIf="type!=1" formControlName="yearsExperience">
             <label nz-radio [ngStyle]="style" *ngFor="let range of forcoachRanges" nzValue={{range}}>{{range}}</label>
