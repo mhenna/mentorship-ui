@@ -137,6 +137,7 @@ export class CoachSignupComponent implements OnInit {
       this.businessUnits = await this.userservice.getBusinessUnits();
       this.businessUnits.push('Other')
 
+      this.iscoachRanges.push('[1 - 3]')
       this.iscoachRanges.push('[3 - 5]')
       this.iscoachRanges.push('[5 - 7]')
       this.iscoachRanges.push('[7 - 9]')
