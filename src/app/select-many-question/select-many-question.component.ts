@@ -22,7 +22,7 @@ export class SelectManyQuestionComponent implements OnInit, OnChanges {
   answers=[];
   dropdownSettings = {};
   IsCareerMentoring = false; 
-  careerMentoringValue = "Career mentoring";
+  careerMentoringValue = "Career Coaching";
   private optionSelected:any;
   constructor() {
     

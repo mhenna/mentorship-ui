@@ -19,6 +19,7 @@ import { AdminService } from '../Services/admin.service';
   styleUrls: ['./coachsignup.component.css']
 })
 export class CoachSignupComponent implements OnInit {
+  areQuestionsAnswered = true;
   isLoadingOne = false;
   question: string;
   possibleAnswers = []
@@ -137,6 +138,7 @@ export class CoachSignupComponent implements OnInit {
       this.businessUnits = await this.userservice.getBusinessUnits();
       this.businessUnits.push('Other')
 
+      this.iscoachRanges.push('[1 - 3]')
       this.iscoachRanges.push('[3 - 5]')
       this.iscoachRanges.push('[5 - 7]')
       this.iscoachRanges.push('[7 - 9]')
@@ -166,7 +168,7 @@ export class CoachSignupComponent implements OnInit {
           this.loading = false;
           this.questions.forEach(element => {
 
-            if (element.answers[0].text.includes("Career mentoring") && this.type === 0) {
+            if (element.answers[0].text.includes("Career Coaching") && this.type === 0) {
               this.adminService.getSkills().subscribe(res => {
                 for (var i = 0; i < res.length; i += 1) {
                   this.possibleAnswers.push(res[i].name)
@@ -175,7 +177,7 @@ export class CoachSignupComponent implements OnInit {
               });
             }
 
-            else if (element.answers[0].text.includes("Career mentoring"))
+            else if (element.answers[0].text.includes("Career Coaching"))
               this.skillsQuestionID = element.id
 
             this.Response.push({ id: element.id, answer: [] })
@@ -200,6 +202,21 @@ export class CoachSignupComponent implements OnInit {
     }, 5000);
     this.submit();
   }
+
+  checkQuestionsValidity() {
+    for (let i = 0; i < this.Response.length; i++) {
+      console.log(this.Response[i].answer)
+      console.log(this.Response[i].answer == 0)
+      console.log(this.Response[i])
+      if (this.Response[i].answer.length == 0) {
+        this.areQuestionsAnswered = true;
+	return;
+      }
+    }
+    this.areQuestionsAnswered = false;
+
+  }
+
   async submit() {
 
     this.loading = true;
@@ -210,7 +227,7 @@ export class CoachSignupComponent implements OnInit {
       answerMessage.push({ questionId: answersProps[i], answer: this.answers[answersProps[i]] })
     }
     for (let i = 0; i < this.Response.length; i++) {
-      for (let j = 0; i < this.Response[i].length; i++) {
+      for (let j = 0; j < this.Response[i].length; j++) {
         this.Response[i].answer[j].id = j + 1;
       }
     }
@@ -255,6 +272,7 @@ export class CoachSignupComponent implements OnInit {
         this.Response[i].answer.push(answer.item)
       }
     }
+    this.checkQuestionsValidity();
   }
 
   clearAnswers(answer) {
@@ -263,6 +281,7 @@ export class CoachSignupComponent implements OnInit {
         this.Response[i].answer = []
       }
     }
+    this.checkQuestionsValidity();
   }
 
   editAnswer(answer) {
@@ -273,6 +292,7 @@ export class CoachSignupComponent implements OnInit {
         this.Response[i].answer = answer.answer
       }
     }
+    this.checkQuestionsValidity();
   }
   logg() {
     let mentor = false
